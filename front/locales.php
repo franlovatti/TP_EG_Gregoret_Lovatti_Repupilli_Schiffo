@@ -1,24 +1,29 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>home</title>
+    <title>Locales</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
       crossorigin="anonymous"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
   </head>
-
-  <body style="height: 100%">
+  <body>
     <header class="p-3 text-bg-dark">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <a
-            href="home.html"
+            href="header.html"
             class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
           >
             <img
@@ -63,14 +68,10 @@
                 >
               </li>
               <li class="nav-item">
-                <a href="locales.php" class="nav-link px-2 text-white"
-                  >Locales</a
-                >
+                <a href="#" class="nav-link px-2 text-white">Locales</a>
               </li>
               <li class="nav-item">
-                <a href="promociones.html" class="nav-link px-2 text-white"
-                  >Promociones</a
-                >
+                <a href="#" class="nav-link px-2 text-white">Promociones</a>
               </li>
             </ul>
             <div class="navbar-nav ms-auto">
@@ -87,58 +88,118 @@
     </header>
 
     <!-- Contenido principal -->
-    <div class="container-fluid py-5 text-center">
-      <h1 class="text-center">Welcome to Our Website</h1>
-      <p class="text-center">
-        This is a simple example of a Bootstrap header with navigation links and
-        buttons.
-      </p>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12 p-0">
-          <img
-            src="imagenes/alto2.jpg"
-            alt="shopping Image"
-            class="img-fluid"
-          />
-        </div>
-      </div>
-    </div>
-    <div class="my-4 container-fluid">
-      <h2 class="text-center my-2">Promociones</h2>
-      <div class="row row-cols-1 row-cols-md-3 g-1 align-items-stretch">
-        <div class="col d-flex justify-content-center">
-          <div class="card h-100 w-75 bg-body-tertiary">
-            <img src="imagenes/home.png" class="card-img-top" alt="..." />
-            <div class="card-body d-flex flex-column h-100">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Texto de ejemplo.</p>
-            </div>
+    <div class="container-fluid py-5">
+      <div class="container w-75">
+        <div class="row align-items-center gy-1">
+          <div class="col-lg-9 col-12 ">
+            <form class="d-flex" method="post" action="">
+              <div class="input-group">
+                <input
+                  name="Buscar"
+                  type="text"
+                  class="form-control"
+                  placeholder="Buscar"
+                />
+                <button class="btn btn-primary" type="submit">
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
+            </form>
           </div>
-        </div>
-        <div class="col d-flex justify-content-center">
-          <div class="card h-100 w-75 bg-body-tertiary">
-            <img src="imagenes/home.png" class="card-img-top" alt="..." />
-            <div class="card-body d-flex flex-column h-100">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Otro texto más largo para probar el alto.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col d-flex justify-content-center">
-          <div class="card h-100 w-75 bg-body-tertiary">
-            <img src="imagenes/home.png" class="card-img-top" alt="..." />
-            <div class="card-body d-flex flex-column h-100">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Texto de prueba adicional.</p>
-            </div>
+          <div class="col-12 col-lg-3">
+            <form method="post" action="">
+              <select
+                name="categoria"
+                class="form-select"
+                onchange="this.form.submit()"
+              >
+                <option selected>Categoria</option>
+                <option value="1">Categoria 1</option>
+                <option value="2">Categoria 2</option>
+                <option value="3">Categoria 3</option>
+              </select>
+            </form>
           </div>
         </div>
       </div>
-      <div class="container-fluid text-center my-4">
-        <button class="btn btn-primary">Mas promociones</button>
+
+      <div class="container w-75 py-5">
+      <?php for($i=0;$i<=2;$i++){
+
+?>  
+      <div class="row mb-3 g-3">
+          
+        
+        <div class="col-12 col-lg-6">
+            <div class="card h-100">
+              <div class="row h-100">
+                <div class="col-4">
+                  <img
+                    src="imagenes\logo.png"
+                    class="img-fluid h-100 w-100 object-fit-cover rounded-start"
+                    alt="Imagen"
+                  />
+                </div>
+                <div class="col-8">
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Nombre local</h5>
+                    <p class="card-text">Numero local </p>
+                    <p class="card-text">Ubicacion</p>
+                    <a href="" class="btn btn-primary mt-1"
+                      >Ver promociones</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="card h-100">
+              <div class="row h-100">
+                <div class="col-4">
+                  <img
+                    src="imagenes\images (1).png"
+                    class="img-fluid h-100 w-100 object-fit-cover rounded-start"
+                    alt="Imagen"
+                  />
+                </div>
+                <div class="col-8">
+                  <div class="card-body d-flex flex-column">
+                  <h5 class="card-title">Nombre local</h5>
+                    <p class="card-text">Numero local </p>
+                    <p class="card-text">Ubicacion</p>
+                    <a href="" class="btn btn-primary mt-1"
+                      >Ver promociones</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
       </div>
+      <?php }?>
+      </div>
+
+      
+      <nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+      
     </div>
 
     <!--Footer-->
@@ -156,9 +217,7 @@
           <a href="#" class="nav-link px-2 text-body-secondary">Locales</a>
         </li>
         <li class="nav-item">
-          <a href="promociones.html" class="nav-link px-2 text-body-secondary"
-            >Promociones</a
-          >
+          <a href="#" class="nav-link px-2 text-body-secondary">Promociones</a>
         </li>
       </ul>
       <div
@@ -198,43 +257,10 @@
         </ul>
       </div>
     </footer>
-    <!-- Scripts al final -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
       crossorigin="anonymous"
     ></script>
-
-    <!-- Script para cerrar menú al hacer clic en un link -->
-    <script>
-      document.querySelectorAll('.navbar-nav .nav-link').forEach((link) => {
-        link.addEventListener('click', () => {
-          const navbarCollapse = document.querySelector('.navbar-collapse');
-          if (navbarCollapse.classList.contains('show')) {
-            new bootstrap.Collapse(navbarCollapse).toggle();
-          }
-        });
-      });
-    </script>
   </body>
 </html>
-
-<!-- esto es una barra de busqueda
-<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"> 
-  <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search"> 
-</form>
--->
-<!-- <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-            <div class="input-group">
-              <span class="input-group-text bg-white border-end-0">
-                <i class="bi bi-search"></i>   </span>
-            <input type="search" class="form-control form-control-white text-bg-white" placeholder="Search..."
-              aria-label="Search">
-            <button type="submit" class="btn btn-outline-dark">Search</button>
-          </form>
-        </div>
-      </div>
-    </div> -->
