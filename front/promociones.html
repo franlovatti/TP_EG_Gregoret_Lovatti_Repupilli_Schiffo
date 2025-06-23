@@ -21,6 +21,22 @@
     background-color: #0d6efd !important;
     border-color: #0d6efd !important;
     }
+    .card:hover {
+    background-color: #e3f2fd; /* Azul claro, podés cambiarlo por el color que prefieras */
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+  .card{
+    max-height: 260px; /* Ajusta la altura máxima de la tarjeta */
+    max-width: 340px; /* Ajusta el ancho máximo de la tarjeta */
+  }
+  .card-img-custom {
+  max-height: 130px;      /* Cambia el valor según lo que necesites */
+  max-width: 340px;
+  object-fit: cover;      /* Recorta la imagen para llenar el área */
+  object-position: center;/* Centra el recorte */
+  width: 100%;
+}
   </style>
 </head>
 <body>
@@ -82,33 +98,103 @@
             </div>
           </div>
         </div>
-        
       </form>
     </div>
   </div>
   </div>
+
   <!--Tarjetas-->
   <div class="my-4 container-fluid d-flex justify-content-center align-items-center">
     <div class="row row-cols-1 row-cols-md-4 g-0 align-items-stretch">
+      <!--Tarjeta 1-->
       <div class="col d-flex justify-content-center">
-        <div class="card h-100 w-75 bg-body-tertiary">
-          <img src="imagenes/home.png" class="card-img-top" alt="...">
-          <div class="card-body d-flex flex-column h-100">
+        <div class="card mb-3">
+          <img src="imagenes/promocion.jpg" class="card-img-top card-img-custom" alt="...">
+          <div class="card-body">
             <h5 class="card-title">Card title</h5>
-            <p class="card-text">Texto de ejemplo.</p>
+            <p class="card-text">This is a wider card with supporting text below.</p>
           </div>
         </div>
       </div>
+      <!--Tarjeta 2-->
       <div class="col d-flex justify-content-center">
-        <div class="card h-100 w-75 bg-body-tertiary">
-          <img src="imagenes/home.png" class="card-img-top" alt="...">
-          <div class="card-body d-flex flex-column h-100">
+        <div class="card mb-3">
+          <img src="imagenes/promocion.jpg" class="card-img-top card-img-custom" alt="...">
+          <div class="card-body">
             <h5 class="card-title">Card title</h5>
-            <p class="card-text">Otro texto más largo para probar el alto.</p>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+              This content is a little bit longer.</p>
           </div>
         </div>
       </div>
+      <!--Tarjeta 3-->
       <div class="col d-flex justify-content-center">
+        <div class="card mb-3">
+          <img src="imagenes/promocion.jpg" class="card-img-top card-img-custom" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+              This content is a little bit longer.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col d-flex justify-content-center">
+        <div class="card mb-3">
+          <img src="imagenes/promocion.jpg" class="card-img-top card-img-custom" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+              This content is a little bit longer.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col d-flex justify-content-center">
+        <div class="card mb-3">
+          <img src="imagenes/promocion.jpg" class="card-img-top card-img-custom" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+              This content is a little bit longer.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col d-flex justify-content-center">
+        <div class="card mb-3">
+          <img src="imagenes/promocion.jpg" class="card-img-top card-img-custom" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+              This content is a little bit longer.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col d-flex justify-content-center">
+        <div class="card mb-3">
+          <img src="imagenes/promocion.jpg" class="card-img-top card-img-custom" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+              This content is a little bit longer.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col d-flex justify-content-center">
+        <div class="card mb-3">
+          <img src="imagenes/promocion.jpg" class="card-img-top card-img-custom" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+              This content is a little bit longer.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="col d-flex justify-content-center">
         <div class="card h-100 w-75 bg-body-tertiary">
           <img src="imagenes/home.png" class="card-img-top" alt="...">
           <div class="card-body d-flex flex-column h-100">
@@ -116,16 +202,7 @@
             <p class="card-text">Texto de prueba adicional.</p>
           </div>
         </div>
-      </div>
-      <div class="col d-flex justify-content-center">
-        <div class="card h-100 w-75 bg-body-tertiary">
-          <img src="imagenes/home.png" class="card-img-top" alt="...">
-          <div class="card-body d-flex flex-column h-100">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Texto de prueba adicional.</p>
-          </div>
-        </div>
-      </div>
+      </div>-->
     </div>
   </div>
 
@@ -148,6 +225,46 @@
     </ul>
   </nav>
   
+  <!-- Modal para promociones -->
+  <div class="modal fade" id="promoModal" tabindex="-1" aria-labelledby="promoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="promoModalLabel">Detalles de la Promoción</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img src="imagenes/home.png" class="img-fluid mb-3" alt="Promoción">
+          <h5>Nombre de la Promoción</h5>
+          <p>Descripción detallada de la promoción. Aquí puedes incluir información relevante como fechas, condiciones, etc.</p>
+          <p><strong>Fecha de inicio:</strong> 01/01/2025</p>
+          <p><strong>Fecha de finalización:</strong> 31/01/2025</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary">Aprovechar Promoción</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!--Footer-->
   <footer class="footer mt-auto py-3 bg-body-tertiary">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
