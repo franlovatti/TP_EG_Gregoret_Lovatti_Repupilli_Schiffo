@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MIS PROMOCIONES (CLIENTES)</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .scrollable-box {
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    footer {
+      background-color: #f8f9fa;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .texto-destacado {
+    color: #e91e63; /* rosa intenso como ejemplo */
+    font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Barra de navegación -->
+<header class="p-3 text-bg-dark"> 
+      <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a href="header.html" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"> 
+          <img src="imagenes/logoHome.png" alt="Logo" width="30" height="24" class="me-2">
+        </a> 
+        <ul class="text-white ms-3 me-3" style="list-style: none; padding-left: 0; margin: 0; font-size: x-small;">
+          <li>Lunes a Viernes 10:00-20:00</li>
+          <li>Sábados 10:00-18:00</li>
+        </ul>
+        <!-- Botón hamburguesa -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarOpciones" aria-controls="navbarOpciones" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Opciones de menú -->
+        <div class="collapse navbar-collapse" id="navbarOpciones">
+          <ul class="navbar-nav mb-2 mb-lg-0"> 
+            <li class="nav-item"><a href="acercaDe.html" class="nav-link px-2 text-white">Acerca del shopping</a></li> 
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Locales</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Promociones</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Mis promociones</a></li> 
+          </ul>
+          <div class="navbar-nav ms-auto"> 
+          </div>
+        </div>
+      </div>
+    </nav>
+</header>
+
+<!-- Buscador -->
+<div class="container my-4">
+  <div class="row g-2">
+    <div class="col-md-8">
+      <input type="text" class="form-control" placeholder="BUSCADOR (id local)">
+    </div>
+    <div class="col-md-4">
+      <select class="form-select">
+        <option selected>ESTADO (desplegable)</option>
+        <option value="1">Activo</option>
+        <option value="2">Pendiente</option>
+        <option value="3">Cerrado</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- Lista de solicitudes -->
+<div class="container">
+  <div class="scrollable-box">
+    <!-- Repite este bloque para simular múltiples entradas -->
+    <div class="border-bottom py-2">NOMBRE | FECHA SOLICITUD | ESTADO</div>
+    <div class="border-bottom py-2">NOMBRE | FECHA SOLICITUD | ESTADO</div>
+    <div class="border-bottom py-2">NOMBRE | FECHA SOLICITUD | ESTADO</div>
+    <div class="border-bottom py-2">NOMBRE | FECHA SOLICITUD | ESTADO</div>
+    <div class="border-bottom py-2">NOMBRE | FECHA SOLICITUD | ESTADO</div>
+    <div class="border-bottom py-2">NOMBRE | FECHA SOLICITUD | ESTADO</div>
+    <div class="border-bottom py-2">NOMBRE | FECHA SOLICITUD | ESTADO</div>
+    <div class="border-bottom py-2">NOMBRE | FECHA SOLICITUD | ESTADO</div>
+    <div class="border-bottom py-2">NOMBRE | FECHA SOLICITUD | ESTADO</div>
+    <div class="border-bottom py-2">NOMBRE | FECHA SOLICITUD | ESTADO</div>
+    <div class="border-bottom py-2">NOMBRE | FECHA SOLICITUD | ESTADO</div>
+    <div class="border-bottom py-2">NOMBRE | FECHA SOLICITUD | ESTADO</div>
+    <div class="border-bottom py-2">NOMBRE | FECHA SOLICITUD | ESTADO</div>
+    <div class="border-bottom py-2">NOMBRE | FECHA SOLICITUD | ESTADO</div>
+    <div class="border-bottom py-2">NOMBRE | FECHA SOLICITUD | ESTADO</div>
+  </div>
+</div>
+
+<footer class="footer mt-auto py-3 bg-body-tertiary">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item"><a href="home.html" class="nav-link px-2 text-body-secondary">Home</a></li>
+      <li class="nav-item"><a href="acercaDe.html" class="nav-link px-2 text-body-secondary">Acerca del shopping</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Locales</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Promociones</a></li>
+    </ul> 
+    <div class="container d-flex flex-wrap justify-content-between align-items-center">
+      <div class="col-sm-3 d-flex align-items-center">
+        <span class=" mb-md-0 text-body-secondary">© 2025 Company, Inc</span> 
+      </div>
+      <div class="col-sm-3 d-flex justify-content-center">
+        <a href="" class="nav-link px-2 text-body-secondary align-items-center">Terminos y Condiciones</a> 
+      </div>
+      <ul class="nav col-sm-3 justify-content-end list-unstyled d-flex"> 
+        <li class="ms-3">
+          <a class="text-body-secondary" href="#" aria-label="Instagram">
+            <img src="imagenes/logoIG.png" alt="logoIG" width="24" height="24">
+          </a>
+        </li> 
+        <li class="ms-3">
+          <a class="text-body-secondary" href="#" aria-label="Facebook">
+            <img src="imagenes/logoFB.png" alt="logoFB" width="24" height="24">
+          </a>
+        </li> 
+      </ul>
+    </div>
+  </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
