@@ -16,6 +16,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
       rel="stylesheet"
     />
+    
   </head>
   <body>
     <header class="p-3 text-bg-dark">
@@ -23,7 +24,7 @@
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <a
-            href="header.html"
+            href="home.html"
             class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
           >
             <img
@@ -133,14 +134,14 @@
         <div class="col-12 col-lg-6">
             <div class="card h-100">
               <div class="row h-100">
-                <div class="col-4">
+                <div class="col-12 col-sm-4 d-flex flex-column flex-sm-row ">
                   <img
                     src="imagenes\logo.png"
                     class="img-fluid h-100 w-100 object-fit-cover rounded-start"
                     alt="Imagen"
                   />
                 </div>
-                <div class="col-8">
+                <div class="col-12 col-sm-8 d-flex flex-column flex-sm-row">
                   <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Nombre local</h5>
                     <p class="card-text">Numero local </p>
@@ -156,14 +157,15 @@
           <div class="col-12 col-lg-6">
             <div class="card h-100">
               <div class="row h-100">
-                <div class="col-4">
+                <div class="col-12 col-sm-4 d-flex flex-column flex-sm-row">
                   <img
                     src="imagenes\images (1).png"
-                    class="img-fluid h-100 w-100 object-fit-cover rounded-start"
+                    class="img-fluid   object-fit-cover rounded-start"
                     alt="Imagen"
+                    
                   />
                 </div>
-                <div class="col-8">
+                <div class="col-12 col-sm-8 d-flex flex-column flex-sm-row">
                   <div class="card-body d-flex flex-column">
                   <h5 class="card-title">Nombre local</h5>
                     <p class="card-text">Numero local </p>
