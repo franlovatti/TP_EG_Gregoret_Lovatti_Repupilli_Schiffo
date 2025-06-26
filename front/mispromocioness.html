@@ -24,7 +24,7 @@
     }
   </style>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 <!-- Barra de navegación -->
 <header class="p-3 text-bg-dark"> 
@@ -51,7 +51,30 @@
             <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Promociones</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Mis promociones</a></li> 
           </ul>
-          <div class="navbar-nav ms-auto"> 
+          <div class="navbar-nav ms-auto dropdown">
+
+              <button
+                class="btn btn-outline-light mx-1 my-1"
+                type="button"
+                id="perfilDropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Mi perfil
+              </button>
+              <ul
+                class="dropdown-menu dropdown-menu-end shadow"
+                aria-labelledby="perfilDropdown"
+                style="min-width: 250px;"
+              >
+                <li class="px-3 py-2">
+                  <div class="fw-semibold">mail@ejemplo.com</div>
+                  <small>Nivel: basico</small>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="#">Cambiar contraseña</a></li>
+                <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+              </ul>
           </div>
         </div>
       </div>
