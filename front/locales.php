@@ -64,15 +64,13 @@
           <div class="collapse navbar-collapse" id="navbarOpciones">
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item">
-                <a href="acercaDe.html" class="nav-link px-2 text-white"
-                  >Acerca del shopping</a
-                >
+                <a href="acercaDe.html" class="nav-link px-2 text-white">Acerca del shopping</a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link px-2 text-white">Locales</a>
+                <a href="locales.php" class="nav-link px-2 text-white">Locales</a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link px-2 text-white">Promociones</a>
+                <a href="promociones.php" class="nav-link px-2 text-white">Promociones</a>
               </li>
             </ul>
             <div class="navbar-nav ms-auto">
@@ -185,41 +183,38 @@
 
       
       <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
-      
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
 
     <!--Footer-->
     <footer class="footer mt-auto py-3 bg-body-tertiary">
       <ul class="nav justify-content-center border-bottom pb-3 mb-3">
         <li class="nav-item">
-          <a href="home.html" class="nav-link px-2 text-body-secondary">Home</a>
+          <a href="home.html" class="nav-link px-2 text-body-secondary">Inicio</a>
         </li>
         <li class="nav-item">
-          <a href="acercaDe.html" class="nav-link px-2 text-body-secondary"
-            >Acerca del shopping</a
-          >
+          <a href="acercaDe.html" class="nav-link px-2 text-body-secondary">Acerca del shopping</a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-body-secondary">Locales</a>
+          <a href="locales.php" class="nav-link px-2 text-body-secondary">Locales</a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-body-secondary">Promociones</a>
+          <a href="promociones.html" class="nav-link px-2 text-body-secondary">Promociones</a>
         </li>
       </ul>
       <div
