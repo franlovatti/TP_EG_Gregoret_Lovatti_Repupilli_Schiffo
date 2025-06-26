@@ -96,10 +96,12 @@
               </li>
             </ul>
             <div class="navbar-nav ms-auto">
-              <button type="button" class="btn btn-outline-light mx-1">
+              <!--boton ingresar-->
+              <button type="button" class="btn btn-outline-light mx-1 my-1" data-bs-toggle="modal" data-bs-target="#loginModal">
                 Ingresar
               </button>
-              <button type="button" class="btn btn-primary mx-1">
+              <!--boton registrarse-->
+              <button type="button" class="btn btn-primary mx-1 my-1" data-bs-toggle="modal" data-bs-target="#registroModal">
                 Registrarse
               </button>
             </div>
@@ -306,5 +308,111 @@
         });
       });
     </script>
+    <!-- Modal de Login -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Iniciar sesión</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action=""> <!-- aca hay que agregar la logica del login -->
+              <div class="mb-3">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="email" name="email" required />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" required />
+              </div>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Ingresar</button>
+              </div>
+            </form>
+            <div class="text-center mt-3">
+              <small>¿No tenés cuenta? <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registroModal">Registrate</a></small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal de Registro -->
+    <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="registroModalLabel">Crear una cuenta</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="registro.php"> <!-- Archivo futuro -->
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre completo</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required />
+              </div>
+              <div class="mb-3">
+                <label for="correo" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="correo" name="correo" required />
+              </div>
+              <div class="mb-3">
+                <label for="clave" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="clave" name="clave" required />
+              </div>
+              <div class="mb-3">
+                <label for="clave2" class="form-label">Confirmar contraseña</label>
+                <input type="password" class="form-control" id="clave2" name="clave2" required />
+              </div>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success">Registrarse</button>
+              </div>
+            </form>
+            <div class="text-center mt-3">
+              <small>¿Sos dueño de un local? <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registroDueñoModal">Regristrarse como dueño</a></small><br>     
+              <small>¿Ya tenés cuenta? <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresá</a></small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal de Registro -->
+    <div class="modal fade" id="registroDueñoModal" tabindex="-1" aria-labelledby="registrDoueñoModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="registroDueñoModalLabel">Crear una cuenta</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="registro.php"> <!-- Archivo futuro -->
+              <div class="mb-3">
+                <label for="idLocal" class="form-label">Id del local</label>
+                <input type="text" class="form-control" id="idLocal" name="idLocal" required />
+              </div>
+              <div class="mb-3">
+                <label for="correo" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="correo" name="correo" required />
+              </div>
+              <div class="mb-3">
+                <label for="clave" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="clave" name="clave" required />
+              </div>
+              <div class="mb-3">
+                <label for="clave2" class="form-label">Confirmar contraseña</label>
+                <input type="password" class="form-control" id="clave2" name="clave2" required />
+              </div>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success">Registrarse</button>
+              </div>
+            </form>
+            <div class="text-center mt-3">
+              <small>¿No tenés cuenta? <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registroModal">Registrate</a></small><br>
+              <small>¿Ya tenés cuenta? <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresá</a></small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>
