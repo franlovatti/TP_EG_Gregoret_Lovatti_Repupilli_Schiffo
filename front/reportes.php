@@ -118,12 +118,30 @@ th {
               </li>
             </ul>
           </div>
+          <div class="navbar-nav ms-auto dropdown">
 
-          
-          <div class="d-none d-lg-flex align-items-center ms-3">
-            <a href="#" class="nav-link text-white">
-              <i class="bi bi-person-circle fs-2"></i>
-            </a>
+            <button
+              class="btn p-0 border-0 bg-transparent focus-ring"
+              type="button"
+              id="perfilDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-person-circle text-light fs-2"></i>
+            </button>
+            <ul
+              class="dropdown-menu dropdown-menu-end shadow"
+              aria-labelledby="perfilDropdown"
+              style="min-width: 250px;"
+            >
+              <li class="px-3 py-2">
+                <div class="fw-semibold">mail@ejemplo.com</div>
+                <small>Nivel: basico</small>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">Cambiar contraseña</a></li>
+              <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+            </ul>
           </div>
         </div>
       </nav>

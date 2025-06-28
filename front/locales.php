@@ -70,7 +70,7 @@
                 <a href="locales.php" class="nav-link px-2 text-white">Locales</a>
               </li>
               <li class="nav-item">
-                <a href="promociones.php" class="nav-link px-2 text-white">Promociones</a>
+                <a href="promociones.html" class="nav-link px-2 text-white">Promociones</a>
               </li>
             </ul>
             <div class="navbar-nav ms-auto">
@@ -87,7 +87,7 @@
     </header>
 
     <!-- Contenido principal -->
-    <div class="container-fluid py-5">
+    <div class="container-fluid my-4">
       <div class="container w-75">
         <div class="row align-items-center gy-1">
           <div class="col-lg-9 col-12 ">
@@ -122,7 +122,7 @@
         </div>
       </div>
 
-      <div class="container w-75 py-5">
+      <div class="container w-75 my-4">
       <?php for($i=0;$i<=2;$i++){
 
 ?>  
