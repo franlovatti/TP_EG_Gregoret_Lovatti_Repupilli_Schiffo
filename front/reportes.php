@@ -205,7 +205,8 @@ th {
 
             <?php for($j = 1; $j < 4; $j++) { ?>
               <div class="row mb-1">
-                <div class="col-sm-5"><strong>Texto:</strong> <?php echo "$j"?></div>
+                <div class="col-sm-4"><strong>Texto:</strong> <?php echo "$j"?></div>
+                <div class="col-sm-1"><strong>Usos:</strong> <?php echo "$j"?></div>
                 <div class="col-sm-2"><strong>Desde:</strong> <?php echo "Fecha Desde $j"?></div>
                 <div class="col-sm-2"><strong>Hasta:</strong> <?php echo "Fecha Hasta $j"?></div>
                 <div class="col-sm-3"><strong>Nivel:</strong> <?php echo "Nivel $j"?></div>
