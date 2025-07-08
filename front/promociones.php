@@ -1,3 +1,4 @@
+<?php include '../sesion.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,58 +29,23 @@
     background-color: #e3f2fd; /* Azul claro, podés cambiarlo por el color que prefieras */
     transition: background-color 0.3s;
     cursor: pointer;
-  }
-  .card{
-    max-height: 260px; /* Ajusta la altura máxima de la tarjeta */
-    max-width: 340px; /* Ajusta el ancho máximo de la tarjeta */
-  }
-  .card-img-custom {
-  max-height: 130px;      /* Cambia el valor según lo que necesites */
-  max-width: 340px;
-  object-fit: cover;      /* Recorta la imagen para llenar el área */
-  object-position: center;/* Centra el recorte */
-  width: 100%;
-}
+    }
+    .card{
+      max-height: 260px; /* Ajusta la altura máxima de la tarjeta */
+      max-width: 340px; /* Ajusta el ancho máximo de la tarjeta */
+    }
+    .card-img-custom {
+    max-height: 130px;      /* Cambia el valor según lo que necesites */
+    max-width: 340px;
+    object-fit: cover;      /* Recorta la imagen para llenar el área */
+    object-position: center;/* Centra el recorte */
+    width: 100%;
+    }
   </style>
 </head>
 <body>
   <header class="p-3 text-bg-dark">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a href="home.html" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <img src="imagenes/logoHome.png" alt="Logo" width="30" height="24" class="me-2">
-        </a>
-        <ul class="text-white ms-3 me-3" style="list-style: none; padding-left: 0; margin: 0; font-size: x-small;">
-          <li>Lunes a Viernes 10:00-20:00</li>
-          <li>Sábados 10:00-18:00</li>
-        </ul>
-        <!-- Botón hamburguesa -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarOpciones"
-          aria-controls="navbarOpciones" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-  
-        <!-- Opciones de menú -->
-        <div class="collapse navbar-collapse" id="navbarOpciones">
-          <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item"><a href="acercaDe.html" class="nav-link px-2 text-white">Acerca del shopping</a></li>
-            <li class="nav-item"><a href="locales.php" class="nav-link px-2 text-white">Locales</a></li>
-            <li class="nav-item"><a href="promociones.html" class="nav-link px-2 text-white">Promociones</a></li>
-          </ul>
-          <div class="navbar-nav ms-auto">
-            <!--boton ingresar-->
-            <button type="button" class="btn btn-outline-light mx-1 my-1" data-bs-toggle="modal" data-bs-target="#loginModal">
-              Ingresar
-            </button>
-            <!--boton registrarse-->
-            <button type="button" class="btn btn-primary mx-1 my-1" data-bs-toggle="modal" data-bs-target="#registroModal">
-              Registrarse
-            </button>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <?php include '../header.php'; ?>
   </header>
 
   <!-- Barra de busqueda -->

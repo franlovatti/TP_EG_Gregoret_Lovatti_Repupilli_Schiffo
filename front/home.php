@@ -1,234 +1,71 @@
+<?php include '../sesion.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Acerca del shopping</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
-      crossorigin="anonymous"
-    />
-    <style>
-      .carousel-inner {
-        height: 450px;
-        /* Ajusta la altura que desees */
-      }
-
-      .carousel-inner img {
-        object-fit: cover;
-        height: 100%;
-        width: 100%;
-        margin: 0 auto;
-        display: block;
-      }
-      @media (max-width: 576px) {
-        .carousel-inner {
-          height: 200px;
-        }
-        .carousel-inner img {
-          height: 200px; /* Igual que el contenedor */
-        }
-      }
-    </style>
+    <title>home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
   </head>
 
-  <body class="d-flex flex-column min-vh-100">
+  <body style="height: 100%">
     <header class="p-3 text-bg-dark">
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-          <a
-            href="home.html"
-            class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
-          >
-            <img
-              src="imagenes/logoHome.png"
-              alt="Logo"
-              width="30"
-              height="24"
-              class="me-2"
-            />
-          </a>
-          <ul
-            class="text-white ms-3 me-3"
-            style="
-              list-style: none;
-              padding-left: 0;
-              margin: 0;
-              font-size: x-small;
-            "
-          >
-            <li>Lunes a Viernes 10:00-20:00</li>
-            <li>Sábados 10:00-18:00</li>
-          </ul>
-          <!-- Botón hamburguesa -->
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarOpciones"
-            aria-controls="navbarOpciones"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <!-- Opciones de menú -->
-          <div class="collapse navbar-collapse" id="navbarOpciones">
-            <ul class="navbar-nav mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a href="acercaDe.html" class="nav-link px-2 text-white"
-                  >Acerca del shopping</a
-                >
-              </li>
-              <li class="nav-item">
-                <a href="locales.php" class="nav-link px-2 text-white"
-                  >Locales</a
-                >
-              </li>
-              <li class="nav-item">
-                <a href="promociones.html" class="nav-link px-2 text-white"
-                  >Promociones</a
-                >
-              </li>
-            </ul>
-            <div class="navbar-nav ms-auto">
-              <!--boton ingresar-->
-              <button type="button" class="btn btn-outline-light mx-1 my-1" data-bs-toggle="modal" data-bs-target="#loginModal">
-                Ingresar
-              </button>
-              <!--boton registrarse-->
-              <button type="button" class="btn btn-primary mx-1 my-1" data-bs-toggle="modal" data-bs-target="#registroModal">
-                Registrarse
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <?php include '../header.php'; ?>
     </header>
 
-    <!--Carrucel de fotos del shopping-->
-    <!--Nota hay que buscar poner fotos que tengan el mismo tamaño, ahora esta seteado para h-350px y w-auto -->
-    <div id="carouselExampleCaptions" class="carousel slide">
-      <div class="carousel-indicators">
-        <button
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide-to="2"
-          aria-label="Slide 3"
-        ></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img
-            src="imagenes/shopping.jpg"
-            class="d-block w-100"
-            alt="shopping"
-          />
-        </div>
-        <div class="carousel-item">
+    <!-- Contenido principal -->
+    <div class="container-fluid py-5 text-center">
+      <h1 class="text-center">Welcome to Our Website</h1>
+      <p class="text-center">
+        This is a simple example of a Bootstrap header with navigation links and
+        buttons.
+      </p>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 p-0">
           <img
             src="imagenes/alto2.jpg"
-            class="d-block w-100"
-            alt="patioComidas"
+            alt="shopping Image"
+            class="img-fluid"
           />
         </div>
-        <div class="carousel-item">
-          <img src="imagenes/mapa.png" class="d-block w-100" alt="..." />
-        </div>
       </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExampleCaptions"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExampleCaptions"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
     </div>
-
-    <!--Quienes somos-->
-    <div class="container my-4">
-      <h2 class="text-center my-2">Acerca del shopping</h2>
-      <p class="text-center">
-        El shopping es un lugar donde puedes encontrar una gran variedad de
-        tiendas, restaurantes y entretenimiento. Ofrecemos una experiencia única
-        de compras y ocio para toda la familia.
-      </p>
-      <p class="text-center">
-        Nuestro objetivo es brindar un espacio cómodo y agradable para que
-        nuestros visitantes disfruten de su tiempo aquí. Desde tiendas de moda
-        hasta opciones gastronómicas, tenemos algo para todos.
-      </p>
-    </div>
-
-    <!--Form de contacto-->
-    <div class="container-fluid">
-      <div class="row justify-content-center my-4">
-        <div class="col-md-6">
-          <h2 class="text-center mb-4">Contáctanos</h2>
-          <form>
-            <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nombre" required />
+    <div class="my-4 container-fluid">
+      <h2 class="text-center my-2">Promociones</h2>
+      <div class="row row-cols-1 row-cols-md-3 g-1 align-items-stretch">
+        <div class="col d-flex justify-content-center">
+          <div class="card h-100 w-75 bg-body-tertiary">
+            <img src="imagenes/home.png" class="card-img-top" alt="..." />
+            <div class="card-body d-flex flex-column h-100">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Texto de ejemplo.</p>
             </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Correo electrónico</label>
-              <input type="email" class="form-control" id="email" required />
-            </div>
-            <div class="mb-3">
-              <label for="mensaje" class="form-label">Mensaje</label>
-              <textarea
-                class="form-control"
-                id="mensaje"
-                rows="4"
-                required
-              ></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-          </form>
-        </div>
-        <div class="col-md-6">
-          <h2 class="text-center mb-4">Ubicación</h2>
-          <p class="text-center">
-            Estamos ubicados en el corazón de la ciudad, con fácil acceso y
-            estacionamiento disponible.
-          </p>
-          <div class="text-center">
-            <img
-              src="imagenes/mapa.png"
-              alt="Mapa de ubicación"
-              class="img-fluid"
-            />
           </div>
         </div>
+        <div class="col d-flex justify-content-center">
+          <div class="card h-100 w-75 bg-body-tertiary">
+            <img src="imagenes/home.png" class="card-img-top" alt="..." />
+            <div class="card-body d-flex flex-column h-100">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Otro texto más largo para probar el alto.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col d-flex justify-content-center">
+          <div class="card h-100 w-75 bg-body-tertiary">
+            <img src="imagenes/home.png" class="card-img-top" alt="..." />
+            <div class="card-body d-flex flex-column h-100">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Texto de prueba adicional.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid text-center my-4">
+        <button class="btn btn-primary">Mas promociones</button>
       </div>
     </div>
 
@@ -239,17 +76,13 @@
           <a href="home.html" class="nav-link px-2 text-body-secondary">Inicio</a>
         </li>
         <li class="nav-item">
-          <a href="acercaDe.html" class="nav-link px-2 text-body-secondary"
-            >Acerca del shopping</a
-          >
+          <a href="acercaDe.html" class="nav-link px-2 text-body-secondary">Acerca del shopping</a>
         </li>
         <li class="nav-item">
           <a href="locales.php" class="nav-link px-2 text-body-secondary">Locales</a>
         </li>
         <li class="nav-item">
-          <a href="promociones.html" class="nav-link px-2 text-body-secondary"
-            >Promociones</a
-          >
+          <a href="promociones.html" class="nav-link px-2 text-body-secondary">Promociones</a>
         </li>
       </ul>
       <div
@@ -289,7 +122,6 @@
         </ul>
       </div>
     </footer>
-
     <!-- Scripts al final -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"

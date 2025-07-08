@@ -1,19 +1,12 @@
+<?php include '../sesion.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reportes</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
     <style>
       .scrollable-box {
     max-height: 450px; 
@@ -21,130 +14,16 @@
     border: 1px solid #ccc; 
     padding: 10px; }
     table {
-  border-collapse: collapse;
-  width: 80%;
-  margin: auto;
-}
-
-td,
-th {
-  
-  text-align: center;
-}
-
-
-
+    border-collapse: collapse;
+    width: 80%;
+    margin: auto;}
+    td,th {
+      text-align: center;}
     </style>
   </head>
   <body>
     <header class="p-3 text-bg-dark">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-          
-          <a
-            href="home.html"
-            class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
-          >
-            <img
-              src="imagenes/logoHome.png"
-              alt="Logo"
-              width="30"
-              height="24"
-              class="me-2"
-            />
-          </a>
-
-          <ul
-            class="text-white text-center ms-3 me-3"
-            style="
-              list-style: none;
-              padding-left: 0;
-              margin: 0;
-              font-size: x-small;
-            "
-          >
-            <li>Lunes a Viernes 10:00-20:00</li>
-            <li>Sábados 10:00-18:00</li>
-          </ul>
-
-          
-          <div class="d-lg-none">
-            <a href="#" class="nav-link text-white">
-              <i class="bi bi-person-circle fs-2"></i>
-            </a>
-          </div>
-
-         
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarOpciones"
-            aria-controls="navbarOpciones"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          
-          <div class="collapse navbar-collapse" id="navbarOpciones">
-            <ul class="navbar-nav mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a href="acercaDe.html" class="nav-link text-center text-white"
-                  >Acerca del shopping</a
-                >
-              </li>
-              <li class="nav-item">
-                <a href="locales.php" class="nav-link text-white text-center">Locales</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link text-white text-center"
-                  >Solicitudes de promociones</a
-                >
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link text-white text-center"
-                  >Novedades</a
-                >
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link text-center text-white"
-                  >Solicitudes de usuario</a
-                >
-              </li>
-              <li class="nav-item">
-                <a href="reportes.php" class="nav-link text-white text-center">Reportes</a>
-              </li>
-            </ul>
-          </div>
-          <div class="navbar-nav ms-auto dropdown">
-
-            <button
-              class="btn p-0 border-0 bg-transparent focus-ring"
-              type="button"
-              id="perfilDropdown"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="bi bi-person-circle text-light fs-2"></i>
-            </button>
-            <ul
-              class="dropdown-menu dropdown-menu-end shadow"
-              aria-labelledby="perfilDropdown"
-              style="min-width: 250px;"
-            >
-              <li class="px-3 py-2">
-                <div class="fw-semibold">mail@ejemplo.com</div>
-                <small>Nivel: basico</small>
-              </li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Cambiar contraseña</a></li>
-              <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <?php include '../header.php'; ?>
     </header>
     <div class="container-fluid">
       <div class="container w-75 py-5">

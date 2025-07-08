@@ -1,15 +1,12 @@
+<?php include '../sesion.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Local</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-  <link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
   <style>
     .pagination .page-link {
     color: #000 !important;
@@ -28,56 +25,23 @@
     background-color: #e3f2fd; /* Azul claro, podés cambiarlo por el color que prefieras */
     transition: background-color 0.3s;
     cursor: pointer;
-  }
-    .promo-card {
-    max-width: 340px;
-    max-height: 260px;
     }
-  .card-img-custom {
-  max-height: 130px;      /* Cambia el valor según lo que necesites */
-  max-width: 340px;
-  object-fit: cover;      /* Recorta la imagen para llenar el área */
-  object-position: center;/* Centra el recorte */
-  width: 100%;
-}
+      .promo-card {
+      max-width: 340px;
+      max-height: 260px;
+      }
+    .card-img-custom {
+    max-height: 130px;      /* Cambia el valor según lo que necesites */
+    max-width: 340px;
+    object-fit: cover;      /* Recorta la imagen para llenar el área */
+    object-position: center;/* Centra el recorte */
+    width: 100%;}
   </style>
 </head>
 <body>
-  <header class="p-3 text-bg-dark">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a href="home.html" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <img src="imagenes/logoHome.png" alt="Logo" width="30" height="24" class="me-2">
-        </a>
-        <ul class="text-white ms-3 me-3" style="list-style: none; padding-left: 0; margin: 0; font-size: x-small;">
-          <li>Lunes a Viernes 10:00-20:00</li>
-          <li>Sábados 10:00-18:00</li>
-        </ul>
-        <!-- Botón hamburguesa -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarOpciones"
-          aria-controls="navbarOpciones" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-  
-        <!-- Opciones de menú -->
-        <div class="collapse navbar-collapse" id="navbarOpciones">
-          <ul class="navbar-nav mb-2 mb-lg-0">
-            <!-- falta hacer pagina promocionesdellocal.html  -->
-            <li class="nav-item"><a href="promociones.html" class="nav-link px-2 text-white">Promociones</a></li>
-            <li class="nav-item"><a href="local.html" class="nav-link px-2 text-white">Local</a></li>
-            <!-- falta hacer pagina missolicitudes.html  -->
-            <li class="nav-item"><a href="missolicitudes.html" class="nav-link px-2 text-white">Solicitud de Promociones</a></li>
-          </ul>
-        </div>
-        <div class="d-none d-lg-flex align-items-center ms-3">
-            <a href="#" class="nav-link text-white">
-              <i class="bi bi-person-circle fs-2"></i>
-            </a>
-          </div>
-      </div>
-    </nav>
-  </header>
+<header class="p-3 text-bg-dark">
+  <?php include '../header.php'; ?>
+</header>
 
 <div class="container py-3">
   <div class="row">
