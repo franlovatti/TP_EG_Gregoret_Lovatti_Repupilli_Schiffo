@@ -71,56 +71,7 @@
 
     <!--Footer-->
     <footer class="footer mt-auto py-3 bg-body-tertiary">
-      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item">
-          <a href="home.html" class="nav-link px-2 text-body-secondary">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a href="acercaDe.html" class="nav-link px-2 text-body-secondary">Acerca del shopping</a>
-        </li>
-        <li class="nav-item">
-          <a href="locales.php" class="nav-link px-2 text-body-secondary">Locales</a>
-        </li>
-        <li class="nav-item">
-          <a href="promociones.html" class="nav-link px-2 text-body-secondary">Promociones</a>
-        </li>
-      </ul>
-      <div
-        class="container d-flex flex-wrap justify-content-between align-items-center"
-      >
-        <div class="col-sm-3 d-flex align-items-center">
-          <span class="mb-md-0 text-body-secondary">© 2025 Company, Inc</span>
-        </div>
-        <div class="col-sm-3 d-flex justify-content-center">
-          <a
-            href=""
-            class="nav-link px-2 text-body-secondary align-items-center"
-            >Terminos y Condiciones</a
-          >
-        </div>
-        <ul class="nav col-sm-3 justify-content-end list-unstyled d-flex">
-          <li class="ms-3">
-            <a class="text-body-secondary" href="#" aria-label="Instagram">
-              <img
-                src="imagenes/logoIG.png"
-                alt="logoIG"
-                width="24"
-                height="24"
-              />
-            </a>
-          </li>
-          <li class="ms-3">
-            <a class="text-body-secondary" href="#" aria-label="Facebook">
-              <img
-                src="imagenes/logoFB.png"
-                alt="logoFB"
-                width="24"
-                height="24"
-              />
-            </a>
-          </li>
-        </ul>
-      </div>
+      <?php include '../footer.php'; ?>
     </footer>
     <!-- Scripts al final -->
     <script
