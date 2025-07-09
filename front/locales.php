@@ -147,6 +147,15 @@
         });
     </script>
     <?php }; ?>
+    <!-- script signUp -->
+    <?php if (!empty($signUp_error)){?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modal = new bootstrap.Modal(document.getElementById('registroModal'));
+            modal.show();
+        });
+    </script>
+    <?php }; ?>
     <!--scrips al final-->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"

@@ -106,5 +106,14 @@
         });
     </script>
     <?php }; ?>
+    <!-- script signUp -->
+    <?php if (!empty($signUp_error)){?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modal = new bootstrap.Modal(document.getElementById('registroModal'));
+            modal.show();
+        });
+    </script>
+    <?php }; ?>
   </body>
 </html>

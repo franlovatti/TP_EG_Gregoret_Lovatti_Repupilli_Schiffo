@@ -26,6 +26,7 @@ function signUp() {
         $_SESSION['usuario'] = $fila['mail_usuario'];
         $_SESSION['tipoUsuario'] = $fila['tipo_usuario'];
         $_SESSION['idUsuario'] = $fila['id_usuario'];
+        $_SESSION['categoria'] = 'inicial';
         if ($mantenerSesionIniciada == 'si') {
           setcookie('mantenerSesionIniciada', 'si', time() + (60 * 60 * 24 * 365));
           setcookie('usuario', $fila['mail_usuario'], time() + (60 * 60 * 24 * 365));
