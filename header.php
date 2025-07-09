@@ -122,27 +122,17 @@ if ($tipoUsuario == 'cliente') {
 if ($login) {
 ?>
       <div class="navbar-nav ms-auto dropdown">
-        <button
-          class="btn p-0 border-0 bg-transparent focus-ring"
-          type="button"
-          id="perfilDropdown"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
+        <button class="btn p-0 border-0 bg-transparent focus-ring" type="button" id="perfilDropdown" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="bi bi-person-circle text-light fs-2"></i>
         </button>
-        <ul
-          class="dropdown-menu dropdown-menu-end shadow"
-          aria-labelledby="perfilDropdown"
-          style="min-width: 250px;"
-        >
+        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="perfilDropdown" style="min-width: 250px;">
           <li class="px-3 py-2">
-            <div class="fw-semibold">mail@ejemplo.com</div>
+            <div class="fw-semibold"><?php echo $_SESSION['usuario'] ?></div>
             <small>Nivel: basico</small>
           </li>
           <li><hr class="dropdown-divider" /></li>
           <li><a class="dropdown-item" href="#">Cambiar contraseña</a></li>
-          <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+          <li><a class="dropdown-item" href="../cerrarSesion.php">Cerrar sesión</a></li>
         </ul>
       </div>
 <?php

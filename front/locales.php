@@ -1,4 +1,19 @@
-<?php include '../sesion.php'; ?>
+<?php include '../sesion.php'; 
+include '../verificarLogin.php';
+
+$login_error = "";
+if (isset($_COOKIE['mantenerSesionIniciada']) && $_COOKIE['mantenerSesionIniciada'] == 'si' && !isset($_SESSION['usuario']) && empty($_SESSION['cerrarSesion'])) {
+  var_dump($_COOKIE);
+  $_SESSION['usuario'] = $_COOKIE['usuario'];
+  $_SESSION['tipoUsuario'] = $_COOKIE['tipoUsuario'];
+  $_SESSION['idUsuario'] = $_COOKIE['idUsuario'];
+  if (isset($_COOKIE['categoriaCliente'])) {
+    $_SESSION['categoria'] = $_COOKIE['categoriaCliente'];
+  }
+} elseif (isset($_POST['email']) && isset($_POST['password'])) {
+  login();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -131,10 +146,23 @@
     <footer class="footer mt-auto py-3 bg-body-tertiary">
       <?php include '../footer.php'; ?>
     </footer>
+
+    <!-- Modal de Login -->
+    <?php include '../modals/modalLogin.php'; ?>
+    
+    <!--scrips al final-->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
       crossorigin="anonymous"
     ></script>
+    <?php if (!empty($login_error)){?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modal = new bootstrap.Modal(document.getElementById('loginModal'));
+            modal.show();
+        });
+    </script>
+    <?php }; ?>
   </body>
 </html>
