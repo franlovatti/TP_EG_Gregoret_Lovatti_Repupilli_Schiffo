@@ -11,9 +11,7 @@ if (isset($_COOKIE['mantenerSesionIniciada']) && $_COOKIE['mantenerSesionIniciad
   $_SESSION['usuario'] = $_COOKIE['usuario'];
   $_SESSION['tipoUsuario'] = $_COOKIE['tipoUsuario'];
   $_SESSION['idUsuario'] = $_COOKIE['idUsuario'];
-  if (isset($_COOKIE['categoriaCliente'])) {
-    $_SESSION['categoria'] = $_COOKIE['categoriaCliente'];
-  }
+  $_SESSION['categoria'] = $_COOKIE['categoriaCliente'];
 } elseif (isset($_POST['email']) && isset($_POST['password'])) {
   login();
 } elseif (isset($_POST['correo']) && isset($_POST['clave']) && isset($_POST['clave2'])){

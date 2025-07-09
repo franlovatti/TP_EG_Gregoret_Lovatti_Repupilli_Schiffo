@@ -3,7 +3,12 @@ if (isset($_SESSION['usuario'])) {
     $usuario = $_SESSION['usuario'];
     $tipoUsuario = $_SESSION['tipoUsuario'];
     $login = True;
-} else {
+  if ($tipoUsuario == 'cliente') {
+    if ($tipoUsuario == 'cliente') {
+        $categoria = $_SESSION['categoria'];
+    }
+  }
+  } else {
     $usuario = null;
     $tipoUsuario = 'invitado';
     $login = False;    
@@ -128,7 +133,13 @@ if ($login) {
         <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="perfilDropdown" style="min-width: 250px;">
           <li class="px-3 py-2">
             <div class="fw-semibold"><?php echo $_SESSION['usuario'] ?></div>
-            <small>Nivel: basico</small>
+            <?php if ($tipoUsuario == 'cliente') :?>
+            <small>Nivel: <?php echo $categoria?></small>
+            <?php elseif ($tipoUsuario == 'dueño') :?>
+            <small>Nivel: dueño</small>
+            <?php elseif ($tipoUsuario == 'administrador') :?>
+            <small>Nivel: administrador</small>
+            <?php endif; ?>
           </li>
           <li><hr class="dropdown-divider" /></li>
           <li><a class="dropdown-item" href="#">Cambiar contraseña</a></li>
