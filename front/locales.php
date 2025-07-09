@@ -1,19 +1,4 @@
-<?php include '../sesion.php'; 
-include '../verificarLogin.php';
-
-$login_error = "";
-if (isset($_COOKIE['mantenerSesionIniciada']) && $_COOKIE['mantenerSesionIniciada'] == 'si' && !isset($_SESSION['usuario']) && empty($_SESSION['cerrarSesion'])) {
-  var_dump($_COOKIE);
-  $_SESSION['usuario'] = $_COOKIE['usuario'];
-  $_SESSION['tipoUsuario'] = $_COOKIE['tipoUsuario'];
-  $_SESSION['idUsuario'] = $_COOKIE['idUsuario'];
-  if (isset($_COOKIE['categoriaCliente'])) {
-    $_SESSION['categoria'] = $_COOKIE['categoriaCliente'];
-  }
-} elseif (isset($_POST['email']) && isset($_POST['password'])) {
-  login();
-}
-?>
+<?php include '../sesion.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -149,13 +134,11 @@ if (isset($_COOKIE['mantenerSesionIniciada']) && $_COOKIE['mantenerSesionIniciad
 
     <!-- Modal de Login -->
     <?php include '../modals/modalLogin.php'; ?>
-    
-    <!--scrips al final-->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
-      crossorigin="anonymous"
-    ></script>
+    <!-- Modal de Registro -->
+    <?php include '../modals/modalSignUp.php'; ?>
+    <!-- Modal de Registro -->
+    <?php include '../modals/modalSignUpD.php'; ?>
+    <!-- sript login -->
     <?php if (!empty($login_error)){?>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -164,5 +147,11 @@ if (isset($_COOKIE['mantenerSesionIniciada']) && $_COOKIE['mantenerSesionIniciad
         });
     </script>
     <?php }; ?>
+    <!--scrips al final-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

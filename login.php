@@ -1,18 +1,17 @@
 <?php
 function login(){
+    require_once '../conexion.php';
     error_reporting(E_ERROR | E_PARSE); // Muestra solo errores fatales y errores de análisis
     ini_set('display_errors', 0);       // No mostrar errores al usuario
     global $login_error;
     $email = trim($_POST['email']);
-    $contrasena =$_POST['password'];
     $mantenerSesionIniciada = $_POST['mantenerSesionIniciada'];
     $query = "SELECT * FROM usuario WHERE mail_usuario='$email' ";
-    $link= mysqli_connect("localhost","entornos","1234","shopping") or die("Hubo un error al conectarse con la base de datos");
-    $resultados = mysqli_query($link,$query) or die("Hubo un error con la transacción:".mysqli_error($link));
-    mysqli_close($link);
+    $resultados = mysqli_query($conexion,$query) or die("Hubo un error con la transacción:".mysqli_error($conexion));
+    mysqli_close($conexion);
     $fila = mysqli_fetch_array($resultados);
     if(mysqli_num_rows($resultados) > 0){
-      if ($contrasena == $fila['clave_usuario']){
+      if (password_verify($_POST['password'], $fila['clave_usuario'])){
         if ($tipoUsuario=='cliente'){
           $_SESSION['categoria'] = $fila['categoria'];
         }
