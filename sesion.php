@@ -7,7 +7,7 @@ include '../signUp.php';
 
 $login_error = "";
 $signUp_error = "";
-if (isset($_COOKIE['mantenerSesionIniciada']) && $_COOKIE['mantenerSesionIniciada'] == 'si' && !isset($_SESSION['usuario']) && empty($_SESSION['cerrarSesion'])) {
+if (isset($_COOKIE['usuario']) && $_COOKIE['mantenerSesionIniciada'] == 'si' && !isset($_SESSION['usuario']) && empty($_SESSION['cerrarSesion'])) {
   $_SESSION['usuario'] = $_COOKIE['usuario'];
   $_SESSION['tipoUsuario'] = $_COOKIE['tipoUsuario'];
   $_SESSION['idUsuario'] = $_COOKIE['idUsuario'];
