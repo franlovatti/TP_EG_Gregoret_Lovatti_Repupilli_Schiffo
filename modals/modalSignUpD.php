@@ -6,11 +6,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-          <form method="post" action="registro.php"> <!-- Archivo futuro -->
-            <div class="mb-3">
-              <label for="idLocal" class="form-label">Id del local</label>
-              <input type="text" class="form-control" id="idLocal" name="idLocal" required />
-            </div>
+          <form method="post" action=""> 
             <div class="mb-3">
               <label for="correo" class="form-label">Correo electrónico</label>
               <input type="email" class="form-control" id="correo" name="correo" required />
@@ -26,6 +22,7 @@
             <div class="d-grid gap-2">
               <button type="submit" class="btn btn-success">Registrarse</button>
             </div>
+          <input type="hidden" name="esDueno" value="si">
           </form>
           <div class="text-center mt-3">
             <small>¿Quieres registrarte como cliente? <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registroModal">Registrate</a></small><br>

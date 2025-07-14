@@ -19,6 +19,7 @@ if ($tipoUsuario == 'cliente') {
   </li>
 <?php
 } elseif ($tipoUsuario == 'dueño') {
+  if (isset($_SESSION['estado']) && $_SESSION['estado'] === 'activo') {
 ?>
   <li class="nav-item">
     <a href="home.php" class="nav-link px-2 text-body-secondary">Inicio</a>
@@ -32,7 +33,16 @@ if ($tipoUsuario == 'cliente') {
   <li class="nav-item">
     <a href="" class="nav-link px-2 text-body-secondary">Solicitudes</a>
   </li>
+  <?php
+  } else {
+  ?>
+  <ul class="navbar-nav mb-2 mb-lg-0">
+    <li class="nav-item">
+      <a class="nav-link px-2 text-warning">Cuenta pendiente de aprobación</a>
+    </li>
+  </ul>
 <?php
+  }
 } elseif ($tipoUsuario == 'administrador') {
 ?>
   <li class="nav-item">

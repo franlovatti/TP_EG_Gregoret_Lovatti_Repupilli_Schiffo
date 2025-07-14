@@ -76,24 +76,34 @@ if ($tipoUsuario == 'cliente') {
       </ul>
 <?php
 } elseif ($tipoUsuario == 'dueño') {
+  if (isset($_SESSION['estado']) && $_SESSION['estado'] === 'activo') {
 ?>
-      <ul class="navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a href="" class="nav-link px-2 text-white">Local</a>
-        </li>
-        <li class="nav-item">
-          <a href="" class="nav-link px-2 text-white">Promociones</a>
-        </li>
-        <li class="nav-item">
-          <a href="" class="nav-link px-2 text-white">Solicitudes</a>
-        </li>
-      </ul>
+  <ul class="navbar-nav mb-2 mb-lg-0">
+    <li class="nav-item">
+      <a href="" class="nav-link px-2 text-white">Local</a>
+    </li>
+    <li class="nav-item">
+      <a href="" class="nav-link px-2 text-white">Promociones</a>
+    </li>
+    <li class="nav-item">
+      <a href="" class="nav-link px-2 text-white">Solicitudes</a>
+    </li>
+  </ul>
 <?php
+  } else {
+?>
+  <ul class="navbar-nav mb-2 mb-lg-0">
+    <li class="nav-item">
+      <a class="nav-link px-2 text-warning">Cuenta pendiente de aprobación</a>
+    </li>
+  </ul>
+<?php
+  }
 } elseif ($tipoUsuario == 'administrador') {
 ?>
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item">
-          <a href="" class="nav-link px-2 text-white">Solicitudes usuario</a>
+          <a href="solicitudesusuario.php" class="nav-link px-2 text-white">Solicitudes usuario</a>
         </li>
         <li class="nav-item">
           <a href="" class="nav-link px-2 text-white">Solicitudes promociones</a>
