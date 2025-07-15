@@ -22,7 +22,7 @@
     border-color: #0d6efd !important;
     }
     .card:hover {
-    background-color: #e3f2fd; /* Azul claro, podés cambiarlo por el color que prefieras */
+    background-color: #e3f2fd; 
     transition: background-color 0.3s;
     cursor: pointer;
     }
@@ -31,10 +31,10 @@
       max-height: 260px;
       }
     .card-img-custom {
-    max-height: 130px;      /* Cambia el valor según lo que necesites */
+    max-height: 130px;      
     max-width: 340px;
-    object-fit: cover;      /* Recorta la imagen para llenar el área */
-    object-position: center;/* Centra el recorte */
+    object-fit: cover;      
+    object-position: center;
     width: 100%;}
   </style>
 </head>
@@ -43,32 +43,48 @@
   <?php include '../header.php'; ?>
 </header>
 
-<div class="container py-3">
-  <div class="row">
-    <div class="col-12">
-      <div class="card shadow border-0">
-        <div class="row g-0 flex-column flex-md-row">
-          <!-- Imagen a la izquierda -->
-          <div class="col-12 col-md-2 d-flex justify-content-center justify-content-md-start align-items-center p-2">
-            <img src="imagenes/logo.png" class="img-fluid rounded" alt="Logo del local">
-          </div>
+<?php
+require_once '../conexion.php';
+if(isset($_SESSION['idUsuario'])){
+  $id_usuario=$_SESSION['idUsuario'];
+}
+$query = "SELECT * from local WHERE id_usuario = $id_usuario";
+$resultado = mysqli_query($conexion, $query);
+$resultado = mysqli_query($conexion, $query);
 
-          <!-- Texto a la derecha -->
-          <div class="col-md-10 d-flex align-items-center">
-            <div class="card-body">
-              <h5 class="card-title mb-1">Nombre del Local</h5>
-              <p class="card-text mb-0">Nro Local: 101</p>
-              <p class="card-text mb-0">Ubicación: Primer Piso</p>
-              <p class="card-text mb-3">Horario: 10:00 a 20:00</p>
-              <!--<a href="#" class="btn btn-primary">Ver promociones</a>-->
+if ($resultado && mysqli_num_rows($resultado) > 0) {
+    // Traigo la única fila (o la primera de varias)
+    $fila = mysqli_fetch_assoc($resultado);
+    ?>
+    <div class="container py-3">
+      <div class="row">
+        <div class="col-12">
+          <div class="card shadow border-0">
+            <div class="row g-0 flex-column flex-md-row">
+              <!-- Imagen a la izquierda -->
+              <div class="col-12 col-md-2 d-flex justify-content-center justify-content-md-start align-items-center p-2">
+                <img src="imagenes/logo.png" class="img-fluid rounded" alt="Logo del local">
+              </div>
+
+              <!-- Texto a la derecha -->
+              <div class="col-md-10 d-flex align-items-center">
+                <div class="card-body">
+                  <h5 class="card-title mb-1">Nombre: <?= htmlspecialchars($fila['nombre_local']) ?></h5>
+                  <p class="card-text mb-0">Nro Local: <?= htmlspecialchars($fila['id_local']) ?></p>
+                  <p class="card-text mb-0">Ubicación: <?= htmlspecialchars($fila['ubicacion']) ?></p>
+                  <p class="card-text mb-3">Rubro: <?= htmlspecialchars($fila['rubro']) ?></p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
+    <?php
+} else {
+    // No hay local asignado todavía
+    echo "<div class='alert alert-info text-center my-5'>No se encontró ningún local asociado a tu cuenta.</div>";
+}?>
 <!--Tarjetas-->
   <div class="my-3 container">
     <div class="row row-cols-1 row-cols-md-4 g-4 align-items-stretch">

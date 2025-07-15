@@ -25,7 +25,7 @@ if ($tipoUsuario == 'cliente') {
     <a href="home.php" class="nav-link px-2 text-body-secondary">Inicio</a>
   </li>
   <li class="nav-item">
-    <a href="" class="nav-link px-2 text-body-secondary">Local</a>
+    <a href="local.php" class="nav-link px-2 text-body-secondary">Local</a>
   </li>
   <li class="nav-item">
     <a href="" class="nav-link px-2 text-body-secondary">Promociones</a>

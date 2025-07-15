@@ -80,7 +80,7 @@ if ($tipoUsuario == 'cliente') {
 ?>
   <ul class="navbar-nav mb-2 mb-lg-0">
     <li class="nav-item">
-      <a href="" class="nav-link px-2 text-white">Local</a>
+      <a href="local.php" class="nav-link px-2 text-white">Local</a>
     </li>
     <li class="nav-item">
       <a href="" class="nav-link px-2 text-white">Promociones</a>
@@ -109,7 +109,7 @@ if ($tipoUsuario == 'cliente') {
           <a href="" class="nav-link px-2 text-white">Solicitudes promociones</a>
         </li>
         <li class="nav-item">
-          <a href="" class="nav-link px-2 text-white">Locales</a>
+          <a href="crearlocal.php" class="nav-link px-2 text-white">Locales</a>
         </li>
         <li class="nav-item">
           <a href="" class="nav-link px-2 text-white">Novedades</a>
