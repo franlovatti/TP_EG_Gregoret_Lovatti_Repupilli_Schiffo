@@ -64,7 +64,7 @@ if (!$resultado) {
         <label for="id_usuario" class="form-label">Id del dueño del local</label>
         <select class="form-select" name="id_usuario" id="id_usuario" required>
             <?php while ($fila = mysqli_fetch_assoc($resultado)){
-            ?> <option value="<?php echo  $fila['id_usuario'] ;?>" activo><?php echo  $fila['id_usuario'] ;?></option><?php ;}?>
+            ?> <option value="<?php echo  $fila['id_usuario'] ;?>" ><?php echo  $fila['id_usuario'] ;?></option><?php ;}?>
         </select>
     </div>
     <div class="d-grid">

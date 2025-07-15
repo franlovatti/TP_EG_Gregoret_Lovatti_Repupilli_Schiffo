@@ -83,7 +83,7 @@ if ($tipoUsuario == 'cliente') {
       <a href="local.php" class="nav-link px-2 text-white">Local</a>
     </li>
     <li class="nav-item">
-      <a href="" class="nav-link px-2 text-white">Promociones</a>
+      <a href="crearpromocion.php" class="nav-link px-2 text-white">Promociones</a>
     </li>
     <li class="nav-item">
       <a href="" class="nav-link px-2 text-white">Solicitudes</a>
