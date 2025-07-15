@@ -31,17 +31,36 @@
 <header class="p-3 text-bg-dark">
   <?php include '../header.php'; ?>
 </header>
+
+<div class="modal fade" id="confirmRejectModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmar rechazo de cuenta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        ¿Seguro que deseas <span class="texto-destacado">rechazar</span> esta cuenta? Esta acción no se puede deshacer.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirmRejectBtn">Sí, rechazar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <?php 
 if (isset($_GET['id'])) {
   $id_usuario = intval($_GET['id']);}?>
 <div class="container my-5">
   <H4>Editar el estado del dueño: <?php echo "$id_usuario"; ?>
-  <form method="post" action="gestionarCuenta.php">
+  <form id="estadoForm" method="post" action="gestionarCuenta.php">
     <div class="mb-3">
       <label for="nuevo_estado" class="form-label">Nuevo estado...</label>
       <select class="form-select" name="nuevo_estado" id="nuevo_estado" required>
         <option value="activo">Aprobar cuenta</option>
-        <option value="pendiente">Poner en pendiente</option>
+        <option value="rechazada">Rechazar cuenta</option>
       </select>
     </div>
     <input type="hidden" name="id_usuario" value="<?= $id_usuario ?>">
@@ -53,7 +72,29 @@ if (isset($_GET['id'])) {
 <footer class="footer mt-auto py-3 bg-body-tertiary">
   <?php include '../footer.php'; ?>
 </footer>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('estadoForm');
+  const selectEstado = document.getElementById('nuevo_estado');
+  const rejectModal = new bootstrap.Modal(document.getElementById('confirmRejectModal'));
+  const confirmRejectBtn = document.getElementById('confirmRejectBtn');
+
+  form.addEventListener('submit', function(e) {
+    // Si selecciona "rechazada", mostramos modal y detenemos envío
+    if (selectEstado.value === 'rechazada') {
+      e.preventDefault(); 
+      rejectModal.show();
+    }
+  });
+
+  // Si confirma en el modal, enviamos el formulario realmente
+  confirmRejectBtn.addEventListener('click', () => {
+    rejectModal.hide();
+    form.submit();
+  });
+});
+</script>
 </body>
 </html>
