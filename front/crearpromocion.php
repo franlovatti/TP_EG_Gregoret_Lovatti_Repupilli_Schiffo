@@ -78,12 +78,24 @@
 
 <?php
 require_once '../conexion.php';
-$query = "SELECT * FROM promocion";
-$resultado = mysqli_query($conexion, $query);
-if (!$resultado) {
-    die("Error en la consulta: " . mysqli_error($conexion));
+if(isset($_SESSION['idUsuario'])){
+  $id_usuario=$_SESSION['idUsuario'];
+  $query1 = "SELECT * from local WHERE id_usuario = $id_usuario";
+  $resultado1 = mysqli_query($conexion, $query1);
+  if ($resultado1 && mysqli_num_rows($resultado1) > 0) {
+    $fila1 = mysqli_fetch_assoc($resultado1);
+    $id_local=$fila1["id_local"];}
+  else {
+    echo "<div class='alert alert-info text-center my-5'>No se encontró ningún local asociado a tu cuenta.</div>";}
+  
+  $query = "SELECT * FROM promocion WHERE id_local=$id_local";
+  $resultado = mysqli_query($conexion, $query);
+  if (!$resultado) {
+      die("Error en la consulta: " . mysqli_error($conexion));
+  }
+} else {
+  echo "<div class='alert alert-info text-center my-5'>No se encontró ningún dueño asociado a tu cuenta.</div>";
 }
-
 
 if (isset($_POST["estado"])){
     while ($fila = mysqli_fetch_assoc($resultado)) {
