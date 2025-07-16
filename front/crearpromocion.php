@@ -59,7 +59,8 @@
         <div class="input-group">
           <select class="form-select" name="estado" id="estado" required>
             <option value="pendiente">Promociones pendientes</option>
-            <option value="activo">Promociones activas</option>
+            <option value="activa">Promociones activas</option>
+            <option value="rechazada">Promociones rechazadas</option>
           </select>
           <button class="btn btn-primary" type="submit">
             <i class="bi bi-search"></i>

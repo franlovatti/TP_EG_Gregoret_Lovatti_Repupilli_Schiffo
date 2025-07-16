@@ -21,7 +21,7 @@
       font-size: 0.9rem;
     }
     .texto-destacado {
-    color: #e91e63; /* rosa intenso como ejemplo */
+    color: #e91e63; 
     font-weight: bold;
     }
   </style>
@@ -42,7 +42,7 @@ if (!$resultado) {
 }
 
 echo "<table class='table table-bordered'>";
-echo "<thead><tr><th>ID</th><th>Email</th><th>Estado</th><th>Acciones</th></tr></thead>";
+echo "<thead><tr><th>id_dueño</th><th>Email</th><th>Estado</th><th>Acciones</th></tr></thead>";
 echo "<tbody>";
 
 while ($fila = mysqli_fetch_assoc($resultado)) {

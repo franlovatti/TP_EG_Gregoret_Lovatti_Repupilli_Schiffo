@@ -57,11 +57,11 @@ else {
     </div>
     <div class="mb-3">
         <label for="fecha_desde" class="form-label">Fecha desde</label>
-        <input type="text" name="fecha_desde" id="fecha_desde" class="form-control" required>
+        <input type="date" name="fecha_desde" id="fecha_desde" class="form-control" required>
     </div>
     <div class="mb-3">
         <label for="fecha_hasta" class="form-label">fecha_hasta</label>
-        <input type="text" name="fecha_hasta" id="fecha_hasta" class="form-control" required>
+        <input type="date" name="fecha_hasta" id="fecha_hasta" class="form-control" required>
     </div>
     <div class="mb-3">
         <label for="categoria" class="form-label">Categoría de promoción:</label>

@@ -49,7 +49,7 @@ if ($tipoUsuario == 'cliente') {
     <a href="" class="nav-link px-2 text-body-secondary">Solicitudes usuario</a>
   </li>
   <li class="nav-item">
-    <a href="" class="nav-link px-2 text-body-secondary">Solicitudes promociones</a>
+    <a href="aprobarpromocion.php" class="nav-link px-2 text-body-secondary">Solicitudes promociones</a>
   </li>
   <li class="nav-item">
     <a href="" class="nav-link px-2 text-body-secondary">Locales</a>
