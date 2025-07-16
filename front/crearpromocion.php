@@ -84,67 +84,74 @@ if(isset($_SESSION['idUsuario'])){
   $resultado1 = mysqli_query($conexion, $query1);
   if ($resultado1 && mysqli_num_rows($resultado1) > 0) {
     $fila1 = mysqli_fetch_assoc($resultado1);
-    $id_local=$fila1["id_local"];}
-  else {
+    $id_local=$fila1["id_local"];
+    $query = "SELECT * FROM promocion WHERE id_local=$id_local";
+    $resultado = mysqli_query($conexion, $query);
+    if (!$resultado) {
+      die("Error en la consulta: " . mysqli_error($conexion));
+    }
+
+          if (isset($_POST["estado"])){
+          while ($fila = mysqli_fetch_assoc($resultado)) {
+              if($fila['estado']==$_POST["estado"]){
+                  if(!isset($bandera)){
+                      echo "<table class='table table-bordered'>";
+                      echo "<thead><tr><th>Descripción</th><th>Fecha desde</th><th>Fecha hasta</th><th>Categoría</th><th>Cant usos</th><th>Estado</th></tr></thead>";
+                      echo "<tbody>";
+                  }
+                  echo "<tr>";
+                  echo "<td>" . $fila['descripcion'] . "</td>";
+                  echo "<td>" . $fila['fecha_desde'] . "</td>";
+                  echo "<td>" . $fila['fecha_hasta'] . "</td>";
+                  echo "<td>" . $fila['categoria'] . "</td>";
+                  echo "<td> falta ver </td>";
+                  echo "<td>" . $fila['estado'] . "</td>";
+                  echo '<td><a href="#" class="btn btn-danger btn-sm" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#confirmDeleteModal" 
+                  data-id="' . $fila['id_promocion'] . '">Eliminar promoción</a></td>';
+                  echo "</tr>";
+                  $bandera=1;
+              }
+          }
+          echo "</tbody></table>";
+          if(!isset($bandera)){
+              echo "<p class='text-center text-danger mt-3'>NO HAY PROMOCIONES CON ESTADO: ". $_POST["estado"].  "</p>";
+          }
+      }
+      else {
+              echo "<table class='table table-bordered'>";
+              echo "<thead><tr><th>Descripción</th><th>Fecha desde</th><th>Fecha hasta</th><th>Categoría</th><th>Cant usos</th><th>Estado</th></tr></thead>";
+              echo "<tbody>";
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                  echo "<tr>";
+                  echo "<td>" . $fila['descripcion'] . "</td>";
+                  echo "<td>" . $fila['fecha_desde'] . "</td>";
+                  echo "<td>" . $fila['fecha_hasta'] . "</td>";
+                  echo "<td>" . $fila['categoria'] . "</td>";
+                  echo "<td> falta ver </td>";
+                  echo "<td>" . $fila['estado'] . "</td>";
+                  echo '<td><a href="#" class="btn btn-danger btn-sm" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#confirmDeleteModal" 
+                  data-id="' . $fila['id_promocion'] . '">Eliminar promoción</a></td>';
+                  echo "</tr>";
+          }
+          echo "</tbody></table>";
+      } 
+
+
+
+
+
+  }else {
     echo "<div class='alert alert-info text-center my-5'>No se encontró ningún local asociado a tu cuenta.</div>";}
   
-  $query = "SELECT * FROM promocion WHERE id_local=$id_local";
-  $resultado = mysqli_query($conexion, $query);
-  if (!$resultado) {
-      die("Error en la consulta: " . mysqli_error($conexion));
-  }
-} else {
-  echo "<div class='alert alert-info text-center my-5'>No se encontró ningún dueño asociado a tu cuenta.</div>";
-}
-
-if (isset($_POST["estado"])){
-    while ($fila = mysqli_fetch_assoc($resultado)) {
-        if($fila['estado']==$_POST["estado"]){
-            if(!isset($bandera)){
-                echo "<table class='table table-bordered'>";
-                echo "<thead><tr><th>Descripción</th><th>Fecha desde</th><th>Fecha hasta</th><th>Categoría</th><th>Cant usos</th><th>Estado</th></tr></thead>";
-                echo "<tbody>";
-            }
-            echo "<tr>";
-            echo "<td>" . $fila['descripcion'] . "</td>";
-            echo "<td>" . $fila['fecha_desde'] . "</td>";
-            echo "<td>" . $fila['fecha_hasta'] . "</td>";
-            echo "<td>" . $fila['categoria'] . "</td>";
-            echo "<td> falta ver </td>";
-            echo "<td>" . $fila['estado'] . "</td>";
-            echo '<td><a href="#" class="btn btn-danger btn-sm" 
-            data-bs-toggle="modal" 
-            data-bs-target="#confirmDeleteModal" 
-            data-id="' . $fila['id_promocion'] . '">Eliminar promoción</a></td>';
-            echo "</tr>";
-            $bandera=1;
-        }
-    }
-    echo "</tbody></table>";
-    if(!isset($bandera)){
-        echo "<p class='text-center text-danger mt-3'>NO HAY PROMOCIONES CON ESTADO: ". $_POST["estado"].  "</p>";
-    }
 }
 else {
-        echo "<table class='table table-bordered'>";
-        echo "<thead><tr><th>Descripción</th><th>Fecha desde</th><th>Fecha hasta</th><th>Categoría</th><th>Cant usos</th><th>Estado</th></tr></thead>";
-        echo "<tbody>";
-       while ($fila = mysqli_fetch_assoc($resultado)) {
-            echo "<tr>";
-            echo "<td>" . $fila['descripcion'] . "</td>";
-            echo "<td>" . $fila['fecha_desde'] . "</td>";
-            echo "<td>" . $fila['fecha_hasta'] . "</td>";
-            echo "<td>" . $fila['categoria'] . "</td>";
-            echo "<td> falta ver </td>";
-            echo "<td>" . $fila['estado'] . "</td>";
-            echo '<td><a href="#" class="btn btn-danger btn-sm" 
-            data-bs-toggle="modal" 
-            data-bs-target="#confirmDeleteModal" 
-            data-id="' . $fila['id_promocion'] . '">Eliminar promoción</a></td>';
-            echo "</tr>";
-    }
-    echo "</tbody></table>";
-} 
+echo "<div class='alert alert-info text-center my-5'>No se encontró ningún dueño asociado a tu cuenta.</div>";
+}
+
 mysqli_close($conexion);
 ?>
 <footer class="footer mt-auto py-3 bg-body-tertiary">
