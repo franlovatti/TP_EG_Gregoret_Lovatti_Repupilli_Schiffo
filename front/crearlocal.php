@@ -77,7 +77,7 @@
 
 <?php
 require_once '../conexion.php';
-$query = "SELECT * FROM local";
+$query = "SELECT * FROM local where estado='activo'";
 $resultado = mysqli_query($conexion, $query);
 if (!$resultado) {
     die("Error en la consulta: " . mysqli_error($conexion));
