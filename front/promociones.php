@@ -31,15 +31,16 @@
     cursor: pointer;
     }
     .card{
-      max-height: 260px; /* Ajusta la altura máxima de la tarjeta */
-      max-width: 340px; /* Ajusta el ancho máximo de la tarjeta */
+      height: 260px; /* Ajusta la altura máxima de la tarjeta */
+      width: 340px; /* Ajusta el ancho máximo de la tarjeta */
+      min-width: 340px;
+      max-width: 340px;
     }
     .card-img-custom {
-    max-height: 130px;      /* Cambia el valor según lo que necesites */
-    max-width: 340px;
+    height: 130px;      /* Cambia el valor según lo que necesites */
+    width: 100%;
     object-fit: cover;      /* Recorta la imagen para llenar el área */
     object-position: center;/* Centra el recorte */
-    width: 100%;
     }
   </style>
 </head>
@@ -84,105 +85,45 @@
   </div>
 
   <!--Tarjetas-->
+  <?php
+    require_once '../conexion.php';
+    global $conexion;
+    error_reporting(E_ERROR | E_PARSE); // Muestra solo errores fatales y errores de análisis
+    ini_set('display_errors', 0);       // No mostrar errores al usuario
+    global $recuperar_error;
+    
+    $query = "SELECT p.descripcion, p.fecha_desde, p.fecha_hasta, 
+                    p.lunes, p.martes, p.miercoles, p.jueves, p.viernes, p.sabado, p.domingo, p.imagen_prom,
+                    loc.nombre_local
+             FROM promocion p 
+             INNER JOIN local loc ON p.id_local = loc.id_local
+             WHERE fecha_hasta >= CURDATE() AND fecha_desde <= CURDATE() AND estado = 'activa'";
+    $result = mysqli_query($conexion, $query) or die("Hubo un error con la transacción: " . mysqli_error($conexion));
+    //mysqli_close($conexion);
+  ?>
   <div class="my-4 container-fluid d-flex justify-content-center align-items-center">
-    <div class="row row-cols-1 row-cols-md-4 g-0 align-items-stretch">
-      <!--Tarjeta 1-->
-      <div class="col d-flex justify-content-center">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-0 align-items-stretch">
+      <?php
+      if ($result && $result->num_rows > 0) {
+          while($row = $result->fetch_assoc()) {
+          $finfo = new finfo(FILEINFO_MIME_TYPE);
+          $mime = $finfo->buffer($row['imagen_prom']);
+      ?>
+      <div class="col d-flex justify-content-center align-items-stretch">
         <div class="card mb-3">
-          <img src="imagenes/promocion.jpg" class="card-img-top card-img-custom" alt="...">
+          <img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($row['imagen_prom']); ?>" class="card-img-top card-img-custom" alt="Promoción">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below.</p>
+            <h5><?php echo htmlspecialchars($row['nombre_local']); ?></h5>
+            <p class="card-text"><?php echo htmlspecialchars($row['descripcion']); ?></p>
           </div>
         </div>
       </div>
-      <!--Tarjeta 2-->
-      <div class="col d-flex justify-content-center">
-        <div class="card mb-3">
-          <img src="imagenes/promocion.jpg" class="card-img-top card-img-custom" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
-              This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-      <!--Tarjeta 3-->
-      <div class="col d-flex justify-content-center">
-        <div class="card mb-3">
-          <img src="imagenes/promocion.jpg" class="card-img-top card-img-custom" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
-              This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col d-flex justify-content-center">
-        <div class="card mb-3">
-          <img src="imagenes/promocion.jpg" class="card-img-top card-img-custom" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
-              This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col d-flex justify-content-center">
-        <div class="card mb-3">
-          <img src="imagenes/promocion.jpg" class="card-img-top card-img-custom" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
-              This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col d-flex justify-content-center">
-        <div class="card mb-3">
-          <img src="imagenes/promocion.jpg" class="card-img-top card-img-custom" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
-              This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col d-flex justify-content-center">
-        <div class="card mb-3">
-          <img src="imagenes/promocion.jpg" class="card-img-top card-img-custom" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
-              This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col d-flex justify-content-center">
-        <div class="card mb-3">
-          <img src="imagenes/promocion.jpg" class="card-img-top card-img-custom" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
-              This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- <div class="col d-flex justify-content-center">
-        <div class="card h-100 w-75 bg-body-tertiary">
-          <img src="imagenes/home.png" class="card-img-top" alt="...">
-          <div class="card-body d-flex flex-column h-100">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Texto de prueba adicional.</p>
-          </div>
-        </div>
-      </div>-->
+      <?php
+          }
+      } else {
+          echo "<p>No hay promociones disponibles.</p>";
+      }
+      ?>
     </div>
   </div>
 
@@ -290,3 +231,20 @@
   <?php }; ?>
 </body>
 </html>
+
+ <p class="card-text"><small class="text-muted"><b>Desde:</b> <?php echo htmlspecialchars($row['fecha_desde']); ?></small></p>
+          <p class="card-text"><small class="text-muted"><b>Hasta:</b> <?php echo htmlspecialchars($row['fecha_hasta']); ?></small></p>
+          <p class="card-text">
+            <small class="text-muted">Días disponibles: 
+              <?php
+                $dias = [];
+                if ($row['lunes']) $dias[] = 'Lunes';
+                if ($row['martes']) $dias[] = 'Martes';
+                if ($row['miercoles']) $dias[] = 'Miércoles';
+                if ($row['jueves']) $dias[] = 'Jueves';
+                if ($row['viernes']) $dias[] = 'Viernes';
+                if ($row['sabado']) $dias[] = 'Sábado';
+                if ($row['domingo']) $dias[] = 'Domingo';
+                echo implode(', ', $dias);
+              ?>
+            </small>
