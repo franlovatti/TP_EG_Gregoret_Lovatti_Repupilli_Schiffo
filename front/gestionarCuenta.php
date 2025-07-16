@@ -1,5 +1,7 @@
 <?php
 require_once '../conexion.php';
+echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $id_usuario = intval($_POST['id_usuario']);
   $nuevo_estado = $_POST['nuevo_estado'];
@@ -8,11 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($nuevo_estado === 'rechazada') {
     //Verificar si tiene locales asociados
-    $checkLocales = mysqli_query($conexion, "SELECT COUNT(*) as total FROM local WHERE id_usuario = $id_usuario");
+    $checkLocales = mysqli_query($conexion, "SELECT COUNT(*) as total FROM local WHERE id_usuario = $id_usuario AND estado='activo'");
     $data = mysqli_fetch_assoc($checkLocales);
 
       if ($data['total'] > 0) {
-          // No se puede eliminar
           echo "<div class='alert alert-warning text-center'>
                   No se puede eliminar la cuenta porque tiene local asociado.<br>
                   Debe eliminarlos primero antes de rechazar la cuenta.

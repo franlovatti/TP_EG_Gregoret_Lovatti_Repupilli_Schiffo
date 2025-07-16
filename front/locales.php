@@ -13,121 +13,102 @@
     <header class="p-3 text-bg-dark">
       <?php include '../header.php'; ?>
     </header>
-    <!-- Contenido principal -->
-    <div class="container-fluid my-4">
-      <div class="container w-75">
-        <div class="row align-items-center gy-1">
-          <div class="col-lg-9 col-12 ">
-            <form class="d-flex" method="post" action="">
-              <div class="input-group">
-                <input
-                  name="Buscar"
-                  type="text"
-                  class="form-control"
-                  placeholder="Buscar"
-                />
-                <button class="btn btn-primary" type="submit">
-                  <i class="bi bi-search"></i>
-                </button>
-              </div>
-            </form>
+<main class="d-flex flex-column flex-grow-1">
+<div class="container my-4">
+  <div class="card shadow-sm border-0">
+    <div class="card-body">
+      <div class="row g-3 align-items-center">
+        <!-- Buscador -->
+        <div class="col-12 col-md-8">
+          <form method="post" action="" class="d-flex">
+            <div class="input-group">
+              <input name="Buscar" type="text" class="form-control" placeholder="Buscar">
+              <button class="btn btn-primary" type="submit">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  
+
+<?php
+require_once '../conexion.php'; 
+$query="SELECT * FROM local where estado='activo'";
+$resultado =mysqli_query($conexion, $query);
+if (!$resultado){
+    echo "<div class='alert alert-info text-center my-5'>No se encontró ningún local</div>";
+}
+else{
+  if(isset($_POST["Buscar"])){
+    while ($fila = mysqli_fetch_assoc($resultado)) {
+    if($_POST["Buscar"]==$fila["nombre_local"]){
+        $bandera=1; ?>
+          <div class="container my-3">
+      <div class="card shadow-sm border-0">
+        <div class="row g-0">
+          <!-- Imagen -->
+          <div class="col-12 col-md-3 d-flex justify-content-center align-items-center p-3">
+            <img src="imagenes/logo.png" class="img-fluid rounded" style="max-height:100px;" alt="Logo del local">
           </div>
-          <div class="col-12 col-lg-3">
-            <form method="post" action="">
-              <select
-                name="categoria"
-                class="form-select"
-                onchange="this.form.submit()"
-              >
-                <option selected>Categoria</option>
-                <option value="1">Categoria 1</option>
-                <option value="2">Categoria 2</option>
-                <option value="3">Categoria 3</option>
-              </select>
-            </form>
+
+          <!-- Datos -->
+          <div class="col-12 col-md-9">
+            <div class="card-body">
+              <h5 class="card-title"><?= htmlspecialchars($fila['nombre_local']) ?></h5>
+              <p class="mb-1"><strong>Nro Local:</strong> <?= htmlspecialchars($fila['id_local']) ?></p>
+              <p class="mb-1"><strong>Ubicación:</strong> <?= htmlspecialchars($fila['ubicacion']) ?></p>
+              <p class="mb-2"><strong>Rubro:</strong> <?= htmlspecialchars($fila['rubro']) ?></p>
+              <a href="#" class="btn btn-primary btn-sm">Ver promociones</a>
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="container w-75 my-4">
-      <?php for($i=0;$i<=2;$i++){
-
-?>  
-      <div class="row mb-3 g-3">
-          
-        
-        <div class="col-12 col-lg-6">
-            <div class="card h-100">
-              <div class="row h-100">
-                <div class="col-12 col-sm-4 d-flex flex-column flex-sm-row ">
-                  <img
-                    src="imagenes\logo.png"
-                    class="img-fluid h-100 w-100 object-fit-cover rounded-start"
-                    alt="Imagen"
-                  />
+    </div><?php }
+ } 
+  if (!isset($bandera)){
+    echo "<div class='alert alert-warning text-center'>
+                  NO EXISTE LOCAL CON ESE NOMBRE
+                </div>";}}
+  else{
+      while ($fila = mysqli_fetch_assoc($resultado)) { ?>  
+      <div class="container my-3">
+            <div class="card shadow-sm border-0">
+              <div class="row g-0">
+                <!-- Imagen -->
+                <div class="col-12 col-md-3 d-flex justify-content-center align-items-center p-3">
+                  <img src="imagenes/logo.png" class="img-fluid rounded" style="max-height:100px;" alt="Logo del local">
                 </div>
-                <div class="col-12 col-sm-8 d-flex flex-column flex-sm-row">
-                  <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Nombre local</h5>
-                    <p class="card-text">Numero local </p>
-                    <p class="card-text">Ubicacion</p>
-                    <a href="" class="btn btn-primary mt-1"
-                      >Ver promociones</a
-                    >
+
+                <!-- Datos -->
+                <div class="col-12 col-md-9">
+                  <div class="card-body">
+                    <h5 class="card-title"><?= htmlspecialchars($fila['nombre_local']) ?></h5>
+                    <p class="mb-1"><strong>Nro Local:</strong> <?= htmlspecialchars($fila['id_local']) ?></p>
+                    <p class="mb-1"><strong>Ubicación:</strong> <?= htmlspecialchars($fila['ubicacion']) ?></p>
+                    <p class="mb-2"><strong>Rubro:</strong> <?= htmlspecialchars($fila['rubro']) ?></p>
+                    <a href="#" class="btn btn-primary btn-sm">Ver promociones</a>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-12 col-lg-6">
-            <div class="card h-100">
-              <div class="row h-100">
-                <div class="col-12 col-sm-4 d-flex flex-column flex-sm-row">
-                  <img
-                    src="imagenes\images (1).png"
-                    class="img-fluid   object-fit-cover rounded-start"
-                    alt="Imagen"
-                    
-                  />
-                </div>
-                <div class="col-12 col-sm-8 d-flex flex-column flex-sm-row">
-                  <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">Nombre local</h5>
-                    <p class="card-text">Numero local </p>
-                    <p class="card-text">Ubicacion</p>
-                    <a href="" class="btn btn-primary mt-1"
-                      >Ver promociones</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-      </div>
-      <?php }?>
-      </div>
-
-      
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-
+          </div> <?php } 
+  } 
+} ?>
+<div class="container mt-auto my-4">
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+    </ul>
+  </nav>
+</div>
+</main>
     <footer class="footer mt-auto py-3 bg-body-tertiary">
       <?php include '../footer.php'; ?>
     </footer>
