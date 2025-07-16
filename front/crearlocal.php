@@ -28,9 +28,11 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 
+
 <header class="p-3 text-bg-dark">
   <?php include '../header.php'; ?>
 </header>
+<?php include '../modals/modalEditarLocal.php'; ?>
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -99,8 +101,15 @@ if (isset($_POST["Buscar"])){
             echo '<td><a href="#" class="btn btn-danger btn-sm" 
             data-bs-toggle="modal" 
             data-bs-target="#confirmDeleteModal" 
-            data-id="' . $fila['id_local'] . '">Eliminar local</a></td>';
+            data-id="' . $fila['id_local'] . '">Eliminar local</a>';
+            echo '<button type="button" class=" ms-2 btn btn-primary btn-sm" data-id="' .$fila['id_local'].'"
+        data-nombre="' . $fila['nombre_local'] . '"
+            data-ubicacion="' . $fila['ubicacion'] . '"
+            data-rubro="' . $fila['rubro'] . '"
+            data-usuario="' . $fila['id_usuario'] . '"
+            data-desc="' . $fila['descripcion'] . '" data-bs-toggle="modal" data-bs-target="#modalEditarLocal">Editar local</button></td>';
             echo "</tr>";
+            
         }
     }
     echo "</tbody></table>";
@@ -120,11 +129,17 @@ else {
         echo "<td>" . $fila['rubro'] . "</td>";
         echo "<td>" . $fila['id_usuario'] . "</td>";
         echo "<td>" . $fila['descripcion'] . "</td>";
-        echo '<td><a href="#" class="btn btn-danger btn-sm" 
+        echo '<td><a href="#" class="btn btn-danger btn-sm " 
             data-bs-toggle="modal" 
             data-bs-target="#confirmDeleteModal" 
-            data-id="' . $fila['id_local'] . '">Eliminar local</a></td>';
-        echo "</tr>";
+            data-id="' . $fila['id_local'] . '">Eliminar local</a>';
+        echo '<button type="button" class=" ms-2 btn btn-primary btn-sm" data-id="' .$fila['id_local'].'"
+        data-nombre="' . $fila['nombre_local'] . '"
+            data-ubicacion="' . $fila['ubicacion'] . '"
+            data-rubro="' . $fila['rubro'] . '"
+            data-usuario="' . $fila['id_usuario'] . '"
+            data-desc="' . $fila['descripcion'] . '" data-bs-toggle="modal" data-bs-target="#modalEditarLocal">Editar local</button></td>';
+            echo "</tr>";
     }
     echo "</tbody></table>";
 } 
@@ -143,6 +158,29 @@ mysqli_close($conexion);
     const confirmBtn = document.getElementById('confirmDeleteBtn');
     confirmBtn.href = 'eliminarlocal.php?id=' + idLocal;
   });
+
+  const modalEditarModal=document.getElementById('modalEditarLocal');
+  modalEditarLocal.addEventListener('show.bs.modal',function (event){
+    const button=event.relatedTarget;
+    const idLocal=button.getAttribute('data-id');
+    const nombre=button.getAttribute('data-nombre');
+    const ubicacion=button.getAttribute('data-ubicacion');
+    const rubro=button.getAttribute('data-rubro');
+    const idUsuario=button.getAttribute('data-usuario');
+    const descripcion=button.getAttribute('data-desc');
+    
+    
+
+    document.getElementById("modal-id").value = idLocal;
+    document.getElementById("modal-nombre").value = nombre;
+    document.getElementById("modal-ubicacion").value = ubicacion;
+    document.getElementById("modal-rubro").value = rubro;
+    document.getElementById("modal-usuario").value = idUsuario;
+    document.getElementById("modal-desc").value = descripcion;
+    
+  });
+  
+
 </script>
 </body>
 </html>
