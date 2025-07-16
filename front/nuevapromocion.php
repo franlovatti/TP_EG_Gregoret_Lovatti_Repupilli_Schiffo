@@ -46,7 +46,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
     <div class="container my-5">
     <H4>Crear un nueva promoción:</H4>
 
-        <form method="post" action="gestionarnuevapromocion.php" class="p-3 border rounded shadow-sm">
+        <form method="post" action="gestionarnuevapromocion.php" class="p-3 border rounded shadow-sm" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="descripcion" class="form-label">Descripción</label>
             <input type="text" name="descripcion" id="descripcion" class="form-control" required>
@@ -56,7 +56,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
             <input type="date" name="fecha_desde" id="fecha_desde" class="form-control" required>
         </div>
         <div class="mb-3">
-            <label for="fecha_hasta" class="form-label">fecha_hasta</label>
+            <label for="fecha_hasta" class="form-label">Fecha_hasta</label>
             <input type="date" name="fecha_hasta" id="fecha_hasta" class="form-control" required>
         </div>
         <div class="mb-3">
@@ -117,21 +117,20 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
             </select>
         </div>
         <input type="hidden" name="id_local" value="<?= $id_local ?>">
+        <div class="mb-3">
+            <label for="imagen" class="form-label">Imagen de la promoción:</label>
+            <input type="file" name="imagen_prom" id="imagen_prom" accept="image/*" class="form-control"  required>
+        </div>
+        <input type="hidden" name="estado" value="pendiente">
         <div class="d-grid">
             <button type="submit" name="crear_promocion" class="btn btn-primary">Crear promoción</button>
         </div>
         </form>
     </div>
     
-
-
-
-
-
 <?php }else {
     echo "<div class='alert alert-info text-center my-5'>Hay un problema con el id del dueño</div>";
 }
-mysqli_close($conexion);
 ?>
 
 <footer class="footer mt-auto py-3 bg-body-tertiary">
