@@ -7,6 +7,7 @@
     <title>Acerca del shopping</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <style>
       .carousel-inner {
         height: 450px;
@@ -27,6 +28,7 @@
           height: 200px; /* Igual que el contenedor */
         }
       }
+    #map { height: 500px; }
     </style>
   </head>
 
@@ -146,13 +148,14 @@
             Estamos ubicados en el corazón de la ciudad, con fácil acceso y
             estacionamiento disponible.
           </p>
-          <div class="text-center">
+          <!-- <div class="text-center">
             <img
               src="imagenes/mapa.png"
               alt="Mapa de ubicación"
               class="img-fluid"
             />
-          </div>
+          </div> -->
+          <div id="map"></div>
         </div>
       </div>
     </div>
@@ -215,5 +218,19 @@
         });
     </script>
     <?php }; ?>
+
+  <!-- Mapa -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var lat = -32.9275; 
+    var lng = -60.6683;
+    var map = L.map('map').setView([lat, lng], 16);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    L.marker([lat, lng]).addTo(map)
+       .bindPopup('Alto Rosario Shopping')
+       .openPopup();
+  </script>
   </body>
 </html>
