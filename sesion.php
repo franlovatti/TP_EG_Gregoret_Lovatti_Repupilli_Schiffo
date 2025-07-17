@@ -5,6 +5,8 @@ if (session_status() == PHP_SESSION_NONE) {
 include '../login.php';
 include '../signUp.php';
 include '../signUpD.php';
+include '../recuperar.php';
+date_default_timezone_set('America/Argentina/Buenos_Aires');
 
 $login_error = "";
 $signUp_error = "";
@@ -29,7 +31,6 @@ if (isset($_COOKIE['usuario']) && isset($_COOKIE['mantenerSesionIniciada']) && $
 } elseif (isset($_GET['token'])) {
   tokenClave();
 } elseif (isset($_POST['claveNueva']) && isset($_POST['claveNueva2'])) {
-  echo 'cambiar clave';
   cambiarClave();
 }
 ?>
