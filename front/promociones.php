@@ -222,6 +222,8 @@
   <?php include '../modals/modalSignUp.php'; ?>
   <!-- Modal de Registro -->
   <?php include '../modals/modalSignUpD.php'; ?>
+  <!-- Modal de Recuperar Contraseña -->
+  <?php include '../modals/modalRecuperar.php'; ?>
   <!-- sript login -->
   <?php if (!empty($login_error)){?>
   <script>
@@ -240,27 +242,36 @@
       });
   </script>
   <?php }; ?>
+  <!-- script recuperar_contrasena -->
+  <?php if (isset($_GET['recuperar']) || !empty($recuperar)){?>
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          var modal = new bootstrap.Modal(document.getElementById('recuperarModal'));
+          modal.show();
+      });
+  </script>
+  <?php }; ?>
 
-<!-- script Modal promociones -->
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  var promoModal = document.getElementById('promoModal');
-  promoModal.addEventListener('show.bs.modal', function (event) {
-    var card = event.relatedTarget;
-    document.getElementById('promoModalLabel').textContent = card.getAttribute('data-nombre');
-    document.getElementById('promoModalImg').src = card.getAttribute('data-imagen');
-    document.getElementById('promoModalDesc').textContent = card.getAttribute('data-descripcion');
-    document.getElementById('promoModalDesde').textContent = card.getAttribute('data-fecha-desde');
-    document.getElementById('promoModalHasta').textContent = card.getAttribute('data-fecha-hasta');
-    const dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
-    .map(dia => card.getAttribute('data-' + dia)) // obtenés el texto de cada día desde el atributo data
-    .filter(Boolean)                             // eliminás los que son null, undefined o string vacío
-    .join(', ');                                  // los unís con coma y espacio
-    document.getElementById('promoModalDias').textContent = dias;
+  <!-- script Modal promociones -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var promoModal = document.getElementById('promoModal');
+    promoModal.addEventListener('show.bs.modal', function (event) {
+      var card = event.relatedTarget;
+      document.getElementById('promoModalLabel').textContent = card.getAttribute('data-nombre');
+      document.getElementById('promoModalImg').src = card.getAttribute('data-imagen');
+      document.getElementById('promoModalDesc').textContent = card.getAttribute('data-descripcion');
+      document.getElementById('promoModalDesde').textContent = card.getAttribute('data-fecha-desde');
+      document.getElementById('promoModalHasta').textContent = card.getAttribute('data-fecha-hasta');
+      const dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
+      .map(dia => card.getAttribute('data-' + dia)) // obtenés el texto de cada día desde el atributo data
+      .filter(Boolean)                             // eliminás los que son null, undefined o string vacío
+      .join(', ');                                  // los unís con coma y espacio
+      document.getElementById('promoModalDias').textContent = dias;
 
+    });
   });
-});
-</script>
+  </script>
 
 </body>
 </html>

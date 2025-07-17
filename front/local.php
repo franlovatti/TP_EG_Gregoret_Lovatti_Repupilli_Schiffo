@@ -243,6 +243,8 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
   <?php include '../modals/modalSignUp.php'; ?>
   <!-- Modal de Registro -->
   <?php include '../modals/modalSignUpD.php'; ?>
+  <!-- Modal de Recuperar Contraseña -->
+  <?php include '../modals/modalRecuperar.php'; ?>
   <!-- sript login -->
   <?php if (!empty($login_error)){?>
   <script>
@@ -257,6 +259,15 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
   <script>
       document.addEventListener('DOMContentLoaded', function () {
           var modal = new bootstrap.Modal(document.getElementById('registroModal'));
+          modal.show();
+      });
+  </script>
+  <?php }; ?>
+  <!-- script recuperar_contrasena -->
+  <?php if (isset($_GET['recuperar']) || !empty($recuperar)){?>
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          var modal = new bootstrap.Modal(document.getElementById('recuperarModal'));
           modal.show();
       });
   </script>

@@ -23,6 +23,9 @@
           <?php if (!empty($login_error)){ ?>
             <div class="alert alert-danger"><?= $login_error ?></div>
           <?php }; ?>
+          <div class="mb-3">
+            <small><a href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#recuperarModal">¿Olvidaste tu contraseña?</a></small>
+          </div>
           <div class="d-grid gap-2">
             <button type="submit" class="btn btn-primary">Ingresar</button>
           </div>

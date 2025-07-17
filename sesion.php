@@ -8,6 +8,8 @@ include '../signUpD.php';
 
 $login_error = "";
 $signUp_error = "";
+$recuperar = "";
+$cambiar_error = "";
 if (isset($_COOKIE['usuario']) && isset($_COOKIE['mantenerSesionIniciada']) && $_COOKIE['mantenerSesionIniciada'] === 'si' && !isset($_SESSION['usuario']) && empty($_SESSION['cerrarSesion'])) {
   $_SESSION['usuario'] = $_COOKIE['usuario'];
   $_SESSION['tipoUsuario'] = $_COOKIE['tipoUsuario'];
@@ -22,5 +24,12 @@ if (isset($_COOKIE['usuario']) && isset($_COOKIE['mantenerSesionIniciada']) && $
   signUpD();
 } elseif (isset($_POST['correo']) && isset($_POST['clave']) && isset($_POST['clave2'])) {
   signUp();
+} elseif (isset($_POST['correoRecuperar'])){
+  recuperar();
+} elseif (isset($_GET['token'])) {
+  tokenClave();
+} elseif (isset($_POST['claveNueva']) && isset($_POST['claveNueva2'])) {
+  echo 'cambiar clave';
+  cambiarClave();
 }
 ?>

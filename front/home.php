@@ -97,6 +97,12 @@
     <?php include '../modals/modalSignUp.php'; ?>
     <!-- Modal de Registro -->
     <?php include '../modals/modalSignUpD.php'; ?>
+    <!-- Modal de Recuperar Contraseña -->
+    <?php include '../modals/modalRecuperar.php'; ?>
+    <!-- Modal de Cambiar Contraseña -->
+    <?php include '../modals/modalCambiarClave.php'; ?>
+    <!-- Modal de Token -->
+    <?php include '../modals/modalToken.php'; ?>
     <!-- sript login -->
     <?php if (!empty($login_error)){?>
     <script>
@@ -115,5 +121,32 @@
         });
     </script>
     <?php }; ?>
+    <!-- script recuperar_contrasena -->
+    <?php if (isset($_GET['recuperar']) || !empty($recuperar)){?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modal = new bootstrap.Modal(document.getElementById('recuperarModal'));
+            modal.show();
+        });
+    </script>
+    <?php }; ?>
+    <!-- script cambiar clave -->
+    <?php if (!empty($cambiar_error) || $token_resultado == '1'){?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modal = new bootstrap.Modal(document.getElementById('cambiarClaveModal'));
+            modal.show();
+        });
+    </script>
+    <?php }; ?>
+    <!-- script token -->
+    <?php if ($token_resultado == '0'){?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modal = new bootstrap.Modal(document.getElementById('tokenModal'));
+            modal.show();
+        });
+    </script>
+    <?php } ?>
   </body>
 </html>
