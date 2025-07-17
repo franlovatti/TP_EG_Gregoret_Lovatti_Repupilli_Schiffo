@@ -38,6 +38,7 @@
 
       <div class="container w-75 my-4">
       <?php 
+      //Paginacion
       $cantPorPagina=6;
       $pagina=isset($_GET["pagina"])?$_GET["pagina"]:null;
       if(!$pagina){
@@ -65,32 +66,33 @@
             if($_POST["Buscar"]==$fila["nombre_local"]){
               $finfo=new finfo(FILEINFO_MIME_TYPE);
               $mime=$finfo->buffer($fila['imagen_local']);
-        $bandera=1; ?>
-          <div class="container my-3">
-      <div class="card shadow-sm border-0">
-        <div class="row g-0">
-          <!-- Imagen -->
-          <div class="col-12 col-md-3 d-flex justify-content-center align-items-center p-3">
-            <img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($fila['imagen_local']); ?>" class="img-fluid rounded" style="max-height:100px;" alt="Logo del local">
-          </div>
-          <!-- Datos -->
-          <div class="col-12 col-md-9">
-            <div class="card-body">
-              <h5 class="card-title"><?= htmlspecialchars($fila['nombre_local']) ?></h5>
-              <p class="mb-1"><strong>Nro Local:</strong> <?= htmlspecialchars($fila['id_local']) ?></p>
-              <p class="mb-1"><strong>Ubicación:</strong> <?= htmlspecialchars($fila['ubicacion']) ?></p>
-              <p class="mb-2"><strong>Rubro:</strong> <?= htmlspecialchars($fila['rubro']) ?></p>
-              <a href="#" class="btn btn-primary btn-sm">Ver promociones</a>
+              $bandera=1; ?>
+              <div class="container my-3">
+                <div class="card shadow-sm border-0">
+                  <div class="row g-0">
+                    <!-- Imagen -->
+                    <div class="col-12 col-md-3 d-flex justify-content-center align-items-center p-3">
+                      <img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($fila['imagen_local']); ?>" class="img-fluid rounded" style="max-height:100px;" alt="Logo del local">
+                    </div>
+                    <!-- Datos -->
+                    <div class="col-12 col-md-9">
+                      <div class="card-body">
+                        <h5 class="card-title"><?= htmlspecialchars($fila['nombre_local']) ?></h5>
+                        <p class="mb-1"><strong>Nro Local:</strong> <?= htmlspecialchars($fila['id_local']) ?></p>
+                        <p class="mb-1"><strong>Ubicación:</strong> <?= htmlspecialchars($fila['ubicacion']) ?></p>
+                        <p class="mb-2"><strong>Rubro:</strong> <?= htmlspecialchars($fila['rubro']) ?></p>
+                        <a href="#" class="btn btn-primary btn-sm">Ver promociones</a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                </div>
-              </div>
-            </div>
-                 </div> <?php } 
-  } if (!isset($bandera)){
-    echo "<div class='alert alert-warning text-center'>
-                  NO EXISTE LOCAL CON ESE NOMBRE
-                </div>";}
-}else{ 
+              </div> <?php 
+            } // llave del if buscar = descripcion
+          } if (!isset($bandera)){
+            echo "<div class='alert alert-warning text-center'>
+                          NO EXISTE LOCAL CON ESE NOMBRE
+                        </div>";}
+        }else{ 
          
       
       $vSQL="SELECT * FROM local where estado='activo' limit $inicio,$cantPorPagina";
@@ -138,7 +140,7 @@
                     <h5 class="card-title"><?= htmlspecialchars($fila['nombre_local']) ?></h5>
                     <p class="card-text">Numero local: <?= htmlspecialchars($fila['id_local']) ?> </p>
                     <p class="card-text">Ubicacion: <?= htmlspecialchars($fila['ubicacion']) ?></p>
-                    <p class="card-text">Rubro: <?=htmlspecialchars($fila['ubicacion'])?></p>
+                    <p class="card-text">Rubro: <?=htmlspecialchars($fila['rubro'])?></p>
                     <a href="" class="btn btn-primary mt-1"
                       >Ver promociones</a
                     >
@@ -173,7 +175,7 @@
                     <h5 class="card-title"><?= htmlspecialchars($fila['nombre_local']) ?></h5>
                     <p class="card-text">Numero local: <?= htmlspecialchars($fila['id_local']) ?> </p>
                     <p class="card-text">Ubicacion: <?= htmlspecialchars($fila['ubicacion']) ?></p>
-                    <p class="card-text">Rubro: <?=htmlspecialchars($fila['ubicacion'])?></p>
+                    <p class="card-text">Rubro: <?=htmlspecialchars($fila['rubro'])?></p>
                     <a href="" class="btn btn-primary mt-1"
                       >Ver promociones</a
                     >
