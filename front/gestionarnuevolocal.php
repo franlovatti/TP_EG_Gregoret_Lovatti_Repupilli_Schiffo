@@ -6,16 +6,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['crear-local'])) {
   $ubicacion = $_POST['ubicacion'];
   $rubro = $_POST['rubro'];
   $descripcion = $_POST['descripcion'];
+  $estado=$_POST['estado'];
 }
+$imagen_binaria=null;
+if (isset($_FILES['imagen_local']) && $_FILES['imagen_local']['error'] === UPLOAD_ERR_OK) {
+        $tmpPath = $_FILES['imagen_local']['tmp_name'];
+        $check = getimagesize($tmpPath);
+        if ($check !== false) {
+            $imagen_binaria = file_get_contents($tmpPath);
+        } else {
+            die("⚠️ El archivo no es una imagen válida.");
+        }
+    } else {
+        die("⚠️ No se pudo subir la imagen. Código de error: " . $_FILES['imagen_local']['error']);
+    }
 
-$query = "INSERT INTO local (nombre_local, ubicacion, rubro, id_usuario, descripcion)
-          VALUES ('$nombre_local', '$ubicacion', '$rubro', '$id_usuario', '$descripcion')";
-$resultado = mysqli_query($conexion, $query);
-  if ($resultado) {
-    header("Location:crearlocal.php");
-  } else {
-    echo "<div class='alert alert-danger text-center'>Error al crear el local: " . mysqli_error($conexion) . "</div>";
-  }
-
+$vSQL="INSERT INTO LOCAL (nombre_local, ubicacion, rubro, id_usuario, descripcion,imagen_local) VALUES (?,?,?,?,?,?)";
+$stmt=$conexion->prepare($vSQL);
+$null=NULL;
+$stmt->bind_param("sssisb",$nombre_local,$ubicacion,$rubro,$id_usuario,$descripcion,$null);
+$stmt->send_long_data(5,$imagen_binaria);
+if($stmt->execute()){
+    echo "✅ Local cargado exitosamente.";
+    header("Location: nuevolocal.php");
+    exit;
+}
+else{
+  echo "❌ Error: " . $stmt->error;
+}
+$stmt->close();
 mysqli_close($conexion);
+
+
 ?>

@@ -12,7 +12,7 @@ include '../conexion.php';
 $vSQL="SELECT * FROM usuario where tipo_usuario= 'dueño' AND estado ='activo'"; 
 $vResult=mysqli_query($conexion,$vSQL);
 ?>  
-    <form id="formEditarLocal" action="gestionarEdicionLocal.php" method="post">
+    <form id="formEditarLocal" action="gestionarEdicionLocal.php" method="post" enctype="multipart/form-data">
   <input type="hidden" name="id_local" id="modal-id">
 
   <div class="mb-3">
@@ -43,6 +43,11 @@ $vResult=mysqli_query($conexion,$vSQL);
     <label for="editLocalDesc" class="form-label">Descripción</label>
     <textarea class="form-control" id="modal-desc" name="descripcion" rows="3" ></textarea>
   </div>
+  <div class="mb-3">
+            <label for="imagen" class="form-label">Imagen del local:</label>
+            <input type="file" name="imagen_local" id="imagen_local" accept="image/*" class="form-control" >
+  </div>
+   <input type="hidden" name="estado" value="activo">
   
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

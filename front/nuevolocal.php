@@ -43,7 +43,7 @@ if (!$resultado) {
 <div class="container my-5">
   <H4>Crear un nuevo local:</H4>
 
-    <form method="post" action="gestionarnuevolocal.php" class="p-3 border rounded shadow-sm">
+    <form method="post" action="gestionarnuevolocal.php" class="p-3 border rounded shadow-sm" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="nombre_local" class="form-label">Nombre del local</label>
         <input type="text" name="nombre_local" id="nombre_local" class="form-control" required>
@@ -67,6 +67,11 @@ if (!$resultado) {
             ?> <option value="<?php echo  $fila['id_usuario'] ;?>" ><?php echo  $fila['id_usuario'] ;?></option><?php ;}?>
         </select>
     </div>
+    <div class="mb-3">
+            <label for="imagen" class="form-label">Imagen del local:</label>
+            <input type="file" name="imagen_local" id="imagen_local" accept="image/*" class="form-control" required>
+  </div>
+  <input type="hidden" name="estado" value="activo">
     <div class="d-grid">
         <button type="submit" name="crear-local" class="btn btn-primary">Crear Local</button>
     </div>

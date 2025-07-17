@@ -63,13 +63,15 @@
         if(isset($_POST["Buscar"])){
           while($fila=mysqli_fetch_assoc($vResult)){
             if($_POST["Buscar"]==$fila["nombre_local"]){
+              $finfo=new finfo(FILEINFO_MIME_TYPE);
+              $mime=$finfo->buffer($fila['imagen_local']);
         $bandera=1; ?>
           <div class="container my-3">
       <div class="card shadow-sm border-0">
         <div class="row g-0">
           <!-- Imagen -->
           <div class="col-12 col-md-3 d-flex justify-content-center align-items-center p-3">
-            <img src="imagenes/logo.png" class="img-fluid rounded" style="max-height:100px;" alt="Logo del local">
+            <img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($fila['imagen_local']); ?>" class="img-fluid rounded" style="max-height:100px;" alt="Logo del local">
           </div>
           <!-- Datos -->
           <div class="col-12 col-md-9">
@@ -117,12 +119,16 @@
           }
           else{
             $fila=mysqli_fetch_array($vResult);
-          }}?>
+            
+          }}
+          $finfo=new finfo(FILEINFO_MIME_TYPE);
+              $mime=$finfo->buffer($fila['imagen_local']);
+          ?>
             <div class="card h-100">
               <div class="row h-100">
                 <div class="col-12 col-sm-4 d-flex flex-column flex-sm-row ">
                   <img
-                    src="imagenes\logo.png"
+                    src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($fila['imagen_local']); ?>"
                     class="img-fluid h-100 w-100 object-fit-cover rounded-start"
                     alt="Imagen"
                   />
@@ -150,12 +156,14 @@
           }
           else{
             $fila=mysqli_fetch_array($vResult);
-          }}?>
+          }}
+          $finfo=new finfo(FILEINFO_MIME_TYPE);
+              $mime=$finfo->buffer($fila['imagen_local']);?>
             <div class="card h-100">
               <div class="row h-100">
                 <div class="col-12 col-sm-4 d-flex flex-column flex-sm-row ">
                   <img
-                    src="imagenes\logo.png"
+                    src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($fila['imagen_local']); ?>"
                     class="img-fluid h-100 w-100 object-fit-cover rounded-start"
                     alt="Imagen"
                   />
