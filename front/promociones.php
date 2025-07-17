@@ -33,7 +33,7 @@
     .card{
       height: 260px; /* Ajusta la altura máxima de la tarjeta */
       width: 340px; /* Ajusta el ancho máximo de la tarjeta */
-      min-width: 340px;
+      /*min-width: 340px;*/
       max-width: 340px;
     }
     .card-img-custom {
@@ -43,17 +43,20 @@
     object-position: center;/* Centra el recorte */
     }
   </style>
+  <title>Document</title>
 </head>
 <body>
   <header class="p-3 text-bg-dark">
     <?php include '../header.php'; ?>
   </header>
-
-  <!-- Barra de busqueda -->
-  <div class="container w-75 my-4">
+  <!--Contenido principal-->
+  <div class="my-4 container-fluid d-flex justify-content-center align-items-center">
+    <!-- Contenedor para barra busqueda y desplegable -->
+    <div class="container w-75 my-4">
     <div class="row align-items-center gy-1">
+      <!-- Barra de busqueda -->
       <div class="col-lg-9 col-12 ">
-        <form class="d-flex" method="post" action="">
+        <form class="d-flex" method="get" action="">
           <div class="input-group">
             <input
               name="Buscar"
@@ -67,8 +70,9 @@
           </div>
         </form>
       </div>
+      <!-- Desplegable de categorias -->
       <div class="col-12 col-lg-3">
-        <form method="post" action="">
+        <form method="get" action="">
           <select
             name="categoria"
             class="form-select"
@@ -80,12 +84,23 @@
             <option value="premium">Premium</option>
           </select>
         </form>
-      </div>
-    </div>
-  </div>
-
+      </div> <!--cierra desplegable de categorias-->
+    </div> <!--Cierra fila de busqueda y desplegable-->
+  </div> <!--Cierra contenedor de busqueda y desplegable-->
+  </div> <!--Cierra contenido principal-->
   <!--Tarjetas-->
-  <?php
+  <div class="container w-75 my-4">
+    <?php
+    //Para la paginacion
+    $cantPorPagina=9;
+    $pagina=isset($_GET["pagina"])?$_GET["pagina"]:null;
+    if(!$pagina){
+      $inicio=0;
+      $pagina=1;
+    }
+    else{
+      $inicio=($pagina-1) * $cantPorPagina;
+    }
     require_once '../conexion.php';
     global $conexion;
     error_reporting(E_ERROR | E_PARSE); // Muestra solo errores fatales y errores de análisis
@@ -94,8 +109,13 @@
     
     // Verifica si se ha enviado una categoría
     $categoria = null;
-    if (isset($_POST['categoria']) && $_POST['categoria'] != 'Categoria') {
-        $categoria = $_POST['categoria'];
+    if (isset($_GET['categoria']) && $_GET['categoria'] != 'Categoria') {
+        $categoria = $_GET['categoria'];
+    }
+    //Verifica si ha enviado una busqueda
+    $busqueda = null;
+    if (isset($_GET['Buscar']) && !empty($_GET['Buscar'])) {
+        $busqueda = $_GET['Buscar'];
     }
     // Construye la consulta SQL
     $query = "SELECT p.descripcion, p.fecha_desde, p.fecha_hasta, 
@@ -108,19 +128,99 @@
       // .= significa agregar al final de la variable query
       $query .= " AND p.categoria = '" . mysqli_real_escape_string($conexion, $categoria) . "'";
     }
+    if($busqueda){
+      $query .= " AND p.descripcion LIKE '%" . mysqli_real_escape_string($conexion, $busqueda) . "%'";
+    }
+    //$query .= " LIMIT $inicio, $cantPorPagina";
     $result = mysqli_query($conexion, $query) or die("Hubo un error con la transacción: " . mysqli_error($conexion));
-    //mysqli_close($conexion);
-  ?>
-  <div class="my-4 container-fluid d-flex justify-content-center align-items-center">
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-0 align-items-stretch">
-      <?php
-      if ($result && $result->num_rows > 0) {
-
-        // Se fija que extension tiene la imagen
+    //para la paginacion
+    $totalRegistros=mysqli_num_rows($result); 
+    $totalPaginas=ceil($totalRegistros/$cantPorPagina);
+   ?>
+   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 align-items-stretch">
+    <?php
+      if(!$result){
+        echo "<div class='alert alert-danger text-center'>
+                No se encontró ninguna promoción.
+              </div>";
+      }
+      else{
+        if(isset($_GET["Buscar"])){
           while($row = $result->fetch_assoc()) {
-          $finfo = new finfo(FILEINFO_MIME_TYPE);
-          $mime = $finfo->buffer($row['imagen_prom']);
+            if($_GET["Buscar"]==$row["descripcion"]){      
+            // Se fija que extension tiene la imagen
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $mime = $finfo->buffer($row['imagen_prom']);
+            $bandera=1; ;  
+    ?>
+          <!-- Tarjeta de promoción -->
+      <div class="col d-flex justify-content-center align-items-stretch">
+        <div class="card mb-3"
+          data-bs-toggle="modal"
+          data-bs-target="#promoModal"
+          data-nombre="<?php echo htmlspecialchars($row['nombre_local']); ?>"
+          data-descripcion="<?php echo htmlspecialchars($row['descripcion']); ?>"
+          data-fecha-desde="<?php echo htmlspecialchars($row['fecha_desde']); ?>"
+          data-fecha-hasta="<?php echo htmlspecialchars($row['fecha_hasta']); ?>"
+          data-imagen="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($row['imagen_prom']); ?>"
+          data-lunes="<?php echo $row['lunes'] ? 'Lunes' : ''; ?>"
+          data-martes="<?php echo $row['martes'] ? 'Martes' : ''; ?>"
+          data-miercoles="<?php echo $row['miercoles'] ? 'Miércoles' : ''; ?>"
+          data-jueves="<?php echo $row['jueves'] ? 'Jueves' : ''; ?>"
+          data-viernes="<?php echo $row['viernes'] ? 'Viernes' :  ''; ?>"
+          data-sabado="<?php echo $row['sabado'] ? 'Sábado' : ''; ?>"
+          data-domingo="<?php echo $row['domingo'] ? 'Domingo' : ''; ?>"
+          style="cursor:pointer;">
+          <img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($row['imagen_prom']); ?>" class="card-img-top card-img-custom" alt="Promoción">
+          <div class="card-body">
+            <h5><?php echo htmlspecialchars($row['nombre_local']); ?></h5>
+            <p class="card-text"><?php echo htmlspecialchars($row['descripcion']); ?></p>
+          </div> <!-- Cierra card-body -->
+        </div> <!-- Cierra card -->
+      </div> <!-- Cierra col -->
+      <?php
+      } // llave del if buscar = descripcion    
+    } // llave del while
+    if (!isset($bandera)){
+      echo "<div class='alert alert-warning text-center'>
+                    NO EXISTE LOCAL CON ESE NOMBRE
+                  </div>";
+    }
+  } //este es el if del buscar
+  else {
+    if ($result && $result->num_rows > 0) {
+        // Verifica si se ha enviado una categoría
+      $categoria = null;
+      if (isset($_GET['categoria']) && $_GET['categoria'] != 'Categoria') {
+          $categoria = $_GET['categoria'];
+      }
+      //Verifica si ha enviado una busqueda
+      $busqueda = null;
+      if (isset($_GET['Buscar']) && !empty($_GET['Buscar'])) {
+          $busqueda = $_GET['Buscar'];
+      }
+      // Construye la consulta SQL
+      $query = "SELECT p.descripcion, p.fecha_desde, p.fecha_hasta, 
+                      p.lunes, p.martes, p.miercoles, p.jueves, p.viernes, p.sabado, p.domingo, p.imagen_prom,
+                      loc.nombre_local
+              FROM promocion p 
+              INNER JOIN local loc ON p.id_local = loc.id_local
+              WHERE fecha_hasta >= CURDATE() AND fecha_desde <= CURDATE() AND p.estado = 'activa'";
+      if($categoria){
+        // .= significa agregar al final de la variable query
+        $query .= " AND p.categoria = '" . mysqli_real_escape_string($conexion, $categoria) . "'";
+      }
+      if($busqueda){
+        $query .= " AND p.descripcion LIKE '%" . mysqli_real_escape_string($conexion, $busqueda) . "%'";
+      }
+      $query .= " LIMIT $inicio, $cantPorPagina";
+      $result = mysqli_query($conexion, $query) or die("Hubo un error con la transacción: " . mysqli_error($conexion));
+      while($row = $result->fetch_assoc()) {    
+            // Se fija que extension tiene la imagen
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $mime = $finfo->buffer($row['imagen_prom']);
       ?>
+      <!-- Tarjeta de promoción -->
       <div class="col d-flex justify-content-center align-items-stretch">
         <div class="card mb-3"
           data-bs-toggle="modal"
@@ -146,57 +246,40 @@
         </div>
       </div>
       <?php
-          }
-      } else {
-          echo "<p>No hay promociones disponibles.</p>";
-      }
-      ?>
-    </div>
-  </div>
+      } //Cierra while
+    } //Cierra if result
+  } //Cierra else
+}
+  mysqli_free_result($result);
+    mysqli_close($conexion);
+  ?>
+  </div> <!--Cierra fila de tarjetas-->
+  </div> <!--Cierra contenedor de tarjetas-->
 
+  <?php
+  $paginaAnterior = $pagina > 1 ? $pagina - 1 : 1;
+  $paginaSiguiente = $pagina < $totalPaginas ? $pagina + 1 : $totalPaginas;
+  ?>
   <!--Paginacion-->
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
+      <li class="page-item <?php echo $pagina == 1 ? 'disabled' : ''; ?>">
+        <a class="page-link" href="promociones.php?pagina=<?php echo $paginaAnterior; ?>" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
+      <?php for($j = 1; $j <= $totalPaginas; $j++) { ?>
+            <li class="page-item <?php echo $j == $pagina ? 'active' : ''; ?>">  
+              <a class="page-link" href="promociones.php?pagina=<?php echo $j; ?>"><?php echo $j; ?></a>
+            </li>
+        <?php } ?>
+      <li class="page-item <?php echo $pagina == $totalPaginas ? 'disabled' : ''; ?>">
+        <a class="page-link" href="promociones.php?pagina=<?php echo $paginaSiguiente; ?>" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>
     </ul>
   </nav>
-  
-  <!-- Modal para promociones -->
-  <div class="modal fade" id="promoModal" tabindex="-1" aria-labelledby="promoModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="promoModalLabel">Detalles de la Promoción</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <img id=promoModalImg src="" class="img-fluid mb-3" alt="Promoción">
-          <h5><span id=promoModalNombreLoc></span></h5>
-          <p id="promoModalDesc"></p>
-          <p><strong>Fecha de inicio: </strong><span id="promoModalDesde"></span></p>
-          <p><strong>Fecha de finalización: </strong><span id="promoModalHasta"></p>
-          <p><strong>Dias disponibles: </strong><span id="promoModalDias"></span></p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Aprovechar Promoción</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
   <!--Footer-->
   <footer class="footer mt-auto py-3 bg-body-tertiary">
     <?php include '../footer.php'; ?>
@@ -224,6 +307,8 @@
   <?php include '../modals/modalSignUpD.php'; ?>
   <!-- Modal de Recuperar Contraseña -->
   <?php include '../modals/modalRecuperar.php'; ?>
+  <!--Modal de promociones-->
+  <?php include '../modals/modalPromocion.php'; ?>
   <!-- sript login -->
   <?php if (!empty($login_error)){?>
   <script>
@@ -251,7 +336,6 @@
       });
   </script>
   <?php }; ?>
-
   <!-- script Modal promociones -->
   <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -268,10 +352,8 @@
       .filter(Boolean)                             // eliminás los que son null, undefined o string vacío
       .join(', ');                                  // los unís con coma y espacio
       document.getElementById('promoModalDias').textContent = dias;
-
     });
   });
   </script>
-
 </body>
 </html>
