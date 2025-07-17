@@ -75,9 +75,9 @@
             onchange="this.form.submit()"
           >
             <option selected>Categoria</option>
-            <option value="1">Categoria 1</option>
-            <option value="2">Categoria 2</option>
-            <option value="3">Categoria 3</option>
+            <option value="inicial">Inicial</option>
+            <option value="medium">Medium</option>
+            <option value="premium">Premium</option>
           </select>
         </form>
       </div>
@@ -92,12 +92,22 @@
     ini_set('display_errors', 0);       // No mostrar errores al usuario
     global $recuperar_error;
     
+    // Verifica si se ha enviado una categoría
+    $categoria = null;
+    if (isset($_POST['categoria']) && $_POST['categoria'] != 'Categoria') {
+        $categoria = $_POST['categoria'];
+    }
+    // Construye la consulta SQL
     $query = "SELECT p.descripcion, p.fecha_desde, p.fecha_hasta, 
                     p.lunes, p.martes, p.miercoles, p.jueves, p.viernes, p.sabado, p.domingo, p.imagen_prom,
                     loc.nombre_local
              FROM promocion p 
              INNER JOIN local loc ON p.id_local = loc.id_local
-             WHERE fecha_hasta >= CURDATE() AND fecha_desde <= CURDATE() AND estado = 'activa'";
+             WHERE fecha_hasta >= CURDATE() AND fecha_desde <= CURDATE() AND p.estado = 'activa'";
+    if($categoria){
+      // .= significa agregar al final de la variable query
+      $query .= " AND p.categoria = '" . mysqli_real_escape_string($conexion, $categoria) . "'";
+    }
     $result = mysqli_query($conexion, $query) or die("Hubo un error con la transacción: " . mysqli_error($conexion));
     //mysqli_close($conexion);
   ?>
@@ -105,12 +115,29 @@
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-0 align-items-stretch">
       <?php
       if ($result && $result->num_rows > 0) {
+
+        // Se fija que extension tiene la imagen
           while($row = $result->fetch_assoc()) {
           $finfo = new finfo(FILEINFO_MIME_TYPE);
           $mime = $finfo->buffer($row['imagen_prom']);
       ?>
       <div class="col d-flex justify-content-center align-items-stretch">
-        <div class="card mb-3">
+        <div class="card mb-3"
+          data-bs-toggle="modal"
+          data-bs-target="#promoModal"
+          data-nombre="<?php echo htmlspecialchars($row['nombre_local']); ?>"
+          data-descripcion="<?php echo htmlspecialchars($row['descripcion']); ?>"
+          data-fecha-desde="<?php echo htmlspecialchars($row['fecha_desde']); ?>"
+          data-fecha-hasta="<?php echo htmlspecialchars($row['fecha_hasta']); ?>"
+          data-imagen="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($row['imagen_prom']); ?>"
+          data-lunes="<?php echo $row['lunes'] ? 'Lunes' : ''; ?>"
+          data-martes="<?php echo $row['martes'] ? 'Martes' : ''; ?>"
+          data-miercoles="<?php echo $row['miercoles'] ? 'Miércoles' : ''; ?>"
+          data-jueves="<?php echo $row['jueves'] ? 'Jueves' : ''; ?>"
+          data-viernes="<?php echo $row['viernes'] ? 'Viernes' :  ''; ?>"
+          data-sabado="<?php echo $row['sabado'] ? 'Sábado' : ''; ?>"
+          data-domingo="<?php echo $row['domingo'] ? 'Domingo' : ''; ?>"
+          style="cursor:pointer;">
           <img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($row['imagen_prom']); ?>" class="card-img-top card-img-custom" alt="Promoción">
           <div class="card-body">
             <h5><?php echo htmlspecialchars($row['nombre_local']); ?></h5>
@@ -155,11 +182,12 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <img src="imagenes/home.png" class="img-fluid mb-3" alt="Promoción">
-          <h5>Nombre de la Promoción</h5>
-          <p>Descripción detallada de la promoción. Aquí puedes incluir información relevante como fechas, condiciones, etc.</p>
-          <p><strong>Fecha de inicio:</strong> 01/01/2025</p>
-          <p><strong>Fecha de finalización:</strong> 31/01/2025</p>
+          <img id=promoModalImg src="" class="img-fluid mb-3" alt="Promoción">
+          <h5><span id=promoModalNombreLoc></span></h5>
+          <p id="promoModalDesc"></p>
+          <p><strong>Fecha de inicio: </strong><span id="promoModalDesde"></span></p>
+          <p><strong>Fecha de finalización: </strong><span id="promoModalHasta"></p>
+          <p><strong>Dias disponibles: </strong><span id="promoModalDias"></span></p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -169,23 +197,6 @@
     </div>
   </div>
   
-  <div class="modal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Modal body text goes here.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
   <!--Footer-->
   <footer class="footer mt-auto py-3 bg-body-tertiary">
     <?php include '../footer.php'; ?>
@@ -229,22 +240,27 @@
       });
   </script>
   <?php }; ?>
+
+<!-- script Modal promociones -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var promoModal = document.getElementById('promoModal');
+  promoModal.addEventListener('show.bs.modal', function (event) {
+    var card = event.relatedTarget;
+    document.getElementById('promoModalLabel').textContent = card.getAttribute('data-nombre');
+    document.getElementById('promoModalImg').src = card.getAttribute('data-imagen');
+    document.getElementById('promoModalDesc').textContent = card.getAttribute('data-descripcion');
+    document.getElementById('promoModalDesde').textContent = card.getAttribute('data-fecha-desde');
+    document.getElementById('promoModalHasta').textContent = card.getAttribute('data-fecha-hasta');
+    const dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
+    .map(dia => card.getAttribute('data-' + dia)) // obtenés el texto de cada día desde el atributo data
+    .filter(Boolean)                             // eliminás los que son null, undefined o string vacío
+    .join(', ');                                  // los unís con coma y espacio
+    document.getElementById('promoModalDias').textContent = dias;
+
+  });
+});
+</script>
+
 </body>
 </html>
-
- <p class="card-text"><small class="text-muted"><b>Desde:</b> <?php echo htmlspecialchars($row['fecha_desde']); ?></small></p>
-          <p class="card-text"><small class="text-muted"><b>Hasta:</b> <?php echo htmlspecialchars($row['fecha_hasta']); ?></small></p>
-          <p class="card-text">
-            <small class="text-muted">Días disponibles: 
-              <?php
-                $dias = [];
-                if ($row['lunes']) $dias[] = 'Lunes';
-                if ($row['martes']) $dias[] = 'Martes';
-                if ($row['miercoles']) $dias[] = 'Miércoles';
-                if ($row['jueves']) $dias[] = 'Jueves';
-                if ($row['viernes']) $dias[] = 'Viernes';
-                if ($row['sabado']) $dias[] = 'Sábado';
-                if ($row['domingo']) $dias[] = 'Domingo';
-                echo implode(', ', $dias);
-              ?>
-            </small>
