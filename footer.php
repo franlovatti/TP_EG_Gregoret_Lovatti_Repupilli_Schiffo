@@ -87,8 +87,10 @@ if ($tipoUsuario == 'cliente') {
   </div>
   <div class="col-sm-3 d-flex justify-content-center">
     <a
-      href=""
+      href="#"
       class="nav-link px-2 text-body-secondary align-items-center"
+      data-bs-toggle="modal"
+      data-bs-target="#modalTerminosCondiciones"
       >Terminos y Condiciones</a
     >
   </div>
@@ -115,3 +117,11 @@ if ($tipoUsuario == 'cliente') {
     </li>
   </ul>
 </div>
+<?php include 'modals/modalTerminosCondiciones.php'; ?>
+
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var modal = new bootstrap.Modal(document.getElementById('modalTerminosCondiciones'));
+        modal.show();
+    });
+</script> -->
