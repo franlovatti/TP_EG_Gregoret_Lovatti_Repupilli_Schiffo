@@ -121,7 +121,8 @@
       <div class="row justify-content-center my-4">
         <div class="col-md-6">
           <h2 class="text-center mb-4">Contáctanos</h2>
-          <form>
+          <?php include 'formConsultasAcercaDe.php'; ?>
+          <!-- <form>
             <div class="mb-3">
               <label for="nombre" class="form-label">Nombre</label>
               <input type="text" class="form-control" id="nombre" required />
@@ -140,7 +141,7 @@
               ></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Enviar</button>
-          </form>
+          </form> -->
         </div>
         <div class="col-md-6">
           <h2 class="text-center mb-4">Ubicación</h2>
@@ -155,6 +156,7 @@
               class="img-fluid"
             />
           </div> -->
+          <!-- Mapa -->
           <div id="map"></div>
         </div>
       </div>
