@@ -122,26 +122,6 @@
         <div class="col-md-6">
           <h2 class="text-center mb-4">Contáctanos</h2>
           <?php include 'formConsultasAcercaDe.php'; ?>
-          <!-- <form>
-            <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nombre" required />
-            </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Correo electrónico</label>
-              <input type="email" class="form-control" id="email" required />
-            </div>
-            <div class="mb-3">
-              <label for="mensaje" class="form-label">Mensaje</label>
-              <textarea
-                class="form-control"
-                id="mensaje"
-                rows="4"
-                required
-              ></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-          </form> -->
         </div>
         <div class="col-md-6">
           <h2 class="text-center mb-4">Ubicación</h2>
@@ -149,13 +129,6 @@
             Estamos ubicados en el corazón de la ciudad, con fácil acceso y
             estacionamiento disponible.
           </p>
-          <!-- <div class="text-center">
-            <img
-              src="imagenes/mapa.png"
-              alt="Mapa de ubicación"
-              class="img-fluid"
-            />
-          </div> -->
           <!-- Mapa -->
           <div id="map"></div>
         </div>
