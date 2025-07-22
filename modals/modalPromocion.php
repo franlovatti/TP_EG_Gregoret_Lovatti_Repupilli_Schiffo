@@ -15,7 +15,7 @@
         </div>
         <div class="modal-footer">
           <span class="text-muted">Si aprovechas la promocion te va a llegar a tu mail un codigo para usarla 
-            cuando el dueño del local apruebe tu solicitud</span>
+            cuando el dueño del local apruebe tu solicitud.</span>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
           <button type="button" class="btn btn-primary">Aprovechar Promoción</button>
         </div>
