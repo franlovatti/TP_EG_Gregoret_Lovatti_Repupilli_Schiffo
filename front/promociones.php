@@ -82,6 +82,7 @@
             <option value="inicial">Inicial</option>
             <option value="medium">Medium</option>
             <option value="premium">Premium</option>
+            <option value="todas">Todas</option>
           </select>
         </form>
       </div> <!--cierra desplegable de categorias-->
@@ -124,7 +125,7 @@
              FROM promocion p 
              INNER JOIN local loc ON p.id_local = loc.id_local
              WHERE fecha_hasta >= CURDATE() AND fecha_desde <= CURDATE() AND p.estado = 'activa'";
-    if($categoria){
+    if($categoria!='todas' && $categoria){
       // .= significa agregar al final de la variable query
       $query .= " AND p.categoria = '" . mysqli_real_escape_string($conexion, $categoria) . "'";
     }
@@ -136,7 +137,18 @@
     //para la paginacion
     $totalRegistros=mysqli_num_rows($result); 
     $totalPaginas=ceil($totalRegistros/$cantPorPagina);
+
+    if(isset($_GET["Buscar"])){
    ?>
+    <!-- Boton que permite volver atras si hay una busqueda -->
+    <div class="container py-3">
+      <a href="javascript:history.back()" class="btn btn-outline-primary mb-3">
+      <i class="bi bi-arrow-left"></i> Volver
+      </a>
+    </div>
+    <?php
+    } //cierro if para boton
+    ?>
    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 align-items-stretch">
     <?php
       if(!$result){
@@ -183,8 +195,8 @@
     } // llave del while
     if (!isset($bandera)){
       echo "<div class='alert alert-warning text-center'>
-                    NO EXISTE LOCAL CON ESE NOMBRE
-                  </div>";
+              No hemos encontrado ninguna promoción que coincida con su búsqueda.
+            </div>";
     }
   } //este es el if del buscar
   else {
@@ -206,7 +218,7 @@
               FROM promocion p 
               INNER JOIN local loc ON p.id_local = loc.id_local
               WHERE fecha_hasta >= CURDATE() AND fecha_desde <= CURDATE() AND p.estado = 'activa'";
-      if($categoria){
+      if($categoria!='todas' && $categoria){
         // .= significa agregar al final de la variable query
         $query .= " AND p.categoria = '" . mysqli_real_escape_string($conexion, $categoria) . "'";
       }
@@ -241,7 +253,7 @@
           <img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($row['imagen_prom']); ?>" class="card-img-top card-img-custom" alt="Promoción">
           <div class="card-body">
             <h5><?php echo htmlspecialchars($row['nombre_local']); ?></h5>
-            <p class="card-text"><?php echo htmlspecialchars($row['descripcion']); ?></p>
+            <p class="card-text"><strong>Promo: </strong><?php echo htmlspecialchars($row['descripcion']); ?></p>
           </div>
         </div>
       </div>

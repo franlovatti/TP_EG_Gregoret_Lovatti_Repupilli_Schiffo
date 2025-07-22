@@ -54,8 +54,16 @@
       $vResult=mysqli_query($conexion,$vSQL);
       $totalRegistros=mysqli_num_rows($vResult); 
       $totalPaginas=ceil($totalRegistros/$cantPorPagina);
-      
-
+       if(isset($_POST["Buscar"])){
+   ?>
+    <!-- Boton que permite volver atras si hay una busqueda -->
+    <div class="container py-3">
+      <a href="javascript:history.back()" class="btn btn-outline-primary mb-3">
+      <i class="bi bi-arrow-left"></i> Volver
+      </a>
+    </div>
+    <?php
+    } //cierro if para boton
 
       if(!$vResult){
          echo "<div class='alert alert-info text-center my-5'>No se encontró ningún local</div>";
@@ -90,7 +98,7 @@
             } // llave del if buscar = descripcion
           } if (!isset($bandera)){
             echo "<div class='alert alert-warning text-center'>
-                          NO EXISTE LOCAL CON ESE NOMBRE
+                          No hemos encontrado ningún local que coincida con su búsqueda.
                         </div>";}
         }else{ 
          
@@ -141,7 +149,7 @@
                     <p class="card-text">Numero local: <?= htmlspecialchars($fila['id_local']) ?> </p>
                     <p class="card-text">Ubicacion: <?= htmlspecialchars($fila['ubicacion']) ?></p>
                     <p class="card-text">Rubro: <?=htmlspecialchars($fila['rubro'])?></p>
-                    <a href="" class="btn btn-primary mt-1"
+                    <a href="localEspecifico.php?id_local=<?= urlencode($fila['id_local']) ?>" class="btn btn-primary mt-1"
                       >Ver promociones</a
                     >
                   </div>
@@ -176,7 +184,7 @@
                     <p class="card-text">Numero local: <?= htmlspecialchars($fila['id_local']) ?> </p>
                     <p class="card-text">Ubicacion: <?= htmlspecialchars($fila['ubicacion']) ?></p>
                     <p class="card-text">Rubro: <?=htmlspecialchars($fila['rubro'])?></p>
-                    <a href="" class="btn btn-primary mt-1"
+                    <a href="localEspecifico.php?id_local=<?= urlencode($fila['id_local']) ?>" class="btn btn-primary mt-1"
                       >Ver promociones</a
                     >
                   </div>
