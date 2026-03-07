@@ -86,7 +86,7 @@ if ($tipoUsuario == 'cliente') {
       <a href="crearpromocion.php" class="nav-link px-2 text-white">Promociones</a>
     </li>
     <li class="nav-item">
-      <a href="" class="nav-link px-2 text-white">Solicitudes</a>
+      <a href="gestionarPromoUsuario.php" class="nav-link px-2 text-white">Solicitudes</a>
     </li>
   </ul>
 <?php

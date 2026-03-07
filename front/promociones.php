@@ -119,7 +119,7 @@
         $busqueda = $_GET['Buscar'];
     }
     // Construye la consulta SQL
-    $query = "SELECT p.descripcion, p.fecha_desde, p.fecha_hasta, 
+    $query = "SELECT p.id_promocion, p.descripcion, p.fecha_desde, p.fecha_hasta, 
                     p.lunes, p.martes, p.miercoles, p.jueves, p.viernes, p.sabado, p.domingo, p.imagen_prom,
                     loc.nombre_local
              FROM promocion p 
@@ -171,6 +171,7 @@
           data-bs-toggle="modal"
           data-bs-target="#promoModal"
           data-nombre="<?php echo htmlspecialchars($row['nombre_local']); ?>"
+          data-id-promocion="<?php echo $row['id_promocion']; ?>"
           data-descripcion="<?php echo htmlspecialchars($row['descripcion']); ?>"
           data-fecha-desde="<?php echo htmlspecialchars($row['fecha_desde']); ?>"
           data-fecha-hasta="<?php echo htmlspecialchars($row['fecha_hasta']); ?>"
@@ -212,7 +213,7 @@
           $busqueda = $_GET['Buscar'];
       }
       // Construye la consulta SQL
-      $query = "SELECT p.descripcion, p.fecha_desde, p.fecha_hasta, 
+      $query = "SELECT p.id_promocion, p.descripcion, p.fecha_desde, p.fecha_hasta, 
                       p.lunes, p.martes, p.miercoles, p.jueves, p.viernes, p.sabado, p.domingo, p.imagen_prom,
                       loc.nombre_local
               FROM promocion p 
@@ -238,6 +239,7 @@
           data-bs-toggle="modal"
           data-bs-target="#promoModal"
           data-nombre="<?php echo htmlspecialchars($row['nombre_local']); ?>"
+          data-id-promocion="<?php echo $row['id_promocion']; ?>"
           data-descripcion="<?php echo htmlspecialchars($row['descripcion']); ?>"
           data-fecha-desde="<?php echo htmlspecialchars($row['fecha_desde']); ?>"
           data-fecha-hasta="<?php echo htmlspecialchars($row['fecha_hasta']); ?>"
@@ -354,8 +356,10 @@
     var promoModal = document.getElementById('promoModal');
     promoModal.addEventListener('show.bs.modal', function (event) {
       var card = event.relatedTarget;
+       if (!card) return; // Evita errores si es null
       document.getElementById('promoModalLabel').textContent = card.getAttribute('data-nombre');
       document.getElementById('promoModalImg').src = card.getAttribute('data-imagen');
+      document.getElementById('promoModalIdPromo').value = card.getAttribute('data-id-promocion');
       document.getElementById('promoModalDesc').textContent = card.getAttribute('data-descripcion');
       document.getElementById('promoModalDesde').textContent = card.getAttribute('data-fecha-desde');
       document.getElementById('promoModalHasta').textContent = card.getAttribute('data-fecha-hasta');
@@ -367,5 +371,19 @@
     });
   });
   </script>
+  <!-- // Script para aprovechar promoción, muestra la confirmacion de que se ha enviado la solicitud de aprovechamiento de promoción -->
+  <?php
+  // Verifica si se ha enviado el parámetro 'promo' con el valor 'ok' en la URL
+  if(isset($_GET['promo']) && $_GET['promo'] == 'ok'){
+    include "../modals/modalAprovecharPromo.php";
+  }
+    ?>
+ <script>
+  // Si el parámetro 'promo' es 'ok', muestra la modal de confirmación
+document.addEventListener('DOMContentLoaded', function () {
+    var modal = new bootstrap.Modal(document.getElementById('confirmarModal'));
+    modal.show();
+});
+</script>
 </body>
 </html>
