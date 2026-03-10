@@ -41,12 +41,22 @@ $query = "SELECT * from local WHERE id_usuario = $id_usuario";
 $resultado = mysqli_query($conexion, $query);
 if ($resultado && mysqli_num_rows($resultado) > 0) {
     $fila = mysqli_fetch_assoc($resultado);
-    $id_local=$fila["id_local"];
+    //$id_local=$fila["id_local"];
     ?>
     <div class="container my-5">
     <H4>Crear un nueva promoción:</H4>
 
-        <form method="post" action="gestionarnuevapromocion.php" class="p-3 border rounded shadow-sm" enctype="multipart/form-data">
+        <form method="post" action="../consultas/gestionarnuevapromocion.php" class="p-3 border rounded shadow-sm" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="id_local" class="form-label">Local</label>
+            <select class="form-select" name="id_local" id="id_local" required>
+            <?php
+            foreach($resultado as $fila) {
+                echo "<option value='{$fila['id_local']}'>{$fila['nombre_local']}</option>";
+            }
+            ?>    
+            </select>
+        </div>
         <div class="mb-3">
             <label for="descripcion" class="form-label">Descripción</label>
             <input type="text" name="descripcion" id="descripcion" class="form-control" required>
@@ -116,7 +126,6 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                 <option value="1">Sí</option>
             </select>
         </div>
-        <input type="hidden" name="id_local" value="<?= $id_local ?>">
         <div class="mb-3">
             <label for="imagen" class="form-label">Imagen de la promoción:</label>
             <input type="file" name="imagen_prom" id="imagen_prom" accept="image/*" class="form-control"  required>
