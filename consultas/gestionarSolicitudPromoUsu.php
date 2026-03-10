@@ -7,13 +7,16 @@ if(isset($_GET['id_uso'],$_GET['accion'])){
 
     if($accion == "aceptar"){
         $estado = "aceptada";
+        $query = "UPDATE uso_promocion
+              SET estado = ? ,
+                  fecha_uso = CURDATE()
+              WHERE id_uso = ?";
     } else if($accion == "rechazar"){
         $estado = "rechazada";
-    }
-
-    $query = "UPDATE uso_promocion
-              SET estado = ? 
+        $query = "UPDATE uso_promocion
+              SET estado = ?
               WHERE id_uso = ?";
+    }
 
     $stmt = mysqli_prepare($conexion, $query);
     mysqli_stmt_bind_param($stmt, "si", $estado, $id_uso);
