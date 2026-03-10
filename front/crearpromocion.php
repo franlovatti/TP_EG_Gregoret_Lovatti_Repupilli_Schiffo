@@ -61,6 +61,7 @@
             <option value="pendiente">Promociones pendientes</option>
             <option value="activa">Promociones activas</option>
             <option value="rechazada">Promociones rechazadas</option>
+            <option value="todas">Todas</option>
           </select>
           <button class="btn btn-primary" type="submit">
             <i class="bi bi-search"></i>
@@ -80,65 +81,64 @@
 require_once '../conexion.php';
 if(isset($_SESSION['idUsuario'])){
   $id_usuario=$_SESSION['idUsuario'];
-  $query1 = "SELECT * from local WHERE id_usuario = $id_usuario";
-  $resultado1 = mysqli_query($conexion, $query1);
-  if ($resultado1 && mysqli_num_rows($resultado1) > 0) {
-    $fila1 = mysqli_fetch_assoc($resultado1);
-    $id_local=$fila1["id_local"];
-    $query = "SELECT * FROM promocion WHERE id_local=$id_local";
-    $resultado = mysqli_query($conexion, $query);
+  $query1 = "SELECT l.id_local, l.nombre_local, p.*
+            from local l
+            JOIN promocion p ON l.id_local = p.id_local
+            WHERE l.id_usuario = $id_usuario";
+  $resultado = mysqli_query($conexion, $query1);
+  if ($resultado && mysqli_num_rows($resultado) > 0) {
     if (!$resultado) {
       die("Error en la consulta: " . mysqli_error($conexion));
     }
 
-          if (isset($_POST["estado"])){
-          while ($fila = mysqli_fetch_assoc($resultado)) {
-              if($fila['estado']==$_POST["estado"]){
-                  if(!isset($bandera)){
-                      echo "<table class='table table-bordered'>";
-                      echo "<thead><tr><th>Descripción</th><th>Fecha desde</th><th>Fecha hasta</th><th>Categoría</th><th>Cant usos</th><th>Estado</th></tr></thead>";
-                      echo "<tbody>";
-                  }
-                  echo "<tr>";
-                  echo "<td>" . $fila['descripcion'] . "</td>";
-                  echo "<td>" . $fila['fecha_desde'] . "</td>";
-                  echo "<td>" . $fila['fecha_hasta'] . "</td>";
-                  echo "<td>" . $fila['categoria'] . "</td>";
-                  echo "<td> falta ver </td>";
-                  echo "<td>" . $fila['estado'] . "</td>";
-                  echo '<td><a href="#" class="btn btn-danger btn-sm" 
-                  data-bs-toggle="modal" 
-                  data-bs-target="#confirmDeleteModal" 
-                  data-id="' . $fila['id_promocion'] . '">Eliminar promoción</a></td>';
-                  echo "</tr>";
-                  $bandera=1;
-              }
-          }
-          echo "</tbody></table>";
-          if(!isset($bandera)){
-              echo "<p class='text-center text-danger mt-3'>NO HAY PROMOCIONES CON ESTADO: ". $_POST["estado"].  "</p>";
-          }
-      }
-      else {
-              echo "<table class='table table-bordered'>";
-              echo "<thead><tr><th>Descripción</th><th>Fecha desde</th><th>Fecha hasta</th><th>Categoría</th><th>Cant usos</th><th>Estado</th></tr></thead>";
-              echo "<tbody>";
-            while ($fila = mysqli_fetch_assoc($resultado)) {
-                  echo "<tr>";
-                  echo "<td>" . $fila['descripcion'] . "</td>";
-                  echo "<td>" . $fila['fecha_desde'] . "</td>";
-                  echo "<td>" . $fila['fecha_hasta'] . "</td>";
-                  echo "<td>" . $fila['categoria'] . "</td>";
-                  echo "<td> falta ver </td>";
-                  echo "<td>" . $fila['estado'] . "</td>";
-                  echo '<td><a href="#" class="btn btn-danger btn-sm" 
-                  data-bs-toggle="modal" 
-                  data-bs-target="#confirmDeleteModal" 
-                  data-id="' . $fila['id_promocion'] . '">Eliminar promoción</a></td>';
-                  echo "</tr>";
-          }
-          echo "</tbody></table>";
-      } 
+    if (isset($_POST["estado"])){
+    while ($fila = mysqli_fetch_assoc($resultado)) {
+        if($fila['estado']==$_POST["estado"] || $_POST["estado"] == "todas"){
+            if(!isset($bandera)){
+                echo "<table class='table table-bordered'>";
+                echo "<thead><tr><th>Local</th><th>Descripción</th><th>Fecha desde</th><th>Fecha hasta</th><th>Categoría</th><th>Estado</th></tr></thead>";
+                echo "<tbody>";
+            }
+            echo "<tr>";
+            echo "<td>" . $fila['nombre_local'] . "</td>";
+            echo "<td>" . $fila['descripcion'] . "</td>";
+            echo "<td>" . $fila['fecha_desde'] . "</td>";
+            echo "<td>" . $fila['fecha_hasta'] . "</td>";
+            echo "<td>" . $fila['categoria'] . "</td>";
+            echo "<td>" . $fila['estado'] . "</td>";
+            echo '<td><a href="#" class="btn btn-danger btn-sm" 
+            data-bs-toggle="modal" 
+            data-bs-target="#confirmDeleteModal" 
+            data-id="' . $fila['id_promocion'] . '">Eliminar promoción</a></td>';
+            echo "</tr>";
+            $bandera=1;
+        }
+    }
+    echo "</tbody></table>";
+    if(!isset($bandera)){
+        echo "<p class='text-center text-danger mt-3'>NO HAY PROMOCIONES CON ESTADO: ". $_POST["estado"].  "</p>";
+    }
+}
+else {
+        echo "<table class='table table-bordered'>";
+        echo "<thead><tr><th>Local</th><th>Descripción</th><th>Fecha desde</th><th>Fecha hasta</th><th>Categoría</th><th>Estado</th></tr></thead>";
+        echo "<tbody>";
+      while ($fila = mysqli_fetch_assoc($resultado)) {
+            echo "<tr>";
+            echo "<td>" . $fila['nombre_local'] . "</td>";
+            echo "<td>" . $fila['descripcion'] . "</td>";
+            echo "<td>" . $fila['fecha_desde'] . "</td>";
+            echo "<td>" . $fila['fecha_hasta'] . "</td>";
+            echo "<td>" . $fila['categoria'] . "</td>";
+            echo "<td>" . $fila['estado'] . "</td>";
+            echo '<td><a href="#" class="btn btn-danger btn-sm" 
+            data-bs-toggle="modal" 
+            data-bs-target="#confirmDeleteModal" 
+            data-id="' . $fila['id_promocion'] . '">Eliminar promoción</a></td>';
+            echo "</tr>";
+    }
+    echo "</tbody></table>";
+} 
 
 
 
