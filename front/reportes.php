@@ -25,89 +25,127 @@
     <header class="p-3 text-bg-dark">
       <?php include '../header.php'; ?>
     </header>
+    <?php
+    $tipoUsuario = $_SESSION['tipoUsuario'] ?? null;
+    ?>
     <div class="container-fluid">
       <div class="container w-75 py-5">
-        <div class="row gy-1">
+        <!-- Fila de buscador y filtros -->
+        <div class="row gy-1"> 
+          <?php
+          // Definir variables para el buscador según el tipo de usuario
+          if($tipoUsuario == 'administrador'){
+            $buscarPor = 'buscarPorLocal';
+            $placeholder = 'Buscar por local';
+          } else{
+            $buscarPor = 'buscarPorPromo';
+            $placeholder = 'Buscar por promoción';
+          }
+          ?>  
+          <!-- Buscador -->
           <div class="col-lg-4 col-12">
             <form class="d-flex" method="post" action="">
               <div class="input-group">
+                <input type="hidden" name = "buscarPor" value="<?=$buscarPor?>"/>
                 <input
                   type="text"
-                  placeholder="Buscar por local"
+                  placeholder="<?=$placeholder?>"
                   class="form-control"
-                  name="buscarPorLocal"
+                  name="<?=$buscarPor?>"
                 />
-                <button class="btn btn-primary" type="submit">
+                <button class="btn btn-primary" type="submit" name="buscar">
                   <i class="bi bi-search"></i>
                 </button>
               </div>
             </form>
           </div>
+          
+          <!--Filtros para busqueda por fechas-->
           <div class="col-lg-8 col-12">
             <form class="d-flex " method="post" action="">
               <div class="input-group">
-                <div class="col-12 col-lg-4 col-md-6">
+                <div class="col-12 col-lg-4 col-md-6 mx-1">
                   <input type="date" class="form-control" name="fechaDesde" />
                 </div>
-                <div class="col-12 col-lg-4 col-md-6">
+                <div class="col-12 col-lg-4 col-md-6 mx-1">
                   <input type="date" class="form-control" name="fechaHasta" />
                 </div>
-                <div class="col-12 col-lg-4">
-                  <button class="btn btn-primary w-100" type="submit">
+                <div class="col-12 col-lg-3 mx-1">
+                  <button class="btn btn-primary w-100" type="submit" name="filtrar">
                     Filtrar
                   </button>
                 </div>
               </div>
             </form>
           </div>
-        </div>
-      </div>
+        </div> <!-- Fin fila de buscador y filtros -->
+      </div> <!-- Fin container buscador y filtros -->
 
+      <?php
+      //CONSULTAS A LA BDD PARA OBTENER LOS DATOS DE LOS REPORTES
+      include '../consultas/reportesPromo.php';
 
+      // Agrupar resultados por local
+      $locales = [];
+      if (isset($resultados) && !empty($resultados)) {
+        foreach ($resultados as $fila) {
+          $id_local = $fila['id_local'];
+          if (!isset($locales[$id_local])) {
+            $locales[$id_local] = [
+                'nombre_local' => $fila['nombre_local'],
+                'ubicacion' => $fila['ubicacion'],
+                'rubro' => $fila['rubro'],
+                'promociones' => []
+            ];
+          }
+          $locales[$id_local]['promociones'][] = [
+            'descripcion' => $fila['descripcion'],
+            'cant_usos' => $fila['cant_usos'],
+            'fecha_desde' => $fila['fecha_desde'],
+            'fecha_hasta' => $fila['fecha_hasta'],
+            'categoria' => $fila['categoria']
+          ];
+        }
+      }
+      ?>
 
-       <div class="container w-75 ">
+      <!--Contaniener tabla reportes-->
+      <div class="container w-75 my-3">
+        <?php if(empty($locales)) {
+          echo "<p class='text-center'>Aun no hay resultados.</p>";
+        } else {?>
         <div class="scrollable-box ">
       
-    <?php for($i = 1; $i <= 11; $i++) { ?>
+    <?php foreach($locales as $local) { ?>
       <div class="card mb-3 ">
         <div class="card-body">
           <div class="row  mb-2">
-            <div class="col-md-2"><strong>ID LOCAL:</strong><?php echo "$i" ?></div>
-            <div class="col-md-3"><strong>NOMBRE:</strong> <?php echo "Nombre $i"?></div>
-            <div class="col-md-2"><strong>UBICACIÓN:</strong> <?php echo "Ubicacion $i"?></div>
-            <div class="col-md-3"><strong>RUBRO:</strong> <?php echo "Rubro $i"?></div>
-            <div class="col-md-2"><strong>CODUSUARIO:</strong> <?php echo "CodUsuario $i"?></div>
+            <div class="col-md-5"><strong>LOCAL:</strong> <?php echo $local['nombre_local']?></div>
+            <div class="col-md-4"><strong>UBICACIÓN:</strong> <?php echo $local['ubicacion']?></div>
+            <div class="col-md-3"><strong>RUBRO:</strong> <?php echo $local['rubro']?></div>
           </div>
    
           <div class="mb-2 border-top pt-2">
-            
-
-            <?php for($j = 1; $j < 4; $j++) { ?>
-              <div class="row mb-1">
-                <div class="col-sm-4"><strong>Texto:</strong> <?php echo "$j"?></div>
-                <div class="col-sm-1"><strong>Usos:</strong> <?php echo "$j"?></div>
-                <div class="col-sm-2"><strong>Desde:</strong> <?php echo "Fecha Desde $j"?></div>
-                <div class="col-sm-2"><strong>Hasta:</strong> <?php echo "Fecha Hasta $j"?></div>
-                <div class="col-sm-3"><strong>Nivel:</strong> <?php echo "Nivel $j"?></div>
-              </div>
-              </br>
-            <?php } ?>
+          <?php foreach($local['promociones'] as $promo){ ?>
+            <div class="row mb-1">
+              <div class="col-sm-4"><strong>Promo:</strong> <?php echo $promo['descripcion']?></div>
+              <div class="col-sm-1"><strong>Usos:</strong> <?php echo $promo['cant_usos']?></div>
+              <div class="col-sm-2"><strong>Desde:</strong> <?php echo $promo['fecha_desde']?></div>
+              <div class="col-sm-2"><strong>Hasta:</strong> <?php echo $promo['fecha_hasta']?></div>
+              <div class="col-sm-3"><strong>Categoria:</strong> <?php echo $promo['categoria']?></div>
+            </div>
+            </br>
+          <?php } ?>
           </div>
         </div>
-      </div>
-    <?php } ?>
+      </div> <!--//Fin card -->
+          <?php } //cierra foreach ?>
   
-
-          </div>
-
-        </div>
-
-
-        
-      </div>
-    </div>
-
-
+    </div> <!--//fin scrollable-->
+        <?php } ?>
+  </div> <!--//Fin container tabla reportes-->
+</div>
+</div>
 
     <footer class="footer mt-auto py-3 bg-body-tertiary">
       <?php include '../footer.php'; ?>

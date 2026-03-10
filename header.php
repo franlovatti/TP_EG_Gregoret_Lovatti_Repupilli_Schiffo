@@ -88,6 +88,9 @@ if ($tipoUsuario == 'cliente') {
     <li class="nav-item">
       <a href="gestionarPromoUsuario.php" class="nav-link px-2 text-white">Solicitudes</a>
     </li>
+    <li class="nav-item">
+      <a href="reportes.php" class="nav-link px-2 text-white">Reportes</a>
+    </li>
   </ul>
 <?php
   } else {
@@ -115,7 +118,7 @@ if ($tipoUsuario == 'cliente') {
           <a href="" class="nav-link px-2 text-white">Novedades</a>
         </li>
         <li class="nav-item">
-          <a href="" class="nav-link px-2 text-white">Reportes</a>
+          <a href="reportes.php" class="nav-link px-2 text-white">Reportes</a>
         </li>
       </ul>
 <?php
