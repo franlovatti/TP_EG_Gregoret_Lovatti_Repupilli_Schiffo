@@ -31,7 +31,10 @@ if ($tipoUsuario == 'cliente') {
     <a href="crearpromocion.php" class="nav-link px-2 text-body-secondary">Promociones</a>
   </li>
   <li class="nav-item">
-    <a href="" class="nav-link px-2 text-body-secondary">Solicitudes</a>
+    <a href="gestionarPromoUsuario.php" class="nav-link px-2 text-body-secondary">Solicitudes</a>
+  </li>
+    <li class="nav-item">
+    <a href="reportes.php" class="nav-link px-2 text-body-secondary">Reportes</a>
   </li>
   <?php
   } else {
@@ -46,19 +49,36 @@ if ($tipoUsuario == 'cliente') {
 } elseif ($tipoUsuario == 'administrador') {
 ?>
   <li class="nav-item">
-    <a href="" class="nav-link px-2 text-body-secondary">Solicitudes usuario</a>
+    <a href="solicitudesusuario.php" class="nav-link px-2 text-body-secondary">Solicitudes usuario</a>
   </li>
   <li class="nav-item">
     <a href="aprobarpromocion.php" class="nav-link px-2 text-body-secondary">Solicitudes promociones</a>
   </li>
   <li class="nav-item">
-    <a href="" class="nav-link px-2 text-body-secondary">Locales</a>
+    <a href="crearlocal.php" class="nav-link px-2 text-body-secondary">Locales</a>
   </li>
   <li class="nav-item">
     <a href="" class="nav-link px-2 text-body-secondary">Novedades</a>
   </li>
   <li class="nav-item">
-    <a href="" class="nav-link px-2 text-body-secondary">Reportes</a>
+    <a href="reportes.php" class="nav-link px-2 text-body-secondary">Reportes</a>
+  </li>
+<?php
+} elseif ($tipoUsuario == 'cliente') { ?>
+  <li class="nav-item">
+    <a href="home.php" class="nav-link px-2 text-body-secondary">Inicio</a>
+  </li>
+  <li class="nav-item">
+    <a href="acercaDe.php" class="nav-link px-2 text-body-secondary">Acerca del shopping</a>
+  </li>
+  <li class="nav-item">
+    <a href="locales.php" class="nav-link px-2 text-body-secondary">Locales</a>
+  </li>
+  <li class="nav-item">
+    <a href="promociones.php" class="nav-link px-2 text-body-secondary">Promociones</a>
+  </li>
+    <li class="nav-item">
+    <a href="mispromociones.php" class="nav-link px-2 text-body-secondary">Mis promociones</a>
   </li>
 <?php
 } else {
