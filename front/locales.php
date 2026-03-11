@@ -15,6 +15,8 @@
     </header>
     <!-- Contenido principal -->
     <div class="container-fluid my-4">
+      
+      <!--BUSCADOR-->
       <div class="container w-75">
         <div class="row align-items-center gy-1">
           <div class=" col-12 ">
@@ -35,7 +37,8 @@
           
         </div>
       </div>
-
+      
+      <!--CARDS DE LOCALES-->
       <div class="container w-75 my-4">
       <?php 
       //Paginacion
@@ -71,7 +74,7 @@
       else{
         if(isset($_POST["Buscar"])){
           while($fila=mysqli_fetch_assoc($vResult)){
-            if($_POST["Buscar"]==$fila["nombre_local"]){
+            if(stripos($fila["nombre_local"], $_POST["Buscar"]) !== false){
               $finfo=new finfo(FILEINFO_MIME_TYPE);
               $mime=$finfo->buffer($fila['imagen_local']);
               $bandera=1; ?>
@@ -89,7 +92,7 @@
                         <p class="mb-1"><strong>Nro Local:</strong> <?= htmlspecialchars($fila['id_local']) ?></p>
                         <p class="mb-1"><strong>Ubicación:</strong> <?= htmlspecialchars($fila['ubicacion']) ?></p>
                         <p class="mb-2"><strong>Rubro:</strong> <?= htmlspecialchars($fila['rubro']) ?></p>
-                        <a href="#" class="btn btn-primary btn-sm">Ver promociones</a>
+                        <a href="localEspecifico.php?id_local=<?= urlencode($fila['id_local']) ?>" class="btn btn-primary btn-sm">Ver promociones</a>
                       </div>
                     </div>
                   </div>
