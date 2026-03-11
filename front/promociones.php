@@ -11,38 +11,7 @@
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
     rel="stylesheet"
   />
-  <style>
-    .pagination .page-link {
-    color: #000 !important;
-    }
-    .pagination .page-link:focus, .pagination .page-link:hover {
-    color: #fff !important;
-    background-color: #0d6efd !important; /* azul Bootstrap */
-    border-color: #0d6efd !important;
-    }
-    .pagination .active .page-link {
-    color: #fff !important;
-    background-color: #0d6efd !important;
-    border-color: #0d6efd !important;
-    }
-    .card:hover {
-    background-color: #e3f2fd; /* Azul claro, podés cambiarlo por el color que prefieras */
-    transition: background-color 0.3s;
-    cursor: pointer;
-    }
-    .card{
-      height: 260px; /* Ajusta la altura máxima de la tarjeta */
-      width: 340px; /* Ajusta el ancho máximo de la tarjeta */
-      /*min-width: 340px;*/
-      max-width: 340px;
-    }
-    .card-img-custom {
-    height: 130px;      /* Cambia el valor según lo que necesites */
-    width: 100%;
-    object-fit: cover;      /* Recorta la imagen para llenar el área */
-    object-position: center;/* Centra el recorte */
-    }
-  </style>
+  <link rel="stylesheet" href="estilos/promocion/promociones.css">
   <title>Document</title>
 </head>
 <body>
@@ -50,9 +19,9 @@
     <?php include '../header.php'; ?>
   </header>
   <!--Contenido principal-->
-  <div class="my-4 container-fluid d-flex justify-content-center align-items-center">
+  <div class="container seccion-promos">
     <!-- Contenedor para barra busqueda y desplegable -->
-    <div class="container w-75 my-4">
+    <div class="buscador-box mb-4">
     <div class="row align-items-center gy-1">
       <!-- Barra de busqueda -->
       <div class="col-lg-9 col-12 ">
@@ -90,7 +59,7 @@
   </div> <!--Cierra contenedor de busqueda y desplegable-->
   </div> <!--Cierra contenido principal-->
   <!--Tarjetas-->
-  <div class="container w-75 my-4">
+  <div class="container my-4">
     <?php
     //Para la paginacion
     $cantPorPagina=9;
@@ -149,7 +118,7 @@
     <?php
     } //cierro if para boton
     ?>
-   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 align-items-stretch">
+   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center">
     <?php
       if(!$result){
         echo "<div class='alert alert-danger text-center'>
@@ -159,7 +128,7 @@
       else{
         if(isset($_GET["Buscar"])){
           while($row = $result->fetch_assoc()) {
-            if($_GET["Buscar"]==$row["descripcion"]){      
+            if(stripos($row["descripcion"], $_GET["Buscar"]) !== false){      
             // Se fija que extension tiene la imagen
             $finfo = new finfo(FILEINFO_MIME_TYPE);
             $mime = $finfo->buffer($row['imagen_prom']);

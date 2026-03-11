@@ -1,0 +1,76 @@
+body {
+  overflow-x: hidden;
+  background: #f8f9fa;
+}
+
+/* buscador */
+.buscador-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* tarjetas */
+
+.card {
+  border: none;
+  border-radius: 14px;
+  overflow: hidden;
+  height: 100%;
+  max-width: 340px;
+  transition: all .25s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  background: white;
+  cursor: pointer;
+}
+
+.card-img-custom {
+  height: 150px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card-body h5 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.card-text {
+  font-size: .95rem;
+  color: #555;
+}
+
+/* paginacion */
+
+.pagination .page-link {
+  color: #000 !important;
+  border-radius: 8px;
+  margin: 0 4px;
+}
+
+.pagination .page-link:hover {
+  color: #fff !important;
+  background-color: #0d6efd !important;
+  border-color: #0d6efd !important;
+}
+
+.pagination .active .page-link {
+  color: #fff !important;
+  background-color: #0d6efd !important;
+  border-color: #0d6efd !important;
+}
+
+/* espacio general */
+
+.seccion-promos {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}

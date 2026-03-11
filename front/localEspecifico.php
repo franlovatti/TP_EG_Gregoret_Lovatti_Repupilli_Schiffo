@@ -7,36 +7,7 @@
   <title>Local</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
-  <style>
-    .pagination .page-link {
-    color: #000 !important;
-    }
-    .pagination .page-link:focus, .pagination .page-link:hover {
-    color: #fff !important;
-    background-color: #0d6efd !important; /* azul Bootstrap */
-    border-color: #0d6efd !important;
-    }
-    .pagination .active .page-link {
-    color: #fff !important;
-    background-color: #0d6efd !important;
-    border-color: #0d6efd !important;
-    }
-    .promo-card:hover {
-    background-color: #e3f2fd; 
-    transition: background-color 0.3s;
-    cursor: pointer;
-    }
-      .promo-card {
-      width: 340px;
-      height: 320px;
-      }
-    .card-img-custom {
-    height: 130px;      /* Cambia el valor según lo que necesites */
-    width: 100%;
-    object-fit: cover;      /* Recorta la imagen para llenar el área */
-    object-position: center;/* Centra el recorte */
-    }
-  </style>
+  <link rel="stylesheet" href="estilos/local/localEspecifico.css">
 </head>
 <body>
 <header class="p-3 text-bg-dark">
@@ -46,7 +17,7 @@
 <?php
 //Para la paginacion
 $cantPorPagina=8;
-$pagina=isset($_GET["pagina"])?$_GET["pagina"]:null;
+$pagina=isset($_GET["pagina"])?$_GET["pagina"]:null; //el get este se toma de la url que arma la paginacion al final del archivo
 if(!$pagina){
   $inicio=0;
   $pagina=1;
@@ -92,7 +63,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
               <!-- Texto a la derecha -->
               <div class="col-md-10 d-flex align-items-center">
                 <div class="card-body">
-                  <h5 class="card-title mb-1">Nombre: <?= htmlspecialchars($fila['nombre_local']) ?></h5>
+                  <h5 class="card-title mb-1"><?= htmlspecialchars($fila['nombre_local']) ?></h5>
                   <p class="card-text mb-0">Nro Local: <?= htmlspecialchars($fila['id_local']) ?></p>
                   <p class="card-text mb-0">Ubicación: <?= htmlspecialchars($fila['ubicacion']) ?></p>
                   <p class="card-text mb-3">Rubro: <?= htmlspecialchars($fila['rubro']) ?></p>

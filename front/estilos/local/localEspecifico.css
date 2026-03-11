@@ -1,0 +1,38 @@
+    .pagination .page-link {
+      color: #000 !important;
+    }
+
+    .pagination .page-link:focus,
+    .pagination .page-link:hover {
+      color: #fff !important;
+      background-color: #0d6efd !important;
+      /* azul Bootstrap */
+      border-color: #0d6efd !important;
+    }
+
+    .pagination .active .page-link {
+      color: #fff !important;
+      background-color: #0d6efd !important;
+      border-color: #0d6efd !important;
+    }
+
+    .promo-card:hover {
+      background-color: #e3f2fd;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+
+    .promo-card {
+      width: 340px;
+      height: 320px;
+    }
+
+    .card-img-custom {
+      height: 130px;
+      /* Cambia el valor según lo que necesites */
+      width: 100%;
+      object-fit: cover;
+      /* Recorta la imagen para llenar el área */
+      object-position: center;
+      /* Centra el recorte */
+    }
