@@ -1,0 +1,85 @@
+/* HERO */
+.hero {
+  position: relative;
+  height: 420px;
+  overflow: hidden;
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+}
+
+/* SECTION PROMOS */
+
+.section-promos {
+  padding: 50px 0;
+}
+
+/* CARDS */
+
+.card {
+  height: 270px;
+  max-width: 340px;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all .25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
+  background-color: #e3f2fd;
+  cursor: pointer;
+}
+
+.card-img-custom {
+  height: 140px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 14px;
+}
+
+.card-body h5 {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.card-text {
+  font-size: .9rem;
+  color: #555;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* TITULOS */
+
+.section-title {
+  font-weight: 600;
+  margin-bottom: 30px;
+}

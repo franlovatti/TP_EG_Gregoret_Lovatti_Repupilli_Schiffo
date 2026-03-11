@@ -1,0 +1,72 @@
+body {
+  overflow-x: hidden;
+}
+
+/* CAROUSEL */
+
+.carousel-inner {
+  height: 420px;
+}
+
+.carousel-inner img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.carousel-caption {
+  z-index: 5;
+}
+
+/* SECCIONES */
+
+.section {
+  padding: 50px 0;
+}
+
+.section-light {
+  background: #f8f9fa;
+}
+
+.section-title {
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+/* TEXTO */
+
+.text-about {
+  max-width: 800px;
+  margin: auto;
+  color: #555;
+}
+
+/* MAPA */
+
+#map {
+  height: 420px;
+  border-radius: 10px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width:576px) {
+
+  .carousel-inner {
+    height: 220px;
+  }
+
+  #map {
+    height: 320px;
+  }
+
+}
