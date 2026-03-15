@@ -27,7 +27,9 @@
         <!-- FILTROS -->
 
         <div class="filtros-box mb-4">
-
+            <h5 class="mb-3">
+                Reportes de promociones
+            </h5>
             <div class="row gy-2">
 
                 <?php
@@ -126,7 +128,7 @@
 
         <?php if (empty($locales)) { ?>
 
-            <div class="text-center text-muted py-5">
+            <div class='alert alert-info text-center'>
                 Aún no hay resultados.
             </div>
 
