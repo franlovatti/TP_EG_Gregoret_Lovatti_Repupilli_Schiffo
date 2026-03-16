@@ -1,4 +1,7 @@
-  <div class="modal fade" id="promoModal" tabindex="-1" aria-hidden="true">
+<?php
+$tipoUsuario = $_SESSION['tipoUsuario'] ?? null;
+?>
+<div class="modal fade" id="promoModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -18,7 +21,9 @@
           <span class="text-muted">Si aprovechas la promocion te va a llegar a tu mail un codigo para usarla 
             cuando el dueño del local apruebe tu solicitud.</span>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <?php if($tipoUsuario != 'dueño' && $tipoUsuario != 'administrador'){ ?>
           <button type="button" class="btn btn-primary" id="btnAprovecharPromo">Aprovechar Promoción</button>
+          <?php } ?>
         </div>
       </div>
     </div>

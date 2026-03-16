@@ -1,4 +1,6 @@
-<?php include '../sesion.php'; ?>
+<?php include '../sesion.php'; 
+$tipoUsuario = $_SESSION['tipoUsuario'] ?? null;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +32,9 @@
 <div class="hero-content">
 <h1 class="display-5 fw-bold">Descubrí las mejores promociones</h1>
 <p class="lead">Ofertas exclusivas de nuestros locales todos los días</p>
+<?php if( $tipoUsuario != 'dueño' && $tipoUsuario != 'administrador'){ ?>
 <a href="promociones.php" class="btn btn-primary">Ver promociones</a>
+<?php } ?>
 </div>
 
 </div>
@@ -53,7 +57,7 @@ ini_set('display_errors', 0);
 
 global $recuperar_error;
 
-$query ="SELECT p.descripcion, p.fecha_desde, p.fecha_hasta,
+$query ="SELECT p.id_promocion, p.descripcion, p.fecha_desde, p.fecha_hasta,
 p.lunes, p.martes, p.miercoles, p.jueves, p.viernes, p.sabado, p.domingo, p.imagen_prom,
 loc.nombre_local
 FROM promocion p
@@ -82,6 +86,7 @@ $mime = $finfo->buffer($row['imagen_prom']);
 
 data-bs-toggle="modal"
 data-bs-target="#promoModal"
+data-id="<?php echo $row['id_promocion']; ?>"
 
 data-nombre="<?php echo htmlspecialchars($row['nombre_local']); ?>"
 data-descripcion="<?php echo htmlspecialchars($row['descripcion']); ?>"
@@ -127,7 +132,10 @@ mysqli_close($conexion);
 </div>
 
 <div class="text-center mt-4">
+<?php if( $tipoUsuario != 'dueño' && $tipoUsuario != 'administrador'){ ?>
 <a href="promociones.php" class="btn btn-primary">Ver todas las promociones</a>
+<?php } ?>
+</div>
 </div>
 
 </div>
@@ -219,6 +227,8 @@ document.getElementById('promoModalLabel').textContent=card.getAttribute('data-n
 document.getElementById('promoModalImg').src=card.getAttribute('data-imagen');
 
 document.getElementById('promoModalDesc').textContent=card.getAttribute('data-descripcion');
+
+document.getElementById('promoModalIdPromo').value=card.getAttribute('data-id');
 
 document.getElementById('promoModalDesde').textContent=card.getAttribute('data-fecha-desde');
 
