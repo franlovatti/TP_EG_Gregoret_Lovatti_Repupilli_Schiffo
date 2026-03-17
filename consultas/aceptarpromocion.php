@@ -7,13 +7,13 @@ if (!isset($_GET['id'])) {
 }
 
 $id_promocion = intval($_GET['id']);
-$query="UPDATE promocion SET estado = 'rechazada' WHERE id_promocion = $id_promocion ";
+$query="UPDATE promocion SET estado = 'activa' WHERE id_promocion = $id_promocion ";
 $resultado=mysqli_query($conexion, $query);
 if ($resultado) {
-    header("Location: aprobarpromocion.php");
+    header("Location: ../front/aprobarpromocion.php");
     exit;
 } else {
-    echo "<div class='alert alert-danger text-center'>Error al rechazar la promoción " . mysqli_error($conexion) . "</div>";
+    echo "<div class='alert alert-danger text-center'>Error al aceptar la promoción " . mysqli_error($conexion) . "</div>";
 }
 
 mysqli_close($conexion);

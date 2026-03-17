@@ -1,0 +1,27 @@
+.scrollable-box {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+footer {
+  background-color: #f8f9fa;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.texto-destacado {
+  color: #e91e63;
+  font-weight: bold;
+}
+
+.card {
+  border-radius: 12px;
+}
+
+.table thead {
+  background-color: #212529;
+  color: white;
+}
