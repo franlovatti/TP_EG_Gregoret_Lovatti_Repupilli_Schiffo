@@ -41,9 +41,14 @@ if (!$resultado) {
 }
 ?>
 <div class="container my-5">
+    <form method="post" action="crearlocal.php">
+    <button type="submit" class="btn btn-outline-primary my-1">
+      <i class="bi bi-arrow-left"></i> Volver
+    </button>
+  </form>
   <H4>Crear un nuevo local:</H4>
 
-    <form method="post" action="gestionarnuevolocal.php" class="p-3 border rounded shadow-sm" enctype="multipart/form-data">
+    <form method="post" action="../consultas/gestionarnuevolocal.php" class="p-3 border rounded shadow-sm" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="nombre_local" class="form-label">Nombre del local</label>
         <input type="text" name="nombre_local" id="nombre_local" class="form-control" required>
@@ -61,10 +66,10 @@ if (!$resultado) {
         <textarea name="descripcion" id="descripcion" class="form-control" rows="3"></textarea>
     </div>
     <div class="mb-3">
-        <label for="id_usuario" class="form-label">Id del dueño del local</label>
+        <label for="id_usuario" class="form-label">Dueño del local</label>
         <select class="form-select" name="id_usuario" id="id_usuario" required>
             <?php while ($fila = mysqli_fetch_assoc($resultado)){
-            ?> <option value="<?php echo  $fila['id_usuario'] ;?>" ><?php echo  $fila['id_usuario'] ;?></option><?php ;}?>
+            ?> <option value="<?php echo  $fila['id_usuario'] ;?>" ><?php echo  $fila['mail_usuario'] ;?></option><?php ;}?>
         </select>
     </div>
     <div class="mb-3">

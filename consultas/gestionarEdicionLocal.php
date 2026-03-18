@@ -14,7 +14,7 @@ if (isset($_FILES['imagen_local']) && $_FILES['imagen_local']['error'] === UPLOA
             $imagen_binaria = file_get_contents($tmpPath);
         
     } else {
-        die("⚠️ No se pudo subir la imagen. Código de error: " . $_FILES['imagen_local']['error']);
+        die("No se pudo subir la imagen. Código de error: " . $_FILES['imagen_local']['error']);
     }}
 
 $vSQL = "UPDATE LOCAL 
@@ -31,13 +31,13 @@ if ($imagen_binaria === null) {
         $stmt->send_long_data(5,$imagen_binaria);
     }
 if ($stmt->execute()) {
-        echo "✅ Registro actualizado exitosamente.";
+        echo "Registro actualizado exitosamente.";
     } else {
-        echo "❌ Error: " . $stmt->error;
+        echo "Error: " . $stmt->error;
     }
 
 $stmt->close();
 mysqli_close($conexion);
-header("Location:crearlocal.php");
+header("Location:../front/crearlocal.php");
 
 ?>

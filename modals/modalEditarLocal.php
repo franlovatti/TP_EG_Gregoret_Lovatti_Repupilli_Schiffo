@@ -12,7 +12,7 @@ include '../conexion.php';
 $vSQL="SELECT * FROM usuario where tipo_usuario= 'dueño' AND estado ='activo'"; 
 $vResult=mysqli_query($conexion,$vSQL);
 ?>  
-    <form id="formEditarLocal" action="gestionarEdicionLocal.php" method="post" enctype="multipart/form-data">
+    <form id="formEditarLocal" action="../consultas/gestionarEdicionLocal.php" method="post" enctype="multipart/form-data">
   <input type="hidden" name="id_local" id="modal-id">
 
   <div class="mb-3">
@@ -32,10 +32,10 @@ $vResult=mysqli_query($conexion,$vSQL);
   
   
   <div class="mb-3">
-        <label for="editLocalUsuario" class="form-label">Id del dueño del local</label>
+        <label for="editLocalUsuario" class="form-label">Dueño del local</label>
         <select class="form-select" name="id_usuario" id="modal-usuario" required>
             <?php while ($fila = mysqli_fetch_assoc($vResult)){
-            ?> <option value="<?php echo  $fila['id_usuario'] ;?>" ><?php echo  $fila['id_usuario'] ;?></option><?php ;}?>
+            ?> <option value="<?php echo  $fila['id_usuario'] ;?>" ><?php echo  $fila['mail_usuario'] ;?></option><?php ;}?>
         </select>
     </div>
   

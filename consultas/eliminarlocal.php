@@ -19,7 +19,7 @@ if ($row['total'] > 0) {
   $query="UPDATE local SET estado = 'eliminado' WHERE id_local = $id_local";
   $resultado = mysqli_query($conexion, $query);
   if ($resultado) {
-      header("Location:crearlocal.php");
+      header("Location:../front/crearlocal.php");
     } else {
       echo "<div class='alert alert-danger text-center'>Error al eliminar el local </div>";
     }

@@ -15,10 +15,10 @@ if (isset($_FILES['imagen_local']) && $_FILES['imagen_local']['error'] === UPLOA
         if ($check !== false) {
             $imagen_binaria = file_get_contents($tmpPath);
         } else {
-            die("⚠️ El archivo no es una imagen válida.");
+            die("El archivo no es una imagen válida.");
         }
     } else {
-        die("⚠️ No se pudo subir la imagen. Código de error: " . $_FILES['imagen_local']['error']);
+        die("No se pudo subir la imagen. Código de error: " . $_FILES['imagen_local']['error']);
     }
 
 $vSQL="INSERT INTO LOCAL (nombre_local, ubicacion, rubro, id_usuario, descripcion,imagen_local) VALUES (?,?,?,?,?,?)";
@@ -27,12 +27,12 @@ $null=NULL;
 $stmt->bind_param("sssisb",$nombre_local,$ubicacion,$rubro,$id_usuario,$descripcion,$null);
 $stmt->send_long_data(5,$imagen_binaria);
 if($stmt->execute()){
-    echo "✅ Local cargado exitosamente.";
-    header("Location: nuevolocal.php");
+    echo "Local cargado exitosamente.";
+    header("Location: ../front/nuevolocal.php");
     exit;
 }
 else{
-  echo "❌ Error: " . $stmt->error;
+  echo "Error: " . $stmt->error;
 }
 $stmt->close();
 mysqli_close($conexion);
