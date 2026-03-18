@@ -57,6 +57,11 @@ if (!$resultado) {
     die("Error en la consulta: " . mysqli_error($conexion));
 }
 
+if( mysqli_num_rows($resultado) == 0){
+    echo "<div class='alert alert-info text-center'>
+              No hay solicitudes de usuarios pendientes.
+            </div>";} else {
+
 echo "<table class='table table-hover table-bordered align-middle text-center'>";
 echo "<thead class='table-dark'>
         <tr>
@@ -103,7 +108,7 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
 
 echo "</tbody>";
 echo "</table>";
-
+}
 mysqli_close($conexion);
 ?>
 
