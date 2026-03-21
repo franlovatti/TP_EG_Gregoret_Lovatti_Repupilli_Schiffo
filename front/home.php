@@ -15,7 +15,6 @@ $tipoUsuario = $_SESSION['tipoUsuario'] ?? null;
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-
 <header class="p-3 text-bg-dark">
 <?php include '../header.php'; ?>
 </header>
@@ -49,8 +48,11 @@ $tipoUsuario = $_SESSION['tipoUsuario'] ?? null;
 
 <?php
 
-require_once '../conexion.php';
-global $conexion;
+require '../conexion.php';
+
+if (!isset($conexion) || !($conexion instanceof mysqli)) {
+echo '<div class="col-12"><div class="alert alert-danger">No se pudo establecer la conexión con la base de datos.</div></div>';
+} else {
 
 error_reporting(E_ERROR | E_PARSE);
 ini_set('display_errors', 0);
@@ -71,12 +73,23 @@ $resultado = mysqli_query($conexion, $query);
 
 if(!$resultado){
 $recuperar_error = "Error al recuperar las promociones: " . mysqli_error($conexion);
+echo '<div class="col-12"><div class="alert alert-warning">No se pudieron cargar las promociones destacadas en este momento.</div></div>';
 }else{
 
 while($row = $resultado->fetch_assoc()){
 
+$imagenPromocion = $row['imagen_prom'] ?? '';
+$mime = 'image/jpeg';
+$imagenSrc = '';
+
+if (!empty($imagenPromocion)) {
 $finfo = new finfo(FILEINFO_MIME_TYPE);
-$mime = $finfo->buffer($row['imagen_prom']);
+$mimeDetectado = $finfo->buffer($imagenPromocion);
+if (!empty($mimeDetectado)) {
+$mime = $mimeDetectado;
+}
+$imagenSrc = "data:" . $mime . ";base64," . base64_encode($imagenPromocion);
+}
 
 ?>
 
@@ -93,7 +106,7 @@ data-descripcion="<?php echo htmlspecialchars($row['descripcion']); ?>"
 data-fecha-desde="<?php echo htmlspecialchars($row['fecha_desde']); ?>"
 data-fecha-hasta="<?php echo htmlspecialchars($row['fecha_hasta']); ?>"
 
-data-imagen="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($row['imagen_prom']); ?>"
+data-imagen="<?php echo htmlspecialchars($imagenSrc); ?>"
 
 data-lunes="<?php echo $row['lunes'] ? 'Lunes' : ''; ?>"
 data-martes="<?php echo $row['martes'] ? 'Martes' : ''; ?>"
@@ -105,7 +118,7 @@ data-domingo="<?php echo $row['domingo'] ? 'Domingo' : ''; ?>"
 
 style="cursor:pointer;">
 
-<img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($row['imagen_prom']); ?>" class="card-img-top card-img-custom" alt="Promoción">
+<img src="<?php echo htmlspecialchars($imagenSrc); ?>" class="card-img-top card-img-custom" alt="Promoción">
 
 <div class="card-body">
 
@@ -125,8 +138,11 @@ style="cursor:pointer;">
 }
 }
 
+if ($resultado instanceof mysqli_result) {
 mysqli_free_result($resultado);
+}
 mysqli_close($conexion);
+}
 ?>
 
 </div>
@@ -166,48 +182,45 @@ new bootstrap.Collapse(navbarCollapse).toggle();
 <?php include '../modals/modalRecuperar.php'; ?>
 <?php include '../modals/modalCambiarClave.php'; ?>
 <?php include '../modals/modalToken.php'; ?>
+<?php include '../modals/modalVerificado.php'; ?>
+<?php include '../modals/modalRegistrado.php'; ?>
 
-<?php if (!empty($login_error)){?>
+<?php
+$modalAutoAbrir = '';
+if (!empty($login_error)) {
+	$modalAutoAbrir = 'loginModal';
+} elseif (!empty($signUp_error)) {
+	$modalAutoAbrir = 'registroModal';
+} elseif (isset($_GET['recuperar']) || !empty($recuperar)) {
+	$modalAutoAbrir = 'recuperarModal';
+} elseif (!empty($cambiar_error) || $token_resultado === '1') {
+	$modalAutoAbrir = 'cambiarClaveModal';
+} elseif ($token_resultado === '0') {
+	$modalAutoAbrir = 'tokenModal';
+} elseif (isset($_GET['verificado']) && $_GET['verificado'] === '1') {
+  $modalAutoAbrir = 'modalVerificado';
+} elseif (isset($_GET['verificado']) && $_GET['verificado'] === '0') {
+  $modalAutoAbrir = 'modalRegistrado';
+}
+?>
+
+<?php if ($modalAutoAbrir !== ''){?>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
-var modal=new bootstrap.Modal(document.getElementById('loginModal'));
-modal.show();
+const modalId = <?php echo json_encode($modalAutoAbrir); ?>;
+
+// Limpia cualquier estado modal residual para evitar pagina bloqueada.
+document.querySelectorAll('.modal-backdrop').forEach(function(backdrop){
+backdrop.remove();
 });
-</script>
-<?php }; ?>
+document.body.classList.remove('modal-open');
+document.body.style.removeProperty('overflow');
+document.body.style.removeProperty('padding-right');
 
-<?php if (!empty($signUp_error)){?>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-var modal=new bootstrap.Modal(document.getElementById('registroModal'));
-modal.show();
-});
-</script>
-<?php }; ?>
-
-<?php if (isset($_GET['recuperar']) || !empty($recuperar)){?>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-var modal=new bootstrap.Modal(document.getElementById('recuperarModal'));
-modal.show();
-});
-</script>
-<?php }; ?>
-
-<?php if (!empty($cambiar_error) || $token_resultado == '1'){?>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-var modal=new bootstrap.Modal(document.getElementById('cambiarClaveModal'));
-modal.show();
-});
-</script>
-<?php }; ?>
-
-<?php if ($token_resultado == '0'){?>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-var modal=new bootstrap.Modal(document.getElementById('tokenModal'));
-modal.show();
+const modalElement = document.getElementById(modalId);
+if(modalElement){
+bootstrap.Modal.getOrCreateInstance(modalElement).show();
+}
 });
 </script>
 <?php } ?>
@@ -217,6 +230,10 @@ modal.show();
 document.addEventListener('DOMContentLoaded',function(){
 
 var promoModal=document.getElementById('promoModal');
+
+if(!promoModal){
+return;
+}
 
 promoModal.addEventListener('show.bs.modal',function(event){
 
