@@ -13,12 +13,12 @@ function recuperar(){
       $token = bin2hex(random_bytes(32));
       $token_hash = password_hash($token, PASSWORD_DEFAULT);
       $expira = date('Y-m-d H:i:s', time() + 900); // 15 minutos de validez
-      $query = "UPDATE usuario SET selector='$selector', token='$token_hash', token_tiempo='$expira' WHERE mail_usuario='$email'";
+      $query = "UPDATE usuario SET selector_recuperar='$selector', token_recuperar='$token_hash', token_tiempo='$expira' WHERE mail_usuario='$email'";
       $resultado = mysqli_query($conexion, $query) or die("Hubo un error con la transacción:".mysqli_error($conexion));
       if ($resultado) {
         $asunto = "Recuperacion de clave";
         $mensaje = "<p>Hola, hemos recibido una solicitud para recuperar tu contraseña. Por favor, haz clic en el siguiente enlace para restablecerla:</p>
-        <p><a href='http://localhost/archivosXampp/front/home.php?selector=".$selector."&token=".$token."'>Restablecer contraseña</a></p>
+        <p><a href='http://localhost/archivosXampp/TP_EG_Gregoret_Lovatti_Repupilli_Schiffo/front/home.php?selector=".$selector."&token=".$token."'>Restablecer contraseña</a></p>
         <p>Si no solicitaste este cambio, puedes ignorar este mensaje.</p>
         <p>Este enlace expirará en 15 minutos.</p>";
         $respuesta = sendMail($email, $asunto, $mensaje);
@@ -43,15 +43,23 @@ function tokenClave(){
     require_once '../conexion.php';
     global $token_resultado;
     $token_resultado = '0';
-    $selector = $_GET['selector'];
-    $token = $_GET['token'];
-    //echo $token;
-    $query = "SELECT * FROM usuario WHERE selector='$selector'";
+    if (!isset($_GET['selector']) || !isset($_GET['token'])) {
+      return;
+    }
+
+    $selector = trim($_GET['selector']);
+    $token = trim($_GET['token']);
+
+    if ($selector === '' || $token === '') {
+      return;
+    }
+
+    $query = "SELECT * FROM usuario WHERE selector_recuperar='$selector'";
     $resultados = mysqli_query($conexion, $query) or die("Hubo un error con la transacción:".mysqli_error($conexion));
     if(mysqli_num_rows($resultados) > 0){
       $fila = mysqli_fetch_array($resultados);
       if (strtotime($fila['token_tiempo']) > time()) {
-        if (password_verify($token, $fila['token'])) {
+        if (password_verify($token, $fila['token_recuperar'])) {
           // Mostrar formulario para cambiar la contraseña
           $_SESSION['usuario_cambio_clave'] = $fila['mail_usuario'];
           $token_resultado = '1';
@@ -71,7 +79,7 @@ function cambiarClave(){
       $nuevaClave = $_POST['claveNueva'];
       $claveHash = password_hash($nuevaClave, PASSWORD_DEFAULT);
       $tiempo = date('Y-m-d H:i:s', time());
-      $query = "UPDATE usuario SET clave_usuario='$claveHash', selector='', token='', token_tiempo='$tiempo' WHERE mail_usuario='$email'";
+      $query = "UPDATE usuario SET clave_usuario='$claveHash', selector_recuperar='', token_recuperar='', token_tiempo='$tiempo' WHERE mail_usuario='$email'";
       $resultado = mysqli_query($conexion, $query) or die("Hubo un error con la transacción:".mysqli_error($conexion));
       if ($resultado) {
         // Limpiar el token y el selector

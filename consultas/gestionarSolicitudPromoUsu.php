@@ -1,5 +1,6 @@
 <?php
 require_once '../conexion.php';
+require_once '../actualizarCategoriaUsuario.php';
 
 if(isset($_GET['id_uso'],$_GET['accion'])){
     $id_uso = $_GET['id_uso'];
@@ -22,6 +23,9 @@ if(isset($_GET['id_uso'],$_GET['accion'])){
     mysqli_stmt_bind_param($stmt, "si", $estado, $id_uso);
 
     if(mysqli_stmt_execute($stmt)){
+        if ($accion == "aceptar") {
+            actualizarCategoriaUsuario($id_uso);
+        }
         header("Location: ../front/gestionarPromoUsuario.php?estado=$estado");
         exit;
     } else {

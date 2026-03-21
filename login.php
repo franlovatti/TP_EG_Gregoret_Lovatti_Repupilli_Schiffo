@@ -12,6 +12,10 @@ function login(){
     $fila = mysqli_fetch_array($resultados);
     if(mysqli_num_rows($resultados) > 0){
       if (password_verify($_POST['password'], $fila['clave_usuario'])){
+        if ($fila['verificado'] === '0') {
+          $login_error = "Tu cuenta está pendiente de verificación. Por favor, revisa tu correo electrónico para verificarla.";
+          return;
+        }
         $_SESSION['categoria'] = $fila['categoria'];
         $_SESSION['usuario'] = $fila['mail_usuario'];
         $_SESSION['tipoUsuario'] = $fila['tipo_usuario'];

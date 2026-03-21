@@ -19,6 +19,10 @@
               <label for="clave2" class="form-label">Confirmar contraseña</label>
               <input type="password" class="form-control" id="clave2" name="clave2" required />
             </div>
+            <div id="error-pass" class="text-danger mt-1" style="display: none;"></div>
+            <?php if (!empty($signUp_error)){ ?>
+            <div class="alert alert-danger"><?= $signUp_error ?></div>
+            <?php }; ?>
             <div class="d-grid gap-2">
               <button type="submit" class="btn btn-success">Registrarse</button>
             </div>

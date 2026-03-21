@@ -32,6 +32,12 @@
   <?php include '../header.php'; ?>
 </header>
 
+<?php if (isset($_GET['local_error'])) { ?>
+  <div class="container mt-3">
+    <div class="alert alert-danger mb-0"><?php echo htmlspecialchars($_GET['local_error']); ?></div>
+  </div>
+<?php } ?>
+
 <?php
 require_once '../conexion.php';
 $query = "SELECT * FROM usuario WHERE tipo_usuario = 'dueño' AND estado='activo'";

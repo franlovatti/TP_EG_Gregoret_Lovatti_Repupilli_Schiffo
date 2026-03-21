@@ -32,6 +32,12 @@
   <?php include '../header.php'; ?>
 </header>
 
+<?php if (isset($_GET['promo_error'])) { ?>
+    <div class="container mt-3">
+        <div class="alert alert-danger mb-0"><?php echo htmlspecialchars($_GET['promo_error']); ?></div>
+    </div>
+<?php } ?>
+
 <?php
 require_once '../conexion.php';
 if(isset($_SESSION['idUsuario'])){

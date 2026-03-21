@@ -39,6 +39,18 @@
   <?php include '../header.php'; ?>
 </header>
 
+<?php if (isset($_GET['local_error'])) { ?>
+  <div class="container mt-3">
+    <div class="alert alert-danger mb-0"><?php echo htmlspecialchars($_GET['local_error']); ?></div>
+  </div>
+<?php } ?>
+
+<?php if (isset($_GET['local_ok'])) { ?>
+  <div class="container mt-3">
+    <div class="alert alert-success mb-0"><?php echo htmlspecialchars($_GET['local_ok']); ?></div>
+  </div>
+<?php } ?>
+
 <?php include '../modals/modalEditarLocal.php'; ?>
 
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
