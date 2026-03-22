@@ -11,6 +11,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'] ?? null;
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
 <link rel="stylesheet" href="estilos/home.css">
+<link rel="stylesheet" href="estilos/local/localEspecifico.css">
 
 </head>
 
@@ -59,7 +60,7 @@ ini_set('display_errors', 0);
 
 global $recuperar_error;
 
-$query ="SELECT p.id_promocion, p.descripcion, p.fecha_desde, p.fecha_hasta,
+$query ="SELECT p.id_promocion, p.descripcion, p.fecha_desde, p.fecha_hasta, p.categoria,
 p.lunes, p.martes, p.miercoles, p.jueves, p.viernes, p.sabado, p.domingo, p.imagen_prom,
 loc.nombre_local
 FROM promocion p
@@ -93,9 +94,9 @@ $imagenSrc = "data:" . $mime . ";base64," . base64_encode($imagenPromocion);
 
 ?>
 
-<div class="col d-flex justify-content-center">
+<div class="col d-flex justify-content-center align-items-stretch">
 
-<div class="card mb-3"
+<div class="card promo-card mb-3"
 
 data-bs-toggle="modal"
 data-bs-target="#promoModal"
@@ -122,10 +123,24 @@ style="cursor:pointer;">
 
 <div class="card-body">
 
-<h5><?php echo htmlspecialchars($row['nombre_local']); ?></h5>
-
+<div class="d-flex align-items-start justify-content-between mb-2">
+<h3 class="mb-0"><?php echo htmlspecialchars($row['nombre_local']); ?></h3>
+<?php
+$estrellas = '';
+if ($row['categoria'] == 'inicial') {
+    $estrellas = '★';
+} elseif ($row['categoria'] == 'medium') {
+    $estrellas = '★★';
+} elseif ($row['categoria'] == 'premium') {
+    $estrellas = '★★★';
+}
+?>
+<span class="badge bg-warning text-dark ms-2"><?php echo $estrellas; ?></span>
+</div>
+<h4><?php echo htmlspecialchars($row['descripcion']); ?></h4>
 <p class="card-text">
-<?php echo htmlspecialchars($row['descripcion']); ?>
+<?php echo htmlspecialchars($row['fecha_desde']); ?>
+  - <?php echo htmlspecialchars($row['fecha_hasta']); ?>
 </p>
 
 </div>
@@ -153,7 +168,6 @@ mysqli_close($conexion);
 <?php } ?>
 </div>
 </div>
-
 </div>
 
 </main>

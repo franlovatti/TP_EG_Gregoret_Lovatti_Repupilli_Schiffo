@@ -1,4 +1,4 @@
-<div class="modal fade" id="necesitarLoginModal" tablex="-1" aria-hidden="true">
+<div class="modal fade" id="necesitarLoginModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -7,6 +7,12 @@
       </div>
       <div class="modal-body">
         <p>Para aprovechar esta promoción, debes iniciar sesión en tu cuenta.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary mx-1 my-1" id="btnAbrirLoginDesdeNecesitar">
+          Ingresar
+        </button>
       </div>
     </div>
   </div>

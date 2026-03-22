@@ -12,6 +12,8 @@
     rel="stylesheet"
   />
   <link rel="stylesheet" href="estilos/promocion/promociones.css">
+  <link rel="stylesheet" href="estilos/local/localEspecifico.css">
+
   <title>Document</title>
 </head>
 <body>
@@ -88,7 +90,7 @@
         $busqueda = $_GET['Buscar'];
     }
     // Construye la consulta SQL
-    $query = "SELECT p.id_promocion, p.descripcion, p.fecha_desde, p.fecha_hasta, 
+    $query = "SELECT p.id_promocion, p.descripcion, p.fecha_desde, p.fecha_hasta,
                     p.lunes, p.martes, p.miercoles, p.jueves, p.viernes, p.sabado, p.domingo, p.imagen_prom,
                     loc.nombre_local
              FROM promocion p 
@@ -136,7 +138,7 @@
     ?>
           <!-- Tarjeta de promoción -->
       <div class="col d-flex justify-content-center align-items-stretch">
-        <div class="card mb-3"
+        <div class="card promo-card mb-3"
           data-bs-toggle="modal"
           data-bs-target="#promoModal"
           data-nombre="<?php echo htmlspecialchars($row['nombre_local']); ?>"
@@ -155,8 +157,23 @@
           style="cursor:pointer;">
           <img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($row['imagen_prom']); ?>" class="card-img-top card-img-custom" alt="Promoción">
           <div class="card-body">
-            <h5><?php echo htmlspecialchars($row['nombre_local']); ?></h5>
-            <p class="card-text"><?php echo htmlspecialchars($row['descripcion']); ?></p>
+            <div class="d-flex align-items-start justify-content-between mb-2">
+              <h4 class="mb-0"><?php echo htmlspecialchars($row['nombre_local']); ?></h4>
+              <?php
+              $estrellas = '';
+              if ($row['categoria'] == 'inicial') {
+                  $estrellas = '★';
+              } elseif ($row['categoria'] == 'medium') {
+                  $estrellas = '★★';
+              } elseif ($row['categoria'] == 'premium') {
+                  $estrellas = '★★★';
+              }
+              ?>
+              <span class="badge bg-warning text-dark ms-2"><?php echo $estrellas; ?></span>
+            </div>
+            <h5><?php echo htmlspecialchars($row['descripcion']); ?></h5>
+            <p>Fecha desde: <?php echo htmlspecialchars($row['fecha_desde']); ?></p>
+            <p>Fecha hasta: <?php echo htmlspecialchars($row['fecha_hasta']); ?></p>
           </div> <!-- Cierra card-body -->
         </div> <!-- Cierra card -->
       </div> <!-- Cierra col -->
@@ -182,7 +199,7 @@
           $busqueda = $_GET['Buscar'];
       }
       // Construye la consulta SQL
-      $query = "SELECT p.id_promocion, p.descripcion, p.fecha_desde, p.fecha_hasta, 
+      $query = "SELECT p.id_promocion, p.descripcion, p.fecha_desde, p.fecha_hasta, p.categoria,
                       p.lunes, p.martes, p.miercoles, p.jueves, p.viernes, p.sabado, p.domingo, p.imagen_prom,
                       loc.nombre_local
               FROM promocion p 
@@ -204,11 +221,12 @@
       ?>
       <!-- Tarjeta de promoción -->
       <div class="col d-flex justify-content-center align-items-stretch">
-        <div class="card mb-3"
+        <div class="card promo-card mb-3"
           data-bs-toggle="modal"
           data-bs-target="#promoModal"
           data-nombre="<?php echo htmlspecialchars($row['nombre_local']); ?>"
           data-id-promocion="<?php echo $row['id_promocion']; ?>"
+          data-categoria="<?php echo htmlspecialchars($row['categoria']); ?>"
           data-descripcion="<?php echo htmlspecialchars($row['descripcion']); ?>"
           data-fecha-desde="<?php echo htmlspecialchars($row['fecha_desde']); ?>"
           data-fecha-hasta="<?php echo htmlspecialchars($row['fecha_hasta']); ?>"
@@ -223,8 +241,23 @@
           style="cursor:pointer;">
           <img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($row['imagen_prom']); ?>" class="card-img-top card-img-custom" alt="Promoción">
           <div class="card-body">
-            <h5><?php echo htmlspecialchars($row['nombre_local']); ?></h5>
-            <p class="card-text"><strong>Promo: </strong><?php echo htmlspecialchars($row['descripcion']); ?></p>
+            <div class="d-flex align-items-start justify-content-between mb-2">
+              <h4 class="mb-0"><?php echo htmlspecialchars($row['nombre_local']); ?></h4>
+              <?php
+              $estrellas = '';
+              if ($row['categoria'] == 'inicial') {
+                  $estrellas = '★';
+              } elseif ($row['categoria'] == 'medium') {
+                  $estrellas = '★★';
+              } elseif ($row['categoria'] == 'premium') {
+                  $estrellas = '★★★';
+              }
+              ?>
+              <span class="badge bg-warning text-dark ms-2"><?php echo $estrellas; ?></span>
+            </div>
+            <h5><?php echo htmlspecialchars($row['descripcion']); ?></h5>
+            <p>Fecha desde: <?php echo htmlspecialchars($row['fecha_desde']); ?></p>
+            <p>Fecha hasta: <?php echo htmlspecialchars($row['fecha_hasta']); ?></p>
           </div>
         </div>
       </div>
@@ -348,9 +381,13 @@
   }
     ?>
  <script>
-  // Si el parámetro 'promo' es 'ok', muestra la modal de confirmación
+  // Si existe la modal de confirmación en el DOM, la muestra.
 document.addEventListener('DOMContentLoaded', function () {
-    var modal = new bootstrap.Modal(document.getElementById('confirmarModal'));
+    var confirmarModalEl = document.getElementById('confirmarModal');
+    if (!confirmarModalEl) {
+      return;
+    }
+    var modal = new bootstrap.Modal(confirmarModalEl);
     modal.show();
 });
 </script>

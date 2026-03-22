@@ -37,9 +37,11 @@
 
 /* CARDS */
 
-.card {
-  height: 270px;
+.promo-card {
+  width: 340px !important;
+  min-width: 340px;
   max-width: 340px;
+  height: 320px !important;
   border: none;
   border-radius: 12px;
   overflow: hidden;
@@ -47,7 +49,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.card:hover {
+.promo-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
   background-color: #e3f2fd;
@@ -55,7 +57,7 @@
 }
 
 .card-img-custom {
-  height: 140px;
+  height: 130px;
   object-fit: cover;
 }
 
@@ -75,6 +77,14 @@
   line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+@media (max-width: 576px) {
+  .promo-card {
+    width: 100% !important;
+    min-width: 0;
+    max-width: 340px;
+  }
 }
 
 /* TITULOS */

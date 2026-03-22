@@ -123,9 +123,22 @@ if($fila['descripcion']== null){
             style="cursor:pointer;">
             <img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($fila['imagen_prom']); ?>" class="card-img-top card-img-custom" alt="Promoción">
             <div class="card-body">
-              <h5><?php echo htmlspecialchars($fila['descripcion']); ?></h5>
-              <p>Fecha_desde: <?php echo htmlspecialchars($fila['fecha_desde']); ?></p>
-              <p>Fecha_hasta: <?php echo htmlspecialchars($fila['fecha_hasta']); ?></p>
+              <div class="d-flex align-items-start justify-content-between mb-2">
+                <h5 class="mb-0"><?php echo htmlspecialchars($fila['descripcion']); ?></h5>
+                <?php
+                $estrellas = '';
+                if ($fila['categoria'] == 'inicial') {
+                    $estrellas = '★';
+                } elseif ($fila['categoria'] == 'medium') {
+                    $estrellas = '★★';
+                } elseif ($fila['categoria'] == 'premium') {
+                    $estrellas = '★★★';
+                }
+                ?>
+                <span class="badge bg-warning text-dark ms-2"><?php echo $estrellas; ?></span>
+              </div>
+              <p>Fecha desde: <?php echo htmlspecialchars($fila['fecha_desde']); ?></p>
+              <p>Fecha hasta: <?php echo htmlspecialchars($fila['fecha_hasta']); ?></p>
             </div> <!-- Cierra card-body -->
           </div> <!-- Cierra card -->
         </div> <!-- Cierra col --> 
@@ -207,9 +220,7 @@ if($fila['descripcion']== null){
       });
   </script>
   <?php }; ?>
-  <!-- scripts al final -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- script Modal promociones -->
+  <!-- script Modal promociones -->
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     var promoModal = document.getElementById('promoModal');

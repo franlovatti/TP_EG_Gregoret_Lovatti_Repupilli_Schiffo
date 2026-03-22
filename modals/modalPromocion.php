@@ -50,18 +50,49 @@ $tipoUsuario = $_SESSION['tipoUsuario'] ?? null;
   <script>
     document.addEventListener('DOMContentLoaded', function(){
       const btn = document.getElementById("btnAprovecharPromo");
-      const promoModal = new bootstrap.Modal(document.getElementById("promoModal"));
-      const necesitarLogin = new bootstrap.Modal(document.getElementById("necesitarLoginModal"));
+      const promoModalEl = document.getElementById("promoModal");
+      const necesitarLoginEl = document.getElementById("necesitarLoginModal");
+      const loginModalEl = document.getElementById("loginModal");
+      const promoModal = new bootstrap.Modal(promoModalEl);
+      const necesitarLogin = new bootstrap.Modal(necesitarLoginEl);
+      const loginModal = loginModalEl ? new bootstrap.Modal(loginModalEl) : null;
       const estaLogueado = <?php echo json_encode($usuarioLogueado); ?>;
       const form = document.getElementById('formAprovecharPromo');
+      const btnAbrirLogin = document.getElementById('btnAbrirLoginDesdeNecesitar');
+
+      function limpiarFocoModal(modalEl) {
+        if (!modalEl) {
+          return;
+        }
+
+        const sacarFoco = function() {
+          if (document.activeElement && modalEl.contains(document.activeElement)) {
+            document.activeElement.blur();
+          }
+        };
+
+        modalEl.addEventListener('hide.bs.modal', sacarFoco);
+        modalEl.addEventListener('hidden.bs.modal', sacarFoco);
+      }
+
+      limpiarFocoModal(promoModalEl);
+      limpiarFocoModal(necesitarLoginEl);
+      limpiarFocoModal(loginModalEl);
+
+      if(!btn){
+        return;
+      }
 
 
       btn.addEventListener("click", function () {
+        if (document.activeElement) {
+          document.activeElement.blur();
+        }
+
         // Ocultar la modal actual
         promoModal.hide();
 
         // Esperar a que termine de cerrarse antes de mostrar la otra
-        const promoModalEl = document.getElementById("promoModal");
         promoModalEl.addEventListener('hidden.bs.modal', function () {
           if(estaLogueado){
             //logica para mandar los datos a gestionarPromoUsuario.php
@@ -75,5 +106,19 @@ $tipoUsuario = $_SESSION['tipoUsuario'] ?? null;
           }
         }, { once: true }); // `once: true` evita que se ejecute más de una vez
       });
+
+      if (btnAbrirLogin && loginModal) {
+        btnAbrirLogin.addEventListener('click', function () {
+          if (document.activeElement) {
+            document.activeElement.blur();
+          }
+
+          necesitarLoginEl.addEventListener('hidden.bs.modal', function () {
+            loginModal.show();
+          }, { once: true });
+
+          necesitarLogin.hide();
+        });
+      }
   });
   </script>

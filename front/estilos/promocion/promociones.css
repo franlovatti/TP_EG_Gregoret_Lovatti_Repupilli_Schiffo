@@ -13,25 +13,27 @@ body {
 
 /* tarjetas */
 
-.card {
-  border: none;
-  border-radius: 14px;
-  overflow: hidden;
-  height: 100%;
+.promo-card {
+  width: 340px !important;
+  min-width: 340px;
   max-width: 340px;
+  height: 320px !important;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
   transition: all .25s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-.card:hover {
+.promo-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-  background: white;
+  background-color: #e3f2fd;
   cursor: pointer;
 }
 
 .card-img-custom {
-  height: 150px;
+  height: 130px;
   width: 100%;
   object-fit: cover;
   object-position: center;
@@ -46,6 +48,14 @@ body {
 .card-text {
   font-size: .95rem;
   color: #555;
+}
+
+@media (max-width: 576px) {
+  .promo-card {
+    width: 100% !important;
+    min-width: 0;
+    max-width: 340px;
+  }
 }
 
 /* paginacion */
