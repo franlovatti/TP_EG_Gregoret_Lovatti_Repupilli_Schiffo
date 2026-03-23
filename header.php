@@ -73,6 +73,9 @@ if ($tipoUsuario == 'cliente') {
         <li class="nav-item">
           <a href="mispromociones.php" class="nav-link px-2 text-white">Mis promociones</a>
         </li>
+         <li class="nav-item">
+          <a href="novedades.php" class="nav-link px-2 text-white">Novedades</a>
+        </li>
       </ul>
 <?php
 } elseif ($tipoUsuario == 'dueño') {
@@ -115,7 +118,7 @@ if ($tipoUsuario == 'cliente') {
           <a href="crearlocal.php" class="nav-link px-2 text-white">Locales</a>
         </li>
         <li class="nav-item">
-          <a href="" class="nav-link px-2 text-white">Novedades</a>
+          <a href="crearnovedad.php" class="nav-link px-2 text-white">Novedades</a>
         </li>
         <li class="nav-item">
           <a href="reportes.php" class="nav-link px-2 text-white">Reportes</a>
