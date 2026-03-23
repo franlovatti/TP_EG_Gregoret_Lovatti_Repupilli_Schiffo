@@ -46,7 +46,7 @@ require_once '../filtroCategoriaPromociones.php';
 
 <h2 class="text-center section-title">Promociones destacadas</h2>
 
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-center">
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center">
 
 <?php
 
@@ -73,7 +73,7 @@ AND p.estado='activa'";
 $query .= obtenerFiltroSqlCategoriaPromocion('p');
 
 $query .= "
-LIMIT 4";
+LIMIT 3";
 
 $resultado = mysqli_query($conexion, $query);
 

@@ -38,8 +38,8 @@
 /* CARDS */
 
 .promo-card {
-  width: 340px !important;
-  min-width: 340px;
+  width: 100%;
+  /* min-width: 340px; */
   max-width: 340px;
   height: 320px !important;
   border: none;

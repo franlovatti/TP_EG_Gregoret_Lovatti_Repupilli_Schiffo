@@ -23,7 +23,9 @@
     }
 
     .promo-card {
-      width: 340px;
+      /*width: 340px;*/
+      width: 100%;
+      max-width: 340px;
       height: 320px;
     }
 
