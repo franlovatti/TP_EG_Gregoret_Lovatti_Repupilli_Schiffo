@@ -1,4 +1,5 @@
 <?php include '../sesion.php'; ?>
+<?php require_once '../filtroCategoriaPromociones.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,8 +35,9 @@ $query = "SELECT loc.id_local, loc.nombre_local, loc.ubicacion, loc.rubro, loc.i
         p.lunes, p.martes, p.miercoles, p.jueves, p.viernes, p.sabado, p.domingo,
         p.imagen_prom
         from local loc 
-        LEFT JOIN promocion p on loc.id_local = p.id_local and p.fecha_hasta >= CURDATE() AND p.fecha_desde <= CURDATE() AND p.estado = 'activa'
-        WHERE loc.id_local = '$id_local'";
+  LEFT JOIN promocion p on loc.id_local = p.id_local and p.fecha_hasta >= CURDATE() AND p.fecha_desde <= CURDATE() AND p.estado = 'activa'";
+$query .= obtenerFiltroSqlCategoriaPromocion('p');
+$query .= " WHERE loc.id_local = '$id_local'";
 $resultado = mysqli_query($conexion, $query) or die("Error en la consulta: " . mysqli_error($conexion));
 //para la paginacion
 $totalRegistros=mysqli_num_rows($resultado); 
@@ -43,7 +45,9 @@ $totalPaginas=ceil($totalRegistros/$cantPorPagina);
 
 // Traigo la única fila (o la primera de varias)
 $fila = mysqli_fetch_assoc($resultado);
+$localExiste = false;
 if ($resultado && mysqli_num_rows($resultado) > 0) {
+  $localExiste = true;
     $finfo = new finfo(FILEINFO_MIME_TYPE);
     $mime = $finfo->buffer($fila['imagen_prom']);
     ?>
@@ -80,11 +84,11 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         </div>';
 }
 
-if($fila['descripcion']== null){
+if($localExiste && $fila['descripcion'] == null){
   echo '<div class="container">
   <div class="alert alert-danger" role="alert">No se encontraron promociones para este local</div>
   </div>';
-}else{
+}elseif($localExiste){
   ?>
   <!-- Abre fila de promociones -->
   <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 align-items-stretch">
@@ -95,8 +99,9 @@ if($fila['descripcion']== null){
         p.imagen_prom
         from local loc 
         LEFT JOIN promocion p on loc.id_local = p.id_local
-        WHERE loc.id_local = '$id_local' and p.fecha_hasta >= CURDATE() AND p.fecha_desde <= CURDATE() AND p.estado = 'activa'
-        LIMIT $inicio, $cantPorPagina";
+      WHERE loc.id_local = '$id_local' and p.fecha_hasta >= CURDATE() AND p.fecha_desde <= CURDATE() AND p.estado = 'activa'";
+    $query .= obtenerFiltroSqlCategoriaPromocion('p');
+    $query .= " LIMIT $inicio, $cantPorPagina";
   $resultado = mysqli_query($conexion, $query) or die("Error en la consulta: " . mysqli_error($conexion));
   while($fila = $resultado->fetch_assoc()){
     $finfo = new finfo(FILEINFO_MIME_TYPE);

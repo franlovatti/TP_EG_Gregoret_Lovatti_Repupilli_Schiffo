@@ -1,5 +1,6 @@
 <?php include '../sesion.php'; 
 $tipoUsuario = $_SESSION['tipoUsuario'] ?? null;
+require_once '../filtroCategoriaPromociones.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +68,11 @@ FROM promocion p
 INNER JOIN local loc ON p.id_local = loc.id_local
 WHERE p.fecha_hasta >= CURDATE()
 AND p.fecha_desde <= CURDATE()
-AND p.estado='activa'
+AND p.estado='activa'";
+
+$query .= obtenerFiltroSqlCategoriaPromocion('p');
+
+$query .= "
 LIMIT 4";
 
 $resultado = mysqli_query($conexion, $query);

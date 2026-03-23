@@ -34,9 +34,9 @@ function actualizarCategoriaUsuario($id_uso) {
         $nueva_categoria = $categoria;
 
         if ($total_aceptadas >= $alta) {
-            $nueva_categoria = 'alta';
+            $nueva_categoria = 'premium';
         } elseif ($total_aceptadas >= $media) {
-            $nueva_categoria = 'media';
+            $nueva_categoria = 'medium';
         } else {
             $nueva_categoria = 'inicial';
         }

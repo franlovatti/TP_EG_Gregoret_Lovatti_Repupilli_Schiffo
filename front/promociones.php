@@ -1,4 +1,30 @@
 <?php include '../sesion.php'; ?>
+<?php require_once '../filtroCategoriaPromociones.php'; ?>
+<?php
+$catalogoCategorias = [
+  'inicial' => 'Inicial',
+  'medium' => 'Medium',
+  'premium' => 'Premium'
+];
+
+$categoriasPermitidasSesion = obtenerCategoriasPermitidasPorSesion();
+$categoriasFiltroPermitidas = empty($categoriasPermitidasSesion)
+  ? array_keys($catalogoCategorias)
+  : $categoriasPermitidasSesion;
+
+$categoriaSeleccionada = null;
+if (isset($_GET['categoria']) && $_GET['categoria'] !== 'Categoria') {
+  $categoriaSeleccionada = $_GET['categoria'];
+}
+
+if (
+  $categoriaSeleccionada &&
+  $categoriaSeleccionada !== 'todas' &&
+  !in_array($categoriaSeleccionada, $categoriasFiltroPermitidas, true)
+) {
+  $categoriaSeleccionada = null;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +60,7 @@
               type="text"
               class="form-control"
               placeholder="Buscar"
+              value="<?php echo isset($_GET['Buscar']) ? htmlspecialchars($_GET['Buscar']) : ''; ?>"
             />
             <button class="btn btn-primary" type="submit">
               <i class="bi bi-search"></i>
@@ -44,16 +71,21 @@
       <!-- Desplegable de categorias -->
       <div class="col-12 col-lg-3">
         <form method="get" action="">
+          <?php if (isset($_GET['Buscar']) && trim($_GET['Buscar']) !== '') { ?>
+            <input type="hidden" name="Buscar" value="<?php echo htmlspecialchars(trim($_GET['Buscar'])); ?>">
+          <?php } ?>
           <select
             name="categoria"
             class="form-select"
             onchange="this.form.submit()"
           >
-            <option selected>Categoria</option>
-            <option value="inicial">Inicial</option>
-            <option value="medium">Medium</option>
-            <option value="premium">Premium</option>
-            <option value="todas">Todas</option>
+            <option <?php echo $categoriaSeleccionada === null ? 'selected' : ''; ?>>Categoria</option>
+            <?php foreach ($categoriasFiltroPermitidas as $claveCategoria) { ?>
+              <option value="<?php echo htmlspecialchars($claveCategoria); ?>" <?php echo $categoriaSeleccionada === $claveCategoria ? 'selected' : ''; ?>>
+                <?php echo htmlspecialchars($catalogoCategorias[$claveCategoria]); ?>
+              </option>
+            <?php } ?>
+            <option value="todas" <?php echo $categoriaSeleccionada === 'todas' ? 'selected' : ''; ?>>Todas</option>
           </select>
         </form>
       </div> <!--cierra desplegable de categorias-->
@@ -63,163 +95,90 @@
   <!--Tarjetas-->
   <div class="container my-4">
     <?php
-    //Para la paginacion
-    $cantPorPagina=9;
-    $pagina=isset($_GET["pagina"])?$_GET["pagina"]:null;
-    if(!$pagina){
-      $inicio=0;
-      $pagina=1;
+    // Para la paginacion
+    $cantPorPagina = 9;
+    $pagina = isset($_GET['pagina']) ? (int) $_GET['pagina'] : 1;
+    if ($pagina < 1) {
+      $pagina = 1;
     }
-    else{
-      $inicio=($pagina-1) * $cantPorPagina;
-    }
+    $inicio = ($pagina - 1) * $cantPorPagina;
+
     require_once '../conexion.php';
     global $conexion;
-    error_reporting(E_ERROR | E_PARSE); // Muestra solo errores fatales y errores de análisis
-    ini_set('display_errors', 0);       // No mostrar errores al usuario
     global $recuperar_error;
     
-    // Verifica si se ha enviado una categoría
-    $categoria = null;
-    if (isset($_GET['categoria']) && $_GET['categoria'] != 'Categoria') {
-        $categoria = $_GET['categoria'];
+    // Verifica si ha enviado una busqueda
+    $busqueda = '';
+    if (isset($_GET['Buscar'])) {
+        $busqueda = trim($_GET['Buscar']);
     }
-    //Verifica si ha enviado una busqueda
-    $busqueda = null;
-    if (isset($_GET['Buscar']) && !empty($_GET['Buscar'])) {
-        $busqueda = $_GET['Buscar'];
+
+    // Construye una unica consulta SQL (datos + total para paginacion)
+    $query = "SELECT p.id_promocion, p.descripcion, p.fecha_desde, p.fecha_hasta, p.categoria,
+                     p.lunes, p.martes, p.miercoles, p.jueves, p.viernes, p.sabado, p.domingo,
+                     p.imagen_prom, loc.nombre_local, COUNT(*) OVER() AS total_registros
+              FROM promocion p
+              INNER JOIN local loc ON p.id_local = loc.id_local
+              WHERE p.fecha_hasta >= CURDATE() AND p.fecha_desde <= CURDATE() AND p.estado = 'activa'";
+
+    $query .= obtenerFiltroSqlCategoriaPromocion('p');
+
+    if ($categoriaSeleccionada && $categoriaSeleccionada != 'todas') {
+      $query .= " AND p.categoria = '" . mysqli_real_escape_string($conexion, $categoriaSeleccionada) . "'";
     }
-    // Construye la consulta SQL
-    $query = "SELECT p.id_promocion, p.descripcion, p.fecha_desde, p.fecha_hasta,
-                    p.lunes, p.martes, p.miercoles, p.jueves, p.viernes, p.sabado, p.domingo, p.imagen_prom,
-                    loc.nombre_local
-             FROM promocion p 
-             INNER JOIN local loc ON p.id_local = loc.id_local
-             WHERE fecha_hasta >= CURDATE() AND fecha_desde <= CURDATE() AND p.estado = 'activa'";
-    if($categoria!='todas' && $categoria){
-      // .= significa agregar al final de la variable query
-      $query .= " AND p.categoria = '" . mysqli_real_escape_string($conexion, $categoria) . "'";
-    }
-    if($busqueda){
+
+    if ($busqueda !== '') {
       $query .= " AND p.descripcion LIKE '%" . mysqli_real_escape_string($conexion, $busqueda) . "%'";
     }
-    //$query .= " LIMIT $inicio, $cantPorPagina";
-    $result = mysqli_query($conexion, $query) or die("Hubo un error con la transacción: " . mysqli_error($conexion));
-    //para la paginacion
-    $totalRegistros=mysqli_num_rows($result); 
-    $totalPaginas=ceil($totalRegistros/$cantPorPagina);
 
-    if(isset($_GET["Buscar"])){
-   ?>
-    <!-- Boton que permite volver atras si hay una busqueda -->
-    <div class="container py-3">
-      <a href="javascript:history.back()" class="btn btn-outline-primary mb-3">
-      <i class="bi bi-arrow-left"></i> Volver
-      </a>
-    </div>
-    <?php
-    } //cierro if para boton
+    $query .= " ORDER BY p.fecha_desde DESC LIMIT $inicio, $cantPorPagina";
+
+    $result = mysqli_query($conexion, $query) or die("Hubo un error con la transacción: " . mysqli_error($conexion));
+    $totalRegistros = 0;
+    if ($result && $result->num_rows > 0) {
+      $primerRegistro = $result->fetch_assoc();
+      $totalRegistros = (int) $primerRegistro['total_registros'];
+      mysqli_data_seek($result, 0);
+    }
+
+    $totalPaginas = max(1, (int) ceil($totalRegistros / $cantPorPagina));
+
+    if ($pagina > $totalPaginas) {
+      $pagina = $totalPaginas;
+    }
+
+    if ($busqueda !== '') {
+      ?>
+      <!-- Boton que permite volver atras si hay una busqueda -->
+      <div class="container py-3 d-flex justify-content-center">
+        <a href="javascript:history.back()" class="btn btn-outline-primary">
+        <i class="bi bi-arrow-left"></i> Regresar en la búsqueda
+        </a>
+      </div>
+      <?php
+    }
+
+    $queryParams = [];
+    if ($busqueda !== '') {
+      $queryParams['Buscar'] = $busqueda;
+    }
+    if ($categoriaSeleccionada) {
+      $queryParams['categoria'] = $categoriaSeleccionada;
+    }
     ?>
    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center">
     <?php
-      if(!$result){
-        echo "<div class='alert alert-danger text-center'>
-                No se encontró ninguna promoción.
+      if (!$result || $result->num_rows === 0) {
+        echo "<div class='alert alert-warning text-center'>
+                No hemos encontrado ninguna promoción que coincida con su búsqueda.
               </div>";
-      }
-      else{
-        if(isset($_GET["Buscar"])){
-          while($row = $result->fetch_assoc()) {
-            if(stripos($row["descripcion"], $_GET["Buscar"]) !== false){      
-            // Se fija que extension tiene la imagen
-            $finfo = new finfo(FILEINFO_MIME_TYPE);
-            $mime = $finfo->buffer($row['imagen_prom']);
-            $bandera=1; ;  
+      } else {
+        while ($row = $result->fetch_assoc()) {
+          // Detecta tipo MIME para mostrar la imagen guardada en BLOB
+          $finfo = new finfo(FILEINFO_MIME_TYPE);
+          $mime = $finfo->buffer($row['imagen_prom']);
     ?>
           <!-- Tarjeta de promoción -->
-      <div class="col d-flex justify-content-center align-items-stretch">
-        <div class="card promo-card mb-3"
-          data-bs-toggle="modal"
-          data-bs-target="#promoModal"
-          data-nombre="<?php echo htmlspecialchars($row['nombre_local']); ?>"
-          data-id-promocion="<?php echo $row['id_promocion']; ?>"
-          data-descripcion="<?php echo htmlspecialchars($row['descripcion']); ?>"
-          data-fecha-desde="<?php echo htmlspecialchars($row['fecha_desde']); ?>"
-          data-fecha-hasta="<?php echo htmlspecialchars($row['fecha_hasta']); ?>"
-          data-imagen="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($row['imagen_prom']); ?>"
-          data-lunes="<?php echo $row['lunes'] ? 'Lunes' : ''; ?>"
-          data-martes="<?php echo $row['martes'] ? 'Martes' : ''; ?>"
-          data-miercoles="<?php echo $row['miercoles'] ? 'Miércoles' : ''; ?>"
-          data-jueves="<?php echo $row['jueves'] ? 'Jueves' : ''; ?>"
-          data-viernes="<?php echo $row['viernes'] ? 'Viernes' :  ''; ?>"
-          data-sabado="<?php echo $row['sabado'] ? 'Sábado' : ''; ?>"
-          data-domingo="<?php echo $row['domingo'] ? 'Domingo' : ''; ?>"
-          style="cursor:pointer;">
-          <img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($row['imagen_prom']); ?>" class="card-img-top card-img-custom" alt="Promoción">
-          <div class="card-body">
-            <div class="d-flex align-items-start justify-content-between mb-2">
-              <h4 class="mb-0"><?php echo htmlspecialchars($row['nombre_local']); ?></h4>
-              <?php
-              $estrellas = '';
-              if ($row['categoria'] == 'inicial') {
-                  $estrellas = '★';
-              } elseif ($row['categoria'] == 'medium') {
-                  $estrellas = '★★';
-              } elseif ($row['categoria'] == 'premium') {
-                  $estrellas = '★★★';
-              }
-              ?>
-              <span class="badge bg-warning text-dark ms-2"><?php echo $estrellas; ?></span>
-            </div>
-            <h5><?php echo htmlspecialchars($row['descripcion']); ?></h5>
-            <p>Fecha desde: <?php echo htmlspecialchars($row['fecha_desde']); ?></p>
-            <p>Fecha hasta: <?php echo htmlspecialchars($row['fecha_hasta']); ?></p>
-          </div> <!-- Cierra card-body -->
-        </div> <!-- Cierra card -->
-      </div> <!-- Cierra col -->
-      <?php
-      } // llave del if buscar = descripcion    
-    } // llave del while
-    if (!isset($bandera)){
-      echo "<div class='alert alert-warning text-center'>
-              No hemos encontrado ninguna promoción que coincida con su búsqueda.
-            </div>";
-    }
-  } //este es el if del buscar
-  else {
-    if ($result && $result->num_rows > 0) {
-        // Verifica si se ha enviado una categoría
-      $categoria = null;
-      if (isset($_GET['categoria']) && $_GET['categoria'] != 'Categoria') {
-          $categoria = $_GET['categoria'];
-      }
-      //Verifica si ha enviado una busqueda
-      $busqueda = null;
-      if (isset($_GET['Buscar']) && !empty($_GET['Buscar'])) {
-          $busqueda = $_GET['Buscar'];
-      }
-      // Construye la consulta SQL
-      $query = "SELECT p.id_promocion, p.descripcion, p.fecha_desde, p.fecha_hasta, p.categoria,
-                      p.lunes, p.martes, p.miercoles, p.jueves, p.viernes, p.sabado, p.domingo, p.imagen_prom,
-                      loc.nombre_local
-              FROM promocion p 
-              INNER JOIN local loc ON p.id_local = loc.id_local
-              WHERE fecha_hasta >= CURDATE() AND fecha_desde <= CURDATE() AND p.estado = 'activa'";
-      if($categoria!='todas' && $categoria){
-        // .= significa agregar al final de la variable query
-        $query .= " AND p.categoria = '" . mysqli_real_escape_string($conexion, $categoria) . "'";
-      }
-      if($busqueda){
-        $query .= " AND p.descripcion LIKE '%" . mysqli_real_escape_string($conexion, $busqueda) . "%'";
-      }
-      $query .= " LIMIT $inicio, $cantPorPagina";
-      $result = mysqli_query($conexion, $query) or die("Hubo un error con la transacción: " . mysqli_error($conexion));
-      while($row = $result->fetch_assoc()) {    
-            // Se fija que extension tiene la imagen
-            $finfo = new finfo(FILEINFO_MIME_TYPE);
-            $mime = $finfo->buffer($row['imagen_prom']);
-      ?>
-      <!-- Tarjeta de promoción -->
       <div class="col d-flex justify-content-center align-items-stretch">
         <div class="card promo-card mb-3"
           data-bs-toggle="modal"
@@ -262,35 +221,41 @@
         </div>
       </div>
       <?php
-      } //Cierra while
-    } //Cierra if result
-  } //Cierra else
-}
-  mysqli_free_result($result);
-    mysqli_close($conexion);
-  ?>
+        }
+      }
+
+      if ($result) {
+        mysqli_free_result($result);
+      }
+      mysqli_close($conexion);
+      ?>
   </div> <!--Cierra fila de tarjetas-->
   </div> <!--Cierra contenedor de tarjetas-->
 
   <?php
   $paginaAnterior = $pagina > 1 ? $pagina - 1 : 1;
   $paginaSiguiente = $pagina < $totalPaginas ? $pagina + 1 : $totalPaginas;
+
+  $paramsPrev = array_merge($queryParams, ['pagina' => $paginaAnterior]);
+  $paramsNext = array_merge($queryParams, ['pagina' => $paginaSiguiente]);
   ?>
   <!--Paginacion-->
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
       <li class="page-item <?php echo $pagina == 1 ? 'disabled' : ''; ?>">
-        <a class="page-link" href="promociones.php?pagina=<?php echo $paginaAnterior; ?>" aria-label="Previous">
+        <a class="page-link" href="promociones.php?<?php echo http_build_query($paramsPrev); ?>" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
-      <?php for($j = 1; $j <= $totalPaginas; $j++) { ?>
-            <li class="page-item <?php echo $j == $pagina ? 'active' : ''; ?>">  
-              <a class="page-link" href="promociones.php?pagina=<?php echo $j; ?>"><?php echo $j; ?></a>
+      <?php for ($j = 1; $j <= $totalPaginas; $j++) {
+        $paramsPagina = array_merge($queryParams, ['pagina' => $j]);
+      ?>
+            <li class="page-item <?php echo $j == $pagina ? 'active' : ''; ?>">
+              <a class="page-link" href="promociones.php?<?php echo http_build_query($paramsPagina); ?>"><?php echo $j; ?></a>
             </li>
         <?php } ?>
       <li class="page-item <?php echo $pagina == $totalPaginas ? 'disabled' : ''; ?>">
-        <a class="page-link" href="promociones.php?pagina=<?php echo $paginaSiguiente; ?>" aria-label="Next">
+        <a class="page-link" href="promociones.php?<?php echo http_build_query($paramsNext); ?>" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>
