@@ -36,40 +36,25 @@
 
 <div class="carousel-item active">
 
-<img src="imagenes/shopping.jpg" class="d-block w-100" alt="shopping">
+<img src="imagenes/carrusel1.jpg" class="d-block w-100" alt="Mujer caminando en shopping">
 
 <div class="carousel-overlay"></div>
-
-<div class="carousel-caption text-center">
-<h1 class="fw-bold">Bienvenidos a nuestro shopping</h1>
-<p>Un espacio pensado para disfrutar compras, gastronomía y entretenimiento</p>
-</div>
 
 </div>
 
 <div class="carousel-item">
 
-<img src="imagenes/alto2.jpg" class="d-block w-100" alt="patio comidas">
+<img src="imagenes/carrusel2.jpg" class="d-block w-100" alt="patio comidas">
 
 <div class="carousel-overlay"></div>
-
-<div class="carousel-caption">
-<h3>Gastronomía y entretenimiento</h3>
-<p>Disfrutá de nuestras opciones gastronómicas y espacios recreativos</p>
-</div>
 
 </div>
 
 <div class="carousel-item">
 
-<img src="imagenes/mapa.png" class="d-block w-100" alt="mapa shopping">
+<img src="imagenes/carrusel3.png" class="d-block w-100" alt="ubicacion en un mapa del shopping">
 
 <div class="carousel-overlay"></div>
-
-<div class="carousel-caption">
-<h3>Fácil acceso</h3>
-<p>Ubicado en una zona estratégica con estacionamiento disponible</p>
-</div>
 
 </div>
 
