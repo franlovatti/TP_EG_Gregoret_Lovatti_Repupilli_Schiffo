@@ -27,7 +27,7 @@
         <!-- FILTROS -->
 
         <div class="filtros-box mb-4">
-            <h5 class="mb-3">
+            <h5 class="mb-2">
                 Reportes de promociones
             </h5>
             <div class="row gy-2">
@@ -44,18 +44,19 @@
 
                 <!-- Busqueda por local o promocion -->
                 <div class="col-lg-4 col-12">
-
+                    
+                    <label class="form-label">&nbsp;</label>
                     <form class="d-flex" method="post" action="">
                         <div class="input-group">
-
+                            
                             <input type="hidden" name="buscarPor" value="<?= $buscarPor ?>" />
-
+                            
                             <input
-                                type="text"
-                                placeholder="<?= $placeholder ?>"
-                                class="form-control"
-                                name="<?= $buscarPor ?>" />
-
+                            type="text"
+                            placeholder="<?= $placeholder ?>"
+                            class="form-control"
+                            name="<?= $buscarPor ?>" />
+                            
                             <button class="btn btn-primary" type="submit" name="buscar">
                                 <i class="bi bi-search"></i>
                             </button>
@@ -71,14 +72,17 @@
                     <form class="row g-2" method="post" action="">
 
                         <div class="col-md-4">
-                            <input type="date" class="form-control" name="fechaDesde" />
+                            <label class="form-label">Fecha desde</label>
+                            <input type="date" class="form-control" name="fechaDesde" id="fechaDesde"/>
                         </div>
 
                         <div class="col-md-4">
-                            <input type="date" class="form-control" name="fechaHasta" />
+                            <label class="form-label">Fecha hasta</label>
+                            <input type="date" class="form-control" name="fechaHasta" id="fechaHasta"/>
                         </div>
 
                         <div class="col-md-4">
+                            <label class="form-label">&nbsp;</label>
                             <button class="btn btn-primary w-100" type="submit" name="filtrar">
                                 Filtrar
                             </button>
@@ -129,7 +133,7 @@
         <?php if (empty($locales)) { ?>
 
             <div class='alert alert-info text-center'>
-                Aún no hay resultados.
+                Aún no hay reportes para la búsqueda solicitada.
             </div>
 
         <?php } else { ?>

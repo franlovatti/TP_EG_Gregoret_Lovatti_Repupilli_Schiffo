@@ -65,7 +65,15 @@ if (!$resultado) {
     </div>
     <div class="mb-3">
         <label for="rubro" class="form-label">Rubro</label>
-        <input type="text" name="rubro" id="rubro" class="form-control" required>
+        <select class="form-select" name="rubro" id="rubro" required>
+            <option value="">Seleccionar rubro</option>
+            <option value="Indumentaria">Ropa</option>
+            <option value="Gastronomía">Comida</option>
+            <option value="Tecnología">Tecnología</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Deportes">Deportes</option>
+            <option value="Juguetería">Juguetería</option>
+          </select>
     </div>
     <div class="mb-3">
         <label for="descripcion" class="form-label">Descripción</label>
