@@ -153,5 +153,51 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const hoy = new Date().toISOString().split('T')[0];
+
+const fechaDesde = document.getElementById('fecha_desde');
+const fechaHasta = document.getElementById('fecha_hasta');
+
+// Fecha mínima = hoy para ambos campos
+fechaDesde.min = hoy;
+fechaHasta.min = hoy;
+
+// Cuando cambia fecha desde, fecha hasta debe ser mayor  o igual
+fechaDesde.addEventListener('change', function() {
+    fechaHasta.min = this.value;
+    if (fechaHasta.value && fechaHasta.value <= this.value) {
+        fechaHasta.value = '';
+    }
+});
+
+// Validar al enviar el formulario
+document.querySelector('form').addEventListener('submit', function(e) {
+    let valido = true;
+
+    // Limpiar errores previos
+    document.querySelectorAll('.error-fecha').forEach(el => el.remove());
+
+    if (fechaDesde.value < hoy) {
+        const error = document.createElement('div');
+        error.className = 'text-danger small mt-1 error-fecha';
+        error.textContent = 'La fecha desde no puede ser anterior a hoy.';
+        fechaDesde.parentNode.appendChild(error);
+        valido = false;
+    }
+
+    if (fechaHasta.value < fechaDesde.value) {
+        const error = document.createElement('div');
+        error.className = 'text-danger small mt-1 error-fecha';
+        error.textContent = 'La fecha hasta debe ser mayor a la fecha desde.';
+        fechaHasta.parentNode.appendChild(error);
+        valido = false;
+    }
+
+    if (!valido) {
+        e.preventDefault();
+    }
+});
+</script>
 </body>
 </html> 

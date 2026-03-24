@@ -1,4 +1,5 @@
 <?php include '../sesion.php'; ?>
+<?php include '../consultas/vencerPromociones.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -45,6 +46,42 @@
     </div>
 
 </div>
+<!-- Modal para reactivar la prromocion-->
+<div class="modal fade" id="reactivarModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Activar nuevamente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>¿Querés reactivar esta promoción? Ingresá las nuevas fechas para enviarla a revisión del administrador.</p>
+
+                <div class="mb-3">
+                    <label for="nuevaFechaDesde" class="form-label">Fecha desde</label>
+                    <input type="date" id="nuevaFechaDesde" class="form-control">
+                    <div id="errorFechaDesde" class="text-danger small mt-1" style="display:none;"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="nuevaFechaHasta" class="form-label">Fecha hasta</label>
+                    <input type="date" id="nuevaFechaHasta" class="form-control">
+                    <div id="errorFechaHasta" class="text-danger small mt-1" style="display:none;"></div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-warning" id="btnConfirmarReactivar">
+                    <i class="bi bi-arrow-clockwise"></i> Reactivar
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <div class="container w-75 my-4">
 
@@ -66,6 +103,7 @@
                             <option value="pendiente">Pendientes</option>
                             <option value="activa">Activas</option>
                             <option value="rechazada">Rechazadas</option>
+                            <option value="vencida">Vencidas</option>
                             <option value="todas">Todas</option>
                         </select>
 
@@ -146,6 +184,7 @@ $estadoClase = "";
 if($fila['estado']=="activa") $estadoClase="estado-activa";
 if($fila['estado']=="pendiente") $estadoClase="estado-pendiente";
 if($fila['estado']=="rechazada") $estadoClase="estado-rechazada";
+if($fila['estado']=="vencida") $estadoClase="estado-vencida";
 
 echo "<tr>";
 
@@ -155,16 +194,32 @@ echo "<td>".$fila['fecha_desde']."</td>";
 echo "<td>".$fila['fecha_hasta']."</td>";
 echo "<td>".$fila['categoria']."</td>";
 
-echo "<td><span class='badge $estadoClase'>".$fila['estado']."</span></td>";
+$estiloInline = '';
+if ($fila['estado'] == 'vencida') {
+    $estiloInline = 'style="background-color:#fd7e14 !important; color:white !important;"';
+}
+echo "<td><span class='badge $estadoClase' $estiloInline>".$fila['estado']."</span></td>";
 
-echo '<td>
-<a href="#" class="btn btn-danger btn-sm"
-data-bs-toggle="modal"
-data-bs-target="#confirmDeleteModal"
-data-id="'.$fila['id_promocion'].'">
-<i class="bi bi-trash"></i>
-</a>
-</td>';
+echo '<td class="d-flex gap-1">';
+
+if ($fila['estado'] == 'vencida') {
+    echo '<button class="btn btn-warning btn-sm"
+         data-bs-toggle="modal"
+         data-bs-target="#reactivarModal"
+         data-id="' . $fila['id_promocion'] . '"
+         title="Activar nuevamente">
+         <i class="bi bi-arrow-clockwise"></i>
+      </button>';
+}
+
+echo '<a href="#" class="btn btn-danger btn-sm"
+    data-bs-toggle="modal"
+    data-bs-target="#confirmDeleteModal"
+    data-id="'.$fila['id_promocion'].'">
+    <i class="bi bi-trash"></i>
+</a>';
+
+echo '</td>';
 
 echo "</tr>";
 
@@ -208,6 +263,7 @@ $estadoClase = "";
 if($fila['estado']=="activa") $estadoClase="estado-activa";
 if($fila['estado']=="pendiente") $estadoClase="estado-pendiente";
 if($fila['estado']=="rechazada") $estadoClase="estado-rechazada";
+if($fila['estado']=="vencida") $estadoClase="estado-vencida";
 
 echo "<tr>";
 
@@ -217,16 +273,32 @@ echo "<td>".$fila['fecha_desde']."</td>";
 echo "<td>".$fila['fecha_hasta']."</td>";
 echo "<td>".$fila['categoria']."</td>";
 
-echo "<td><span class='badge $estadoClase'>".$fila['estado']."</span></td>";
+$estiloInline = '';
+if ($fila['estado'] == 'vencida') {
+    $estiloInline = 'style="background-color:#fd7e14 !important; color:white !important;"';
+}
+echo "<td><span class='badge $estadoClase' $estiloInline>".$fila['estado']."</span></td>";
 
-echo '<td>
-<a href="#" class="btn btn-danger btn-sm"
-data-bs-toggle="modal"
-data-bs-target="#confirmDeleteModal"
-data-id="'.$fila['id_promocion'].'">
-<i class="bi bi-trash"></i>
-</a>
-</td>';
+echo '<td class="d-flex gap-1">';
+
+if ($fila['estado'] == 'vencida') {
+    echo '<button class="btn btn-warning btn-sm"
+         data-bs-toggle="modal"
+         data-bs-target="#reactivarModal"
+         data-id="' . $fila['id_promocion'] . '"
+         title="Activar nuevamente">
+         <i class="bi bi-arrow-clockwise"></i>
+      </button>';
+}
+
+echo '<a href="#" class="btn btn-danger btn-sm"
+    data-bs-toggle="modal"
+    data-bs-target="#confirmDeleteModal"
+    data-id="'.$fila['id_promocion'].'">
+    <i class="bi bi-trash"></i>
+</a>';
+
+echo '</td>';
 
 echo "</tr>";
 
@@ -284,6 +356,68 @@ confirmBtn.href = 'eliminarpromocion.php?id=' + id_promocion;
 });
 
 </script>
+<script>
+// Guarda el id de la promocion al abrir el modal
+const reactivarModal = document.getElementById('reactivarModal');
+let idPromoReactivar = null;
+
+reactivarModal.addEventListener('show.bs.modal', function(event) {
+    const button = event.relatedTarget;
+    idPromoReactivar = button.getAttribute('data-id');
+
+    // Limpia los campos y errores al abrir
+    document.getElementById('nuevaFechaDesde').value = '';
+    document.getElementById('nuevaFechaHasta').value = '';
+    document.getElementById('errorFechaDesde').style.display = 'none';
+    document.getElementById('errorFechaHasta').style.display = 'none';
+
+    // Fecha mínima = hoy
+    const hoy = new Date().toISOString().split('T')[0];
+    document.getElementById('nuevaFechaDesde').min = hoy;
+    document.getElementById('nuevaFechaHasta').min = hoy;
+});
+
+document.getElementById('btnConfirmarReactivar').addEventListener('click', function() {
+    const fechaDesde = document.getElementById('nuevaFechaDesde').value;
+    const fechaHasta = document.getElementById('nuevaFechaHasta').value;
+    const hoy = new Date().toISOString().split('T')[0];
+
+    let valido = true;
+
+    // Validar fecha desde
+    if (!fechaDesde) {
+        document.getElementById('errorFechaDesde').textContent = 'Ingresá la fecha desde.';
+        document.getElementById('errorFechaDesde').style.display = 'block';
+        valido = false;
+    } else if (fechaDesde < hoy) {
+        document.getElementById('errorFechaDesde').textContent = 'La fecha desde no puede ser anterior a hoy.';
+        document.getElementById('errorFechaDesde').style.display = 'block';
+        valido = false;
+    } else {
+        document.getElementById('errorFechaDesde').style.display = 'none';
+    }
+
+    // Validar fecha hasta
+    if (!fechaHasta) {
+        document.getElementById('errorFechaHasta').textContent = 'Ingresá la fecha hasta.';
+        document.getElementById('errorFechaHasta').style.display = 'block';
+        valido = false;
+    } else if (fechaHasta <= fechaDesde) {
+        document.getElementById('errorFechaHasta').textContent = 'La fecha hasta debe ser mayor a la fecha desde.';
+        document.getElementById('errorFechaHasta').style.display = 'block';
+        valido = false;
+    } else {
+        document.getElementById('errorFechaHasta').style.display = 'none';
+    }
+
+    if (valido) {
+        window.location.href = '../consultas/reactivarPromocion.php?id=' + idPromoReactivar
+            + '&fecha_desde=' + fechaDesde
+            + '&fecha_hasta=' + fechaHasta;
+    }
+});
+</script>
 
 </body>
+
 </html>
