@@ -33,20 +33,26 @@
 <?php
 
 require_once '../conexion.php';
+$id_usuario = $_SESSION['idUsuario'];
 
 $query = "SELECT uso.id_uso, uso.id_cliente, uso.estado, uso.id_promocion, 
                  u.mail_usuario, p.descripcion,
-                  l.nombre_local
+                 l.nombre_local
           FROM uso_promocion uso
           INNER JOIN usuario u ON uso.id_cliente = u.id_usuario
           INNER JOIN promocion p ON uso.id_promocion = p.id_promocion
           INNER JOIN local l ON p.id_local = l.id_local
-          WHERE uso.estado = 'pendiente'";
+          WHERE uso.estado = 'pendiente'
+          AND l.id_usuario = $id_usuario";
 
 $resultado = mysqli_query($conexion, $query);
 
 if (!$resultado) {
-    die("Error en la consulta: " . mysqli_error($conexion));
+    echo "<div class='alert alert-danger text-center'>
+            Error en la base de datos: " . mysqli_error($conexion) . "
+          </div>";
+    mysqli_close($conexion);
+    exit();
 }
 
 if(mysqli_num_rows($resultado) > 0){
