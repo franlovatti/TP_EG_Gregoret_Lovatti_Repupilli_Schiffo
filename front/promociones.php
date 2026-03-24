@@ -38,7 +38,7 @@ if (
     rel="stylesheet"
   />
   <link rel="stylesheet" href="estilos/promocion/promociones.css">
-  <link rel="stylesheet" href="estilos/local/localEspecifico.css">
+  <link rel="stylesheet" href="estilos/global.css">
 
   <title>Document</title>
 </head>
@@ -197,7 +197,7 @@ if (
           data-viernes="<?php echo $row['viernes'] ? 'Viernes' :  ''; ?>"
           data-sabado="<?php echo $row['sabado'] ? 'Sábado' : ''; ?>"
           data-domingo="<?php echo $row['domingo'] ? 'Domingo' : ''; ?>"
-          style="cursor:pointer;">
+         >
           <img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($row['imagen_prom']); ?>" class="card-img-top card-img-custom" alt="Promoción">
           <div class="card-body">
             <div class="d-flex align-items-start justify-content-between mb-2">

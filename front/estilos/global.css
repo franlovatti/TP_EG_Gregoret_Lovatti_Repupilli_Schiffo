@@ -1,0 +1,74 @@
+/* ===== BASE ===== */
+
+body {
+  background: #f8f9fa;
+  overflow-x: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  transition: 0.3s;
+}
+/* ===== COMPONENTES GENERALES ===== */
+
+.card {
+  border-radius: 12px;
+}
+
+.table {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table thead {
+  background-color: #212529;
+  color: white;
+}
+
+/* ===== CAJAS ===== */
+
+.filtros-box,
+.buscador-box,
+.tabla-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+/* ===== SCROLL ===== */
+
+.scrollable-box {
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* ===== TEXTO ===== */
+
+.texto-destacado {
+  color: #e91e63;
+  font-weight: bold;
+}
+
+/* ===== FOOTER ===== */
+
+footer {
+  background-color: #f8f9fa;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+/* horarios navbar */
+.navbar-horarios {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  font-size: x-small;
+}
+
+/* dropdown perfil */
+.dropdown-perfil {
+  min-width: 250px;
+}

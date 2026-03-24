@@ -8,33 +8,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
-
-  <style>
-    footer {
-      background-color: #f8f9fa;
-      padding: 20px 0;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-
-    .texto-destacado {
-      color: #e91e63;
-      font-weight: bold;
-    }
-
-    .card{
-      border-radius:12px;
-    }
-
-    .table thead{
-      background-color:#212529;
-      color:white;
-    }
-    .scroll-table {
-  max-height: 450px;
-  overflow-y: auto;
-}
-  </style>
+ <link rel="stylesheet" href="estilos/global.css" />
+  
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -125,7 +100,7 @@ if(mysqli_num_rows($resultado) == 0){
           </div>";
 
 } else {
-    echo "<div class='scroll-table'>";
+    echo "<div class='scrollable-box'>";
     echo "<table class='table table-hover table-bordered align-middle text-center'>";
     echo "<thead class='table-dark'>
             <tr>

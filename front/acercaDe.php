@@ -11,7 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 <link rel="stylesheet" href="estilos/acercaDe.css">
-
+ <link rel="stylesheet" href="estilos/global.css" />
 </head>
 
 <body class="d-flex flex-column min-vh-100">

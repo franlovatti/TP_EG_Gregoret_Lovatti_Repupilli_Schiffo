@@ -7,24 +7,7 @@
   <title>Crear un nuevo local (ADMINISTRADOR)</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
-  <style>
-    .scrollable-box {
-      max-height: 400px;
-      overflow-y: auto;
-      border: 1px solid #ccc;
-      padding: 10px;
-    }
-    footer {
-      background-color: #f8f9fa;
-      padding: 20px 0;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-    .texto-destacado {
-    color: #e91e63; /* rosa intenso como ejemplo */
-    font-weight: bold;
-    }
-  </style>
+  <link rel="stylesheet" href="estilos/global.css" />
 </head>
 <body class="d-flex flex-column min-vh-100">
 
