@@ -146,7 +146,8 @@ $id_usuario=$_SESSION['idUsuario'];
 $query1 = "SELECT l.id_local, l.nombre_local, p.*
            from local l
            JOIN promocion p ON l.id_local = p.id_local
-           WHERE l.id_usuario = $id_usuario";
+           WHERE l.id_usuario = $id_usuario
+           AND p.estado != 'eliminada'";
 
 $resultado = mysqli_query($conexion, $query1);
 

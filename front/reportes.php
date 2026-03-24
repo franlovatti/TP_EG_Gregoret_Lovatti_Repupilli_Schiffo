@@ -173,16 +173,14 @@
                                             <strong>Promo:</strong> <?= $promo['descripcion'] ?>
                                         </div>
 
-                                        <div class="col-md-1">
-                                            <strong>Usos:</strong> <?= $promo['cant_usos'] ?>
+                                        <div class="col-md-2">
+                                            <strong>usos totales:</strong> <?= $promo['cant_usos'] ?>
                                         </div>
 
-                                        <div class="col-md-2">
-                                            <strong>Desde:</strong> <?= $promo['fecha_desde'] ?>
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <strong>Hasta:</strong> <?= $promo['fecha_hasta'] ?>
+                                        <div class="col-md-6">
+                                            <strong>Última fecha vigente:</strong>
+                                            Desde: <?= $promo['fecha_desde'] ?>
+                                            Hasta: <?= $promo['fecha_hasta'] ?>
                                         </div>
 
                                         <div class="col-md-3">
