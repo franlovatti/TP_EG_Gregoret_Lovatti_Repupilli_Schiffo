@@ -34,6 +34,7 @@
 
             <div class="modal-body">
                 ¿Seguro que deseas eliminar esta promoción? Esta acción no se puede deshacer.
+                Dejará de ver los reportes de las promociones eliminadas.
             </div>
 
             <div class="modal-footer">
@@ -82,7 +83,30 @@
         </div>
     </div>
 </div>
+<?php
+if (isset($_GET['error'])) {
+    if ($_GET['error'] == 'id_invalido') {
+        echo "<div class='alert alert-danger text-center'>ID inválido.</div>";
+    }
+    if ($_GET['error'] == 'no_existe') {
+        echo "<div class='alert alert-danger text-center'>La promoción no existe.</div>";
+    }
+    if ($_GET['error'] == 'no_eliminar') {
+        echo "<div class='alert alert-warning text-center'>
+                No se puede eliminar una promoción activa.
+              </div>";
+    }
+    if ($_GET['error'] == 'db') {
+        echo "<div class='alert alert-danger text-center'>Error en la base de datos.</div>";
+    }
+}
 
+if (isset($_GET['ok']) && $_GET['ok'] == 'eliminada') {
+    echo "<div class='alert alert-success text-center'>
+            Promoción eliminada correctamente.
+          </div>";
+}
+?>
 <div class="container w-75 my-4">
 
     <div class="filtros-box">
@@ -154,7 +178,10 @@ $resultado = mysqli_query($conexion, $query1);
 if ($resultado && mysqli_num_rows($resultado) > 0) {
 
 if (!$resultado) {
-die("Error en la consulta: " . mysqli_error($conexion));
+    echo "<div class='alert alert-danger text-center'>
+            Error en la consulta: " . mysqli_error($conexion) . "
+          </div>";
+    exit();
 }
 
 if (isset($_POST["estado"])){
