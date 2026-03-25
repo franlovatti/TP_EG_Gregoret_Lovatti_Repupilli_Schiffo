@@ -107,6 +107,11 @@ if (
     global $conexion;
     global $recuperar_error;
     
+    // Obtener el día de la semana actual (1=lunes, 7=domingo)
+    $dia_semana_num = date('N');
+    $dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
+    $dia_actual = $dias[$dia_semana_num - 1];
+    
     // Verifica si ha enviado una busqueda
     $busqueda = '';
     if (isset($_GET['Buscar'])) {
@@ -119,7 +124,8 @@ if (
                      p.imagen_prom, loc.nombre_local, COUNT(*) OVER() AS total_registros
               FROM promocion p
               INNER JOIN local loc ON p.id_local = loc.id_local
-              WHERE p.fecha_hasta >= CURDATE() AND p.fecha_desde <= CURDATE() AND p.estado = 'activa'";
+              WHERE p.fecha_hasta >= CURDATE() AND p.fecha_desde <= CURDATE() AND p.estado = 'activa'
+              AND p.$dia_actual = 1";
 
     $query .= obtenerFiltroSqlCategoriaPromocion('p');
 

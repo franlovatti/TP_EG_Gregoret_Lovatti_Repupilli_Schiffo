@@ -61,6 +61,11 @@ ini_set('display_errors', 0);
 
 global $recuperar_error;
 
+// Obtener promociones activas para el día actual
+$dia_de_hoy = date('N');
+$dias_semana = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
+$dia_actual_nombre = $dias_semana[$dia_de_hoy - 1];
+
 $query ="SELECT p.id_promocion, p.descripcion, p.fecha_desde, p.fecha_hasta, p.categoria,
 p.lunes, p.martes, p.miercoles, p.jueves, p.viernes, p.sabado, p.domingo, p.imagen_prom,
 loc.nombre_local
@@ -68,7 +73,8 @@ FROM promocion p
 INNER JOIN local loc ON p.id_local = loc.id_local
 WHERE p.fecha_hasta >= CURDATE()
 AND p.fecha_desde <= CURDATE()
-AND p.estado='activa'";
+AND p.estado='activa'
+AND p.$dia_actual_nombre = 1";
 
 $query .= obtenerFiltroSqlCategoriaPromocion('p');
 
