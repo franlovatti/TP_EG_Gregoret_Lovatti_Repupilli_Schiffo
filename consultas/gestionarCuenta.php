@@ -32,7 +32,7 @@ if (isset($_GET['id_usuario']) && isset($_GET['accion'])) {
       }
     }
     else{  
-      $query = "UPDATE usuario SET estado = '$nuevo_estado' WHERE id_usuario = $id_usuario AND tipo_usuario = 'dueño'";
+      $query = "UPDATE usuario SET estado = '$nuevo_estado', verificado = '1' WHERE id_usuario = $id_usuario AND tipo_usuario = 'dueño'";
       $resultado = mysqli_query($conexion, $query);
 
         if ($resultado) {

@@ -71,10 +71,10 @@ function sendMail($email, $subject, $message){
       PHP application and the SMTP server is encrypted, adding a 
       layer of security to your	email sending process.
    */
-   $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+   $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
  
    // TCP port to connect with the Gmail SMTP server.
-   $mail->Port = 587;
+   $mail->Port = 465;
  
    /*
       Who is sending the email. Again we use the constants 

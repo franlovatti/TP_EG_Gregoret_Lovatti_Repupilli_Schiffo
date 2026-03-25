@@ -10,13 +10,13 @@ function redirigirConMensaje($tipo, $mensaje) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['crear_promocion'])) {
   $descripcion = $_POST['descripcion'];  
   $id_local = $_POST['id_local'];
-  $lunes = $_POST['lunes'];
-  $martes = $_POST['martes'];
-  $miercoles = $_POST['miercoles'];
-  $jueves = $_POST['jueves'];
-  $viernes = $_POST['viernes'];
-  $sabado = $_POST['sabado'];
-  $domingo = $_POST['domingo'];
+  $lunes = isset($_POST['lunes']) ? 1 : 0;
+  $martes = isset($_POST['martes']) ? 1 : 0;
+  $miercoles = isset($_POST['miercoles']) ? 1 : 0;
+  $jueves = isset($_POST['jueves']) ? 1 : 0;
+  $viernes = isset($_POST['viernes']) ? 1 : 0;
+  $sabado = isset($_POST['sabado']) ? 1 : 0;
+  $domingo = isset($_POST['domingo']) ? 1 : 0;
   $categoria = $_POST['categoria'];
   $fecha_desde = $_POST['fecha_desde'];
   $fecha_hasta = $_POST['fecha_hasta'];
