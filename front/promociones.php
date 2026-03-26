@@ -42,7 +42,7 @@ if (
 
   <title>Document</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
   <header class="p-3 text-bg-dark">
     <?php include '../header.php'; ?>
   </header>
