@@ -30,6 +30,12 @@ define('MAIL_DEBUG_LEVEL', (int) mailEnv('MAIL_DEBUG_LEVEL', 2));
 
 // SMTP timeout in seconds to avoid hanging requests
 define('MAIL_TIMEOUT', (int) mailEnv('MAIL_TIMEOUT', 20));
+
+// Optional Resend API config (preferred in cloud environments)
+define('RESEND_API_KEY', mailEnv('RESEND_API_KEY'));
+define('RESEND_FROM', mailEnv('RESEND_FROM', ''));
+define('RESEND_REPLY_TO', mailEnv('RESEND_REPLY_TO', ''));
+define('RESEND_TIMEOUT', (int) mailEnv('RESEND_TIMEOUT', 20));
  
 // Define as a username the email that you use in your Gmail account.
 define('USERNAME', mailEnv('MAIL_USER'));
@@ -49,9 +55,12 @@ define('REPLY_TO', mailEnv('MAIL_REPLY_TO'));
 // Define the reply-to name.
 define('REPLY_TO_NAME', mailEnv('MAIL_REPLY_TO_NAME'));
 
-// Validar que todas las variables de entorno estén configuradas
-if (!MAILHOST || !MAILPORT || !USERNAME || !PASSWORD || !SEND_FROM || !SEND_FROM_NAME || !REPLY_TO || !REPLY_TO_NAME) {
-    trigger_error('Error: Variables de entorno de email no configuradas. Definilas en Railway o en el archivo .env local.', E_USER_ERROR);
+// Validar configuración: se necesita Resend o SMTP
+$smtpConfigured = MAILHOST && MAILPORT && USERNAME && PASSWORD && SEND_FROM && SEND_FROM_NAME && REPLY_TO && REPLY_TO_NAME;
+$resendConfigured = !empty(RESEND_API_KEY);
+
+if (!$smtpConfigured && !$resendConfigured) {
+    trigger_error('Error: Configuración de email incompleta. Definí RESEND_API_KEY o las variables SMTP.', E_USER_ERROR);
 }
 
 ?>

@@ -18,6 +18,69 @@ use PHPMailer\PHPMailer\SMTP;
    Gmail account login details.
 */
 require 'configPHPmailer.php';
+
+function sendMailWithResend($email, $subject, $message)
+{
+   $from = RESEND_FROM !== '' ? RESEND_FROM : SEND_FROM;
+   $replyTo = RESEND_REPLY_TO !== '' ? RESEND_REPLY_TO : REPLY_TO;
+
+   $payload = [
+      'from' => $from,
+      'to' => [$email],
+      'subject' => $subject,
+      'html' => $message,
+      'reply_to' => $replyTo,
+   ];
+
+   $endpoint = 'https://api.resend.com/emails';
+   $headers = [
+      'Authorization: Bearer ' . RESEND_API_KEY,
+      'Content-Type: application/json',
+   ];
+
+   if (function_exists('curl_init')) {
+      $ch = curl_init($endpoint);
+      curl_setopt($ch, CURLOPT_POST, true);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_TIMEOUT, max(5, RESEND_TIMEOUT));
+
+      $response = curl_exec($ch);
+      $httpCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+      $curlError = curl_error($ch);
+      curl_close($ch);
+
+      if ($response === false || $curlError) {
+         error_log('Resend cURL error: ' . $curlError);
+         return false;
+      }
+
+      if ($httpCode < 200 || $httpCode >= 300) {
+         error_log('Resend HTTP error ' . $httpCode . ': ' . (string) $response);
+         return false;
+      }
+
+      return true;
+   }
+
+   $context = stream_context_create([
+      'http' => [
+         'method' => 'POST',
+         'header' => "Authorization: Bearer " . RESEND_API_KEY . "\r\n" . "Content-Type: application/json\r\n",
+         'content' => json_encode($payload),
+         'timeout' => max(5, RESEND_TIMEOUT),
+      ],
+   ]);
+
+   $response = @file_get_contents($endpoint, false, $context);
+   if ($response === false) {
+      error_log('Resend stream error: request failed');
+      return false;
+   }
+
+   return true;
+}
  
 
  
@@ -30,6 +93,10 @@ require 'configPHPmailer.php';
  * @return [string]          [Error message, or success]
  */
 function sendMail($email, $subject, $message){
+   if (!empty(RESEND_API_KEY)) {
+      return sendMailWithResend($email, $subject, $message);
+   }
+
    try {
       // Creating a new PHPMailer object.
       $mail = new PHPMailer(true);
