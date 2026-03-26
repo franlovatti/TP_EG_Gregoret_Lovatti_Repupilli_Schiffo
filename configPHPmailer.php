@@ -2,39 +2,52 @@
 // Load environment variables
 require_once __DIR__ . '/config/Load.php';
 
+if (!function_exists('mailEnv')) {
+    function mailEnv($key, $default = '')
+    {
+        $value = env($key, $default);
+        if ($value === null) {
+            return $default;
+        }
+
+        // Railway vars sometimes include wrapping quotes when pasted manually.
+        return trim((string) $value, " \t\n\r\0\x0B\"'");
+    }
+}
+
 // Define the Gmail smtp server
-define('MAILHOST', env('MAIL_HOST'));
+define('MAILHOST', mailEnv('MAIL_HOST'));
 
 // Define SMTP port (587 for STARTTLS, 465 for SMTPS)
-define('MAILPORT', (int) env('MAIL_PORT', 587));
+define('MAILPORT', (int) mailEnv('MAIL_PORT', 587));
 
 // Define SMTP encryption mode: starttls|smtps|none
-define('MAIL_ENCRYPTION', strtolower((string) env('MAIL_ENCRYPTION', 'starttls')));
+define('MAIL_ENCRYPTION', strtolower(mailEnv('MAIL_ENCRYPTION', 'starttls')));
 
 // SMTP debug flags (for Railway logs)
-define('MAIL_DEBUG', filter_var(env('MAIL_DEBUG', 'false'), FILTER_VALIDATE_BOOLEAN));
-define('MAIL_DEBUG_LEVEL', (int) env('MAIL_DEBUG_LEVEL', 2));
+define('MAIL_DEBUG', filter_var(mailEnv('MAIL_DEBUG', 'false'), FILTER_VALIDATE_BOOLEAN));
+define('MAIL_DEBUG_LEVEL', (int) mailEnv('MAIL_DEBUG_LEVEL', 2));
 
 // SMTP timeout in seconds to avoid hanging requests
-define('MAIL_TIMEOUT', (int) env('MAIL_TIMEOUT', 20));
+define('MAIL_TIMEOUT', (int) mailEnv('MAIL_TIMEOUT', 20));
  
 // Define as a username the email that you use in your Gmail account.
-define('USERNAME', env('MAIL_USER'));
+define('USERNAME', mailEnv('MAIL_USER'));
  
 // Define your 16 digit Gmail app-password.
-define('PASSWORD', env('MAIL_PASSWORD'));
+define('PASSWORD', mailEnv('MAIL_PASSWORD'));
  
 // Define the email address from which the email is sent.
-define('SEND_FROM', env('MAIL_FROM'));
+define('SEND_FROM', mailEnv('MAIL_FROM'));
  
 // Define the name of the website from which the email is sent. 
-define('SEND_FROM_NAME', env('MAIL_FROM_NAME'));
+define('SEND_FROM_NAME', mailEnv('MAIL_FROM_NAME'));
  
 // Define the reply-to address.
-define('REPLY_TO', env('MAIL_REPLY_TO'));
+define('REPLY_TO', mailEnv('MAIL_REPLY_TO'));
  
 // Define the reply-to name.
-define('REPLY_TO_NAME', env('MAIL_REPLY_TO_NAME'));
+define('REPLY_TO_NAME', mailEnv('MAIL_REPLY_TO_NAME'));
 
 // Validar que todas las variables de entorno estén configuradas
 if (!MAILHOST || !MAILPORT || !USERNAME || !PASSWORD || !SEND_FROM || !SEND_FROM_NAME || !REPLY_TO || !REPLY_TO_NAME) {
