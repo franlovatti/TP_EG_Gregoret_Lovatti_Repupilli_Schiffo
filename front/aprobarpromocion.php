@@ -86,6 +86,7 @@ if (!$resultado) {
 $hayResultados = mysqli_num_rows($resultado) > 0;
 
 if ($hayResultados) {
+  echo "<div class='table-responsive'>";
     echo "<table class='table table-hover table-bordered align-middle text-center'>";
     echo "<thead class='table-dark'>
             <tr>
@@ -122,6 +123,8 @@ if ($hayResultados) {
     }
 
     echo "</tbody></table>";
+    echo "</div>";
+
 } else {
     $mensaje = isset($_POST["Buscar"]) ? "No se encontraron promociones para el local buscado." : "No hay promociones pendientes.";
     echo "<div class='alert alert-info text-center'>

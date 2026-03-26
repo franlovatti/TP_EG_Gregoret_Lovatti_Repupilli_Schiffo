@@ -49,7 +49,7 @@ if (isset($_FILES['imagen_local']) && $_FILES['imagen_local']['error'] === UPLOA
         redirigirConMensajeLocal('nuevolocal.php', 'local_error', "No se pudo subir la imagen. Codigo de error: $codigoError");
     }
 
-$vSQL="INSERT INTO LOCAL (nombre_local, ubicacion, rubro, id_usuario, descripcion,imagen_local) VALUES (?,?,?,?,?,?)";
+$vSQL="INSERT INTO local (nombre_local, ubicacion, rubro, id_usuario, descripcion,imagen_local) VALUES (?,?,?,?,?,?)";
 $stmt=$conexion->prepare($vSQL);
 $null=NULL;
 $stmt->bind_param("sssisb",$nombre_local,$ubicacion,$rubro,$id_usuario,$descripcion,$null);

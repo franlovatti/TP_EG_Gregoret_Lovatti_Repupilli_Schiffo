@@ -75,6 +75,7 @@ $resultado = mysqli_query($conexion, $query);
 
 $hayResultados = false;
 
+echo "<div class='table-responsive'>";
 echo "<table class='table table-hover table-bordered text-center'>";
 echo "<thead class='table-dark'>
         <tr>
@@ -130,6 +131,7 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
 }
 
 echo "</tbody></table>";
+echo "</div>";
 
 if (!$hayResultados) {
   echo "<div class='alert alert-info text-center'>No hay novedades</div>";

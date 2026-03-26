@@ -58,6 +58,7 @@ if (!$resultado) {
 
 if(mysqli_num_rows($resultado) > 0){
 
+echo "<div class='table-responsive'>";
 echo "<table class='table table-hover table-bordered'>";
 
 echo "<thead class='table-dark'>
@@ -107,6 +108,7 @@ echo "</tr>";
 }
 
 echo "</tbody></table>";
+echo "</div>";
 
 }else{
 

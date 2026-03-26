@@ -44,7 +44,7 @@ if (isset($_FILES['imagen_local']) && $_FILES['imagen_local']['error'] === UPLOA
         redirigirConMensajeLocal('local_error', 'El archivo no es una imagen valida.');
     }}
 
-$vSQL = "UPDATE LOCAL 
+$vSQL = "UPDATE local 
               SET nombre_local = ?, ubicacion = ?, rubro = ?, descripcion = ?, estado = ?, imagen_local = ?, id_usuario = ?
               WHERE id_local = ?";
 

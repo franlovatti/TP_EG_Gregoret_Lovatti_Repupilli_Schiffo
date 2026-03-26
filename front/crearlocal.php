@@ -102,6 +102,7 @@ if (!$resultado) {
 
 $hayResultados = false;
 
+echo "<div class='table-responsive'>";
 echo "<table class='table table-hover table-bordered align-middle text-center'>";
 echo "<thead class='table-dark'>
         <tr>
@@ -158,6 +159,7 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
 }
 
 echo "</tbody></table>";
+echo "</div>";
 
 if (!$hayResultados) {
     echo "<p class='text-center text-danger mt-3'>NO HAY RESULTADOS</p>";
