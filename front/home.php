@@ -92,7 +92,7 @@ while($row = $resultado->fetch_assoc()){
 
 $imagenPromocion = $row['imagen_prom'] ?? '';
 $mime = 'image/jpeg';
-$imagenSrc = '';
+$imagenSrc = 'imagenes/placeholder.jpg';
 
 if (!empty($imagenPromocion)) {
 $finfo = new finfo(FILEINFO_MIME_TYPE);

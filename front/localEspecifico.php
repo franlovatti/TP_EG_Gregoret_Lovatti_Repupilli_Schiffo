@@ -49,8 +49,18 @@ $fila = mysqli_fetch_assoc($resultado);
 $localExiste = false;
 if ($resultado && mysqli_num_rows($resultado) > 0) {
   $localExiste = true;
+  $imagenLocalSrc = 'imagenes/placeholder.jpg';
+  if (!empty($fila['imagen_local'])) {
     $finfo = new finfo(FILEINFO_MIME_TYPE);
-    $mime = $finfo->buffer($fila['imagen_prom']);
+    $mimeLocal = $finfo->buffer($fila['imagen_local']);
+    $imagenLocalSrc = "data:" . $mimeLocal . ";base64," . base64_encode($fila['imagen_local']);
+  }
+  $imagenPromSrc = 'imagenes/placeholder.jpg';
+  if (!empty($fila['imagen_prom'])) {
+    $finfo = new finfo(FILEINFO_MIME_TYPE);
+    $mimePromo = $finfo->buffer($fila['imagen_prom']);
+    $imagenPromSrc = "data:" . $mimePromo . ";base64," . base64_encode($fila['imagen_prom']);
+  }
     ?>
     <div class="container py-3">
       <a href="javascript:history.back()" class="btn btn-outline-primary mb-3">
@@ -62,7 +72,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
             <div class="row g-0 flex-column flex-md-row">
               <!-- Imagen a la izquierda -->
               <div class="col-12 col-md-2 d-flex justify-content-center justify-content-md-start align-items-center p-2">
-                <img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($fila['imagen_local']);?> " class="img-fluid rounded" alt="Logo del local">
+                <img src="<?php echo $imagenLocalSrc; ?>" class="img-fluid rounded" alt="Logo del local">
               </div>
 
               <!-- Texto a la derecha -->
@@ -105,8 +115,12 @@ if($localExiste && $fila['descripcion'] == null){
     $query .= " LIMIT $inicio, $cantPorPagina";
   $resultado = mysqli_query($conexion, $query) or die("Error en la consulta: " . mysqli_error($conexion));
   while($fila = $resultado->fetch_assoc()){
-    $finfo = new finfo(FILEINFO_MIME_TYPE);
-    $mime = $finfo->buffer($fila['imagen_prom']);
+    $imagenSrc = 'imagenes/placeholder.jpg';
+    if (!empty($fila['imagen_prom'])) {
+      $finfo = new finfo(FILEINFO_MIME_TYPE);
+      $mime = $finfo->buffer($fila['imagen_prom']);
+      $imagenSrc = "data:" . $mime . ";base64," . base64_encode($fila['imagen_prom']);
+    }
     ?>
         <!--Necesitamos la card dentro de una col para que ande el modal-->
         <div class="col d-flex justify-content-center align-items-stretch">
@@ -118,7 +132,7 @@ if($localExiste && $fila['descripcion'] == null){
             data-descripcion="<?php echo htmlspecialchars($fila['descripcion']); ?>"
             data-fecha-desde="<?php echo htmlspecialchars($fila['fecha_desde']); ?>"
             data-fecha-hasta="<?php echo htmlspecialchars($fila['fecha_hasta']); ?>"
-            data-imagen="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($fila['imagen_prom']); ?>"
+            data-imagen="<?php echo htmlspecialchars($imagenSrc); ?>"
             data-lunes="<?php echo $fila['lunes'] ? 'Lunes' : ''; ?>"
             data-martes="<?php echo $fila['martes'] ? 'Martes' : ''; ?>"
             data-miercoles="<?php echo $fila['miercoles'] ? 'Miércoles' : ''; ?>"
@@ -127,7 +141,7 @@ if($localExiste && $fila['descripcion'] == null){
             data-sabado="<?php echo $fila['sabado'] ? 'Sábado' : ''; ?>"
             data-domingo="<?php echo $fila['domingo'] ? 'Domingo' : ''; ?>"
             style="cursor:pointer;">
-            <img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($fila['imagen_prom']); ?>" class="card-img-top card-img-custom" alt="Promoción">
+            <img src="<?php echo htmlspecialchars($imagenSrc); ?>" class="card-img-top card-img-custom" alt="Promoción">
             <div class="card-body">
               <div class="d-flex align-items-start justify-content-between mb-2">
                 <h5 class="mb-0"><?php echo htmlspecialchars($fila['descripcion']); ?></h5>

@@ -181,8 +181,12 @@ if (
       } else {
         while ($row = $result->fetch_assoc()) {
           // Detecta tipo MIME para mostrar la imagen guardada en BLOB
-          $finfo = new finfo(FILEINFO_MIME_TYPE);
-          $mime = $finfo->buffer($row['imagen_prom']);
+          $imagenSrc = 'imagenes/placeholder.jpg';
+          if (!empty($row['imagen_prom'])) {
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $mime = $finfo->buffer($row['imagen_prom']);
+            $imagenSrc = "data:" . $mime . ";base64," . base64_encode($row['imagen_prom']);
+          }
     ?>
           <!-- Tarjeta de promoción -->
       <div class="col d-flex justify-content-center align-items-stretch">
@@ -195,7 +199,7 @@ if (
           data-descripcion="<?php echo htmlspecialchars($row['descripcion']); ?>"
           data-fecha-desde="<?php echo htmlspecialchars($row['fecha_desde']); ?>"
           data-fecha-hasta="<?php echo htmlspecialchars($row['fecha_hasta']); ?>"
-          data-imagen="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($row['imagen_prom']); ?>"
+          data-imagen="<?php echo htmlspecialchars($imagenSrc); ?>"
           data-lunes="<?php echo $row['lunes'] ? 'Lunes' : ''; ?>"
           data-martes="<?php echo $row['martes'] ? 'Martes' : ''; ?>"
           data-miercoles="<?php echo $row['miercoles'] ? 'Miércoles' : ''; ?>"
@@ -204,7 +208,7 @@ if (
           data-sabado="<?php echo $row['sabado'] ? 'Sábado' : ''; ?>"
           data-domingo="<?php echo $row['domingo'] ? 'Domingo' : ''; ?>"
          >
-          <img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($row['imagen_prom']); ?>" class="card-img-top card-img-custom" alt="Promoción">
+          <img src="<?php echo htmlspecialchars($imagenSrc); ?>" class="card-img-top card-img-custom" alt="Promoción">
           <div class="card-body">
             <div class="d-flex align-items-start justify-content-between mb-2">
               <h4 class="mb-0"><?php echo htmlspecialchars($row['nombre_local']); ?></h4>
@@ -350,15 +354,32 @@ if (
   if(isset($_GET['promo']) && $_GET['promo'] == 'ok'){
     include "../modals/modalAprovecharPromo.php";
   }
+  // Verifica si se ha enviado el parámetro 'promo' con el valor 'ya_solicitada' en la URL
+  if(isset($_GET['promo']) && $_GET['promo'] == 'solicitada'){
+    include "../modals/modalYaSolicitada.php";
+  }
+
+  $modalPromoId = '';
+  if (isset($_GET['promo']) && $_GET['promo'] == 'ok') {
+    $modalPromoId = 'confirmarModal';
+  } elseif (isset($_GET['promo']) && $_GET['promo'] == 'solicitada') {
+    $modalPromoId = 'promoYaSolicitadaModal';
+  }
     ?>
  <script>
-  // Si existe la modal de confirmación en el DOM, la muestra.
+  // Muestra automaticamente la modal correspondiente al resultado de la solicitud.
 document.addEventListener('DOMContentLoaded', function () {
-    var confirmarModalEl = document.getElementById('confirmarModal');
-    if (!confirmarModalEl) {
+    var modalId = <?php echo json_encode($modalPromoId); ?>;
+    if (!modalId) {
       return;
     }
-    var modal = new bootstrap.Modal(confirmarModalEl);
+
+    var modalEl = document.getElementById(modalId);
+    if (!modalEl) {
+      return;
+    }
+
+    var modal = new bootstrap.Modal(modalEl);
     modal.show();
 });
 </script>

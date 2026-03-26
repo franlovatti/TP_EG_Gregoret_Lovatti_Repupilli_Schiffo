@@ -17,6 +17,9 @@ if ($tipoUsuario == 'cliente') {
   <li class="nav-item">
     <a href="misPromociones.php" class="nav-link px-2 text-body-secondary">Mis promociones</a>
   </li>
+  <li class="nav-item">
+    <a href="novedades.php" class="nav-link px-2 text-body-secondary">Novedades</a>
+  </li>
 <?php
 } elseif ($tipoUsuario == 'dueño') {
   if (isset($_SESSION['estado']) && $_SESSION['estado'] === 'activo') {
@@ -58,7 +61,7 @@ if ($tipoUsuario == 'cliente') {
     <a href="crearlocal.php" class="nav-link px-2 text-body-secondary">Locales</a>
   </li>
   <li class="nav-item">
-    <a href="" class="nav-link px-2 text-body-secondary">Novedades</a>
+    <a href="crearnovedad.php" class="nav-link px-2 text-body-secondary">Novedades</a>
   </li>
   <li class="nav-item">
     <a href="reportes.php" class="nav-link px-2 text-body-secondary">Reportes</a>

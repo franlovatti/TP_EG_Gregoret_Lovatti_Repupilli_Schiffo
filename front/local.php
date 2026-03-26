@@ -113,7 +113,7 @@ if (!empty($locales)) {
       ?>
         <img src="data:<?=$mime?>;base64,<?=base64_encode($img)?>" class="img-fluid rounded">
       <?php } else { ?>
-        <img src="imagenes/logo.png" class="img-fluid rounded">
+        <img src="imagenes/placeholder.jpg" class="img-fluid rounded" alt="Local">
       <?php } ?>
     </div>
 
@@ -148,7 +148,7 @@ if (!empty($locales)) {
     ?>
       <img src="data:<?=$mime?>;base64,<?=base64_encode($img)?>" class="promo-img">
     <?php } else { ?>
-      <img src="imagenes/home.png" class="promo-img">
+      <img src="imagenes/placeholder.jpg" class="promo-img" alt="Promocion">
     <?php } ?>
 
     <div class="card-body">
