@@ -84,6 +84,17 @@ function sendMailWithResend($email, $subject, $message)
 
 function sendMailWithBrevo($email, $subject, $message)
 {
+   // Debug: Verificar que la API key esté configurada
+   if (empty(BREVO_API_KEY)) {
+      error_log('BREVO_API_KEY está vacío o no definido');
+      return false;
+   }
+
+   if (empty(SEND_FROM) || empty(SEND_FROM_NAME)) {
+      error_log('SEND_FROM o SEND_FROM_NAME están vacíos');
+      return false;
+   }
+
    $payload = [
       'sender' => [
          'email' => SEND_FROM,
@@ -108,6 +119,8 @@ function sendMailWithBrevo($email, $subject, $message)
       'Content-Type: application/json',
    ];
 
+   error_log('Brevo: Enviando email a ' . $email . ' desde ' . SEND_FROM);
+
    if (function_exists('curl_init')) {
       $ch = curl_init($endpoint);
       curl_setopt($ch, CURLOPT_POST, true);
@@ -121,6 +134,8 @@ function sendMailWithBrevo($email, $subject, $message)
       $curlError = curl_error($ch);
       curl_close($ch);
 
+      error_log('Brevo cURL - HTTP Code: ' . $httpCode . ', Response: ' . (string) $response);
+
       if ($response === false || $curlError) {
          error_log('Brevo cURL error: ' . $curlError);
          return false;
@@ -131,6 +146,7 @@ function sendMailWithBrevo($email, $subject, $message)
          return false;
       }
 
+      error_log('Brevo email enviado exitosamente');
       return true;
    }
 
@@ -144,11 +160,15 @@ function sendMailWithBrevo($email, $subject, $message)
    ]);
 
    $response = @file_get_contents($endpoint, false, $context);
+   
+   error_log('Brevo stream - Response: ' . (string) $response);
+
    if ($response === false) {
-      error_log('Brevo stream error: request failed');
+      error_log('Brevo stream error: request failed (possible API key issue or network)');
       return false;
    }
 
+   error_log('Brevo email enviado exitosamente (stream fallback)');
    return true;
 }
  
@@ -163,13 +183,18 @@ function sendMailWithBrevo($email, $subject, $message)
  * @return [string]          [Error message, or success]
  */
 function sendMail($email, $subject, $message){
+   error_log('sendMail() called - BREVO_API_KEY: ' . (empty(BREVO_API_KEY) ? 'EMPTY' : 'SET'));
+   error_log('sendMail() called - RESEND_API_KEY: ' . (empty(RESEND_API_KEY) ? 'EMPTY' : 'SET'));
+   
    // Try Brevo first (best for students without domain)
    if (!empty(BREVO_API_KEY)) {
+      error_log('Using Brevo email service');
       return sendMailWithBrevo($email, $subject, $message);
    }
 
    // Fallback to Resend
    if (!empty(RESEND_API_KEY)) {
+      error_log('Using Resend email service');
       return sendMailWithResend($email, $subject, $message);
    }
 
