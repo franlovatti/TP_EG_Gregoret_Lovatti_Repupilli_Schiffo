@@ -1,6 +1,6 @@
 <?php
 function login(){
-    require_once '../conexion.php';
+  require_once __DIR__ . '/conexion.php';
     error_reporting(E_ERROR | E_PARSE); // Muestra solo errores fatales y errores de análisis
     ini_set('display_errors', 0);       // No mostrar errores al usuario
     global $login_error;

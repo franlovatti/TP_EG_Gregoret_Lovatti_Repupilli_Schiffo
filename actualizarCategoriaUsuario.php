@@ -1,6 +1,6 @@
 <?php
 function actualizarCategoriaUsuario($id_uso) {
-    require_once '../conexion.php';
+    require_once __DIR__ . '/conexion.php';
     global $conexion;
 
     $media = 5; // Número de promociones aceptadas para ser media

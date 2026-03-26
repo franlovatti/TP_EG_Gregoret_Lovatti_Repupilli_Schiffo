@@ -1,8 +1,8 @@
 <?php
 function signUp() {
   require_once __DIR__ . '/config/Load.php';
-  include 'conexion.php';
-  include 'scriptPHPmailer.php';
+  include __DIR__ . '/conexion.php';
+  include __DIR__ . '/scriptPHPmailer.php';
   error_reporting(E_ERROR | E_PARSE); // Muestra solo errores fatales y errores de análisis
   ini_set('display_errors', 0);       // No mostrar errores al usuario
   global $signUp_error;
@@ -58,7 +58,7 @@ function signUp() {
 }
 
 function verificarRegistro(){
-  require_once '../conexion.php';
+  require_once __DIR__ . '/conexion.php';
   global $signUp_error;
   if (!isset($_GET['selector_verificado']) || !isset($_GET['token_verificado'])) {return;}
   $selector = trim($_GET['selector_verificado']);

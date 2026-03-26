@@ -7,9 +7,9 @@ require_once '../configPHPmailer.php';
 /**
    We have to require the path to the PHPMailer classes.
 */
-require '../PHPMailer/Exception.php';
-require '../PHPMailer/PHPMailer.php';
-require '../PHPMailer/SMTP.php';
+require __DIR__ . '/../PHPmailer/Exception.php';
+require __DIR__ . '/../PHPmailer/PHPMailer.php';
+require __DIR__ . '/../PHPmailer/SMTP.php';
 /**
  * We have to put the PHPMailer namespaces at the top of the page.
 */

@@ -65,7 +65,7 @@ if ($tipoUsuario == 'cliente') {
           <a href="promociones.php" class="nav-link px-2 text-white">Promociones</a>
         </li>
         <li class="nav-item">
-          <a href="mispromociones.php" class="nav-link px-2 text-white">Mis promociones</a>
+          <a href="misPromociones.php" class="nav-link px-2 text-white">Mis promociones</a>
         </li>
          <li class="nav-item">
           <a href="novedades.php" class="nav-link px-2 text-white">Novedades</a>

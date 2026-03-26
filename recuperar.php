@@ -1,8 +1,8 @@
 <?php
 function recuperar(){
   require_once __DIR__ . '/config/Load.php';
-    require_once '../conexion.php';
-    require 'scriptPHPmailer.php';
+    require_once __DIR__ . '/conexion.php';
+    require_once __DIR__ . '/scriptPHPmailer.php';
     error_reporting(E_ERROR | E_PARSE); // Muestra solo errores fatales y errores de análisis
     ini_set('display_errors', 0);       // No mostrar errores al usuario
     global $recuperar;
@@ -48,7 +48,7 @@ function recuperar(){
 }
 
 function tokenClave(){
-    require_once '../conexion.php';
+  require_once __DIR__ . '/conexion.php';
     global $token_resultado;
     $token_resultado = '0';
     if (!isset($_GET['selector']) || !isset($_GET['token'])) {
@@ -77,7 +77,7 @@ function tokenClave(){
 }
 
 function cambiarClave(){
-    require_once '../conexion.php';
+  require_once __DIR__ . '/conexion.php';
     global $cambiar_error;
     if ($_POST['claveNueva'] !== $_POST['claveNueva2']) {
       $cambiar_error = "Las contraseñas no coinciden.";

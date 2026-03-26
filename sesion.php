@@ -2,9 +2,9 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-include '../login.php';
-include '../signUp.php';
-include '../recuperar.php';
+include __DIR__ . '/login.php';
+include __DIR__ . '/signUp.php';
+include __DIR__ . '/recuperar.php';
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 
 $login_error = "";
