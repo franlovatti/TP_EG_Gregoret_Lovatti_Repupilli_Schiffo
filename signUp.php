@@ -1,5 +1,6 @@
 <?php
 function signUp() {
+  require_once __DIR__ . '/config/Load.php';
   include 'conexion.php';
   include 'scriptPHPmailer.php';
   error_reporting(E_ERROR | E_PARSE); // Muestra solo errores fatales y errores de análisis
@@ -29,9 +30,16 @@ function signUp() {
       $query = "INSERT INTO usuario (mail_usuario, clave_usuario, tipo_usuario, estado, categoria, selector_verificado, token_verificado, verificado) VALUES ('$email', '$clave', '$tipo', '$estado', 'inicial', '$selector', '$token_hash', '0')";
       $resultados = mysqli_query($conexion, $query) or die("Hubo un error con la transacción:".mysqli_error($conexion));
       if ($resultados) {
+        $appUrl = rtrim((string) env('APP_URL', ''), '/');
+        if ($appUrl === '') {
+          $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+          $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+          $appUrl = $scheme . '://' . $host;
+        }
+        $linkVerificacion = $appUrl . "/front/home.php?selector_verificado=" . $selector . "&token_verificado=" . $token;
         $asunto = "Verificacion de cuenta";
         $mensaje = "<p>Hola, te enviamos este correo para verificar tu cuenta. Por favor, haz clic en el siguiente enlace para verificarla:</p>
-        <p><a href='http://localhost/archivosXampp/TP_EG_Gregoret_Lovatti_Repupilli_Schiffo/front/home.php?selector_verificado=".$selector."&token_verificado=".$token."'>Verificar cuenta</a></p>
+        <p><a href='".$linkVerificacion."'>Verificar cuenta</a></p>
         <p>Si no solicitaste esta verificación, puedes ignorar este mensaje.</p>";
         $respuesta = sendMail($email, $asunto, $mensaje);
         if ($respuesta) {

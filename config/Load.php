@@ -13,9 +13,9 @@ function loadEnv($filePath = null)
         $filePath = dirname(dirname(__FILE__)) . '/.env';
     }
 
-    // Check if file exists
     if (!file_exists($filePath)) {
-        throw new Exception("Environment file not found: " . $filePath);
+    // En producción (Railway), el archivo no existe, así que simplemente retornamos
+    return;
     }
 
     // Read the file line by line

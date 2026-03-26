@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/conexion.php';
 require_once __DIR__ . '/scriptPHPmailer.php';
+require_once __DIR__ . '/config/Load.php';
 
 function generarCodigoUsoPromo($longitud = 10) {
     $caracteres = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -43,7 +44,13 @@ function enviarMailPromo($id_uso, $estado) {
 
     if ($estado === 'aceptada') {
         $codigoSeguro = htmlspecialchars((string) $codigoUso, ENT_QUOTES, 'UTF-8');
-        $urlPromo = 'http://localhost/archivosXampp/TP_EG_Gregoret_Lovatti_Repupilli_Schiffo/front/promociones.php';
+        $appUrl = rtrim((string) env('APP_URL', ''), '/');
+        if ($appUrl === '') {
+            $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+            $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+            $appUrl = $scheme . '://' . $host;
+        }
+        $urlPromo = $appUrl . '/front/promociones.php';
         $qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=' . rawurlencode($urlPromo);
 
         $asunto = 'Solicitud aprobada: codigo para usar tu promocion';

@@ -1,5 +1,6 @@
 <?php
 function recuperar(){
+  require_once __DIR__ . '/config/Load.php';
     require_once '../conexion.php';
     require 'scriptPHPmailer.php';
     error_reporting(E_ERROR | E_PARSE); // Muestra solo errores fatales y errores de análisis
@@ -16,9 +17,16 @@ function recuperar(){
       $query = "UPDATE usuario SET selector_recuperar='$selector', token_recuperar='$token_hash', token_tiempo='$expira' WHERE mail_usuario='$email'";
       $resultado = mysqli_query($conexion, $query) or die("Hubo un error con la transacción:".mysqli_error($conexion));
       if ($resultado) {
+        $appUrl = rtrim((string) env('APP_URL', ''), '/');
+        if ($appUrl === '') {
+          $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+          $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+          $appUrl = $scheme . '://' . $host;
+        }
+        $linkRecuperacion = $appUrl . "/front/home.php?selector=" . $selector . "&token=" . $token;
         $asunto = "Recuperacion de clave";
         $mensaje = "<p>Hola, hemos recibido una solicitud para recuperar tu contraseña. Por favor, haz clic en el siguiente enlace para restablecerla:</p>
-        <p><a href='http://localhost/archivosXampp/TP_EG_Gregoret_Lovatti_Repupilli_Schiffo/front/home.php?selector=".$selector."&token=".$token."'>Restablecer contraseña</a></p>
+        <p><a href='".$linkRecuperacion."'>Restablecer contraseña</a></p>
         <p>Si no solicitaste este cambio, puedes ignorar este mensaje.</p>
         <p>Este enlace expirará en 15 minutos.</p>";
         $respuesta = sendMail($email, $asunto, $mensaje);

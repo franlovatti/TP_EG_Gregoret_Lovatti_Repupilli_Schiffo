@@ -25,7 +25,7 @@ define('REPLY_TO_NAME', env('MAIL_REPLY_TO_NAME'));
 
 // Validar que todas las variables de entorno estén configuradas
 if (!MAILHOST || !USERNAME || !PASSWORD || !SEND_FROM || !SEND_FROM_NAME || !REPLY_TO || !REPLY_TO_NAME) {
-    trigger_error('Error: Variables de entorno de email no configuradas. Verifica el archivo .env', E_USER_ERROR);
+    trigger_error('Error: Variables de entorno de email no configuradas. Definilas en Railway o en el archivo .env local.', E_USER_ERROR);
 }
 
 ?>
