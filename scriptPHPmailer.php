@@ -32,6 +32,11 @@ require 'configPHPmailer.php';
 function sendMail($email, $subject, $message){
    // Creating a new PHPMailer object.
    $mail = new PHPMailer(true);
+
+   if (MAIL_DEBUG) {
+      $mail->SMTPDebug = max(0, min(4, MAIL_DEBUG_LEVEL));
+      $mail->Debugoutput = 'error_log';
+   }
  
    // If you want to see the email process uncomment the 
    // SMTPDebug property.  
@@ -71,10 +76,17 @@ function sendMail($email, $subject, $message){
       PHP application and the SMTP server is encrypted, adding a 
       layer of security to your	email sending process.
    */
-   $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+   if (MAIL_ENCRYPTION === 'smtps' || MAIL_ENCRYPTION === 'ssl') {
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+   } elseif (MAIL_ENCRYPTION === 'none' || MAIL_ENCRYPTION === '') {
+      $mail->SMTPSecure = false;
+      $mail->SMTPAutoTLS = false;
+   } else {
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+   }
  
-   // TCP port to connect with the Gmail SMTP server.
-   $mail->Port = 465;
+   // TCP port to connect with the SMTP server.
+   $mail->Port = MAILPORT;
  
    /*
       Who is sending the email. Again we use the constants 
