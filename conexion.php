@@ -13,6 +13,10 @@ if (!$host || !$usuario || !$baseDatos) {
     die('Error: Variables de entorno de BD no configuradas. Definilas en Railway o en el archivo .env local.');
 }
 
+if (!function_exists('mysqli_connect')) {
+    die('Error: La extension mysqli no esta habilitada en el servidor. En Railway agrega NIXPACKS_PHP_EXTENSIONS=mysqli,pdo_mysql y redeploy.');
+}
+
 $conexion = mysqli_connect($host, $usuario, $clave, $baseDatos, $puerto);
 if (!$conexion) {
     die("Error de conexión: " . mysqli_connect_error());

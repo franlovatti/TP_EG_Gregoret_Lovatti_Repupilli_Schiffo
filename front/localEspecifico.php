@@ -51,14 +51,26 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
   $localExiste = true;
   $imagenLocalSrc = 'imagenes/placeholder.jpg';
   if (!empty($fila['imagen_local'])) {
-    $finfo = new finfo(FILEINFO_MIME_TYPE);
-    $mimeLocal = $finfo->buffer($fila['imagen_local']);
+    $mimeLocal = 'image/jpeg';
+    if (class_exists('finfo')) {
+      $finfo = new finfo(FILEINFO_MIME_TYPE);
+      $mimeDetectado = $finfo->buffer($fila['imagen_local']);
+      if (!empty($mimeDetectado)) {
+        $mimeLocal = $mimeDetectado;
+      }
+    }
     $imagenLocalSrc = "data:" . $mimeLocal . ";base64," . base64_encode($fila['imagen_local']);
   }
   $imagenPromSrc = 'imagenes/placeholder.jpg';
   if (!empty($fila['imagen_prom'])) {
-    $finfo = new finfo(FILEINFO_MIME_TYPE);
-    $mimePromo = $finfo->buffer($fila['imagen_prom']);
+    $mimePromo = 'image/jpeg';
+    if (class_exists('finfo')) {
+      $finfo = new finfo(FILEINFO_MIME_TYPE);
+      $mimeDetectado = $finfo->buffer($fila['imagen_prom']);
+      if (!empty($mimeDetectado)) {
+        $mimePromo = $mimeDetectado;
+      }
+    }
     $imagenPromSrc = "data:" . $mimePromo . ";base64," . base64_encode($fila['imagen_prom']);
   }
     ?>
@@ -117,8 +129,14 @@ if($localExiste && $fila['descripcion'] == null){
   while($fila = $resultado->fetch_assoc()){
     $imagenSrc = 'imagenes/placeholder.jpg';
     if (!empty($fila['imagen_prom'])) {
-      $finfo = new finfo(FILEINFO_MIME_TYPE);
-      $mime = $finfo->buffer($fila['imagen_prom']);
+      $mime = 'image/jpeg';
+      if (class_exists('finfo')) {
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $mimeDetectado = $finfo->buffer($fila['imagen_prom']);
+        if (!empty($mimeDetectado)) {
+          $mime = $mimeDetectado;
+        }
+      }
       $imagenSrc = "data:" . $mime . ";base64," . base64_encode($fila['imagen_prom']);
     }
     ?>

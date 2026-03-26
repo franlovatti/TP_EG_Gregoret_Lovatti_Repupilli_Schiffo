@@ -183,8 +183,14 @@ if (
           // Detecta tipo MIME para mostrar la imagen guardada en BLOB
           $imagenSrc = 'imagenes/placeholder.jpg';
           if (!empty($row['imagen_prom'])) {
-            $finfo = new finfo(FILEINFO_MIME_TYPE);
-            $mime = $finfo->buffer($row['imagen_prom']);
+            $mime = 'image/jpeg';
+            if (class_exists('finfo')) {
+              $finfo = new finfo(FILEINFO_MIME_TYPE);
+              $mimeDetectado = $finfo->buffer($row['imagen_prom']);
+              if (!empty($mimeDetectado)) {
+                $mime = $mimeDetectado;
+              }
+            }
             $imagenSrc = "data:" . $mime . ";base64," . base64_encode($row['imagen_prom']);
           }
     ?>

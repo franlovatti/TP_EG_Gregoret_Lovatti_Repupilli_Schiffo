@@ -78,8 +78,14 @@
             if(stripos($fila["nombre_local"], $_POST["Buscar"]) !== false){
               $imagenSrc = 'imagenes/placeholder.jpg';
               if (!empty($fila['imagen_local'])) {
-                $finfo = new finfo(FILEINFO_MIME_TYPE);
-                $mime = $finfo->buffer($fila['imagen_local']);
+                $mime = 'image/jpeg';
+                if (class_exists('finfo')) {
+                  $finfo = new finfo(FILEINFO_MIME_TYPE);
+                  $mimeDetectado = $finfo->buffer($fila['imagen_local']);
+                  if (!empty($mimeDetectado)) {
+                    $mime = $mimeDetectado;
+                  }
+                }
                 $imagenSrc = "data:" . $mime . ";base64," . base64_encode($fila['imagen_local']);
               }
               $bandera=1; ?>
@@ -141,8 +147,14 @@
           }}
           $imagenSrc = 'imagenes/placeholder.jpg';
           if (!empty($fila['imagen_local'])) {
-            $finfo = new finfo(FILEINFO_MIME_TYPE);
-            $mime = $finfo->buffer($fila['imagen_local']);
+            $mime = 'image/jpeg';
+            if (class_exists('finfo')) {
+              $finfo = new finfo(FILEINFO_MIME_TYPE);
+              $mimeDetectado = $finfo->buffer($fila['imagen_local']);
+              if (!empty($mimeDetectado)) {
+                $mime = $mimeDetectado;
+              }
+            }
             $imagenSrc = "data:" . $mime . ";base64," . base64_encode($fila['imagen_local']);
           }
           ?>
@@ -181,8 +193,14 @@
           }}
           $imagenSrc = 'imagenes/placeholder.jpg';
           if (!empty($fila['imagen_local'])) {
-            $finfo = new finfo(FILEINFO_MIME_TYPE);
-            $mime = $finfo->buffer($fila['imagen_local']);
+            $mime = 'image/jpeg';
+            if (class_exists('finfo')) {
+              $finfo = new finfo(FILEINFO_MIME_TYPE);
+              $mimeDetectado = $finfo->buffer($fila['imagen_local']);
+              if (!empty($mimeDetectado)) {
+                $mime = $mimeDetectado;
+              }
+            }
             $imagenSrc = "data:" . $mime . ";base64," . base64_encode($fila['imagen_local']);
           }?>
             <div class="card h-100">

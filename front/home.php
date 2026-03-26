@@ -95,10 +95,12 @@ $mime = 'image/jpeg';
 $imagenSrc = 'imagenes/placeholder.jpg';
 
 if (!empty($imagenPromocion)) {
+if (class_exists('finfo')) {
 $finfo = new finfo(FILEINFO_MIME_TYPE);
 $mimeDetectado = $finfo->buffer($imagenPromocion);
 if (!empty($mimeDetectado)) {
 $mime = $mimeDetectado;
+}
 }
 $imagenSrc = "data:" . $mime . ";base64," . base64_encode($imagenPromocion);
 }
