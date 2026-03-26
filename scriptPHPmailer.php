@@ -81,6 +81,76 @@ function sendMailWithResend($email, $subject, $message)
 
    return true;
 }
+
+function sendMailWithBrevo($email, $subject, $message)
+{
+   $payload = [
+      'sender' => [
+         'email' => SEND_FROM,
+         'name' => SEND_FROM_NAME,
+      ],
+      'to' => [
+         [
+            'email' => $email,
+         ],
+      ],
+      'subject' => $subject,
+      'htmlContent' => $message,
+      'replyTo' => [
+         'email' => REPLY_TO,
+         'name' => REPLY_TO_NAME,
+      ],
+   ];
+
+   $endpoint = 'https://api.brevo.com/v3/smtp/email';
+   $headers = [
+      'api-key: ' . BREVO_API_KEY,
+      'Content-Type: application/json',
+   ];
+
+   if (function_exists('curl_init')) {
+      $ch = curl_init($endpoint);
+      curl_setopt($ch, CURLOPT_POST, true);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_TIMEOUT, max(5, BREVO_TIMEOUT));
+
+      $response = curl_exec($ch);
+      $httpCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+      $curlError = curl_error($ch);
+      curl_close($ch);
+
+      if ($response === false || $curlError) {
+         error_log('Brevo cURL error: ' . $curlError);
+         return false;
+      }
+
+      if ($httpCode < 200 || $httpCode >= 300) {
+         error_log('Brevo HTTP error ' . $httpCode . ': ' . (string) $response);
+         return false;
+      }
+
+      return true;
+   }
+
+   $context = stream_context_create([
+      'http' => [
+         'method' => 'POST',
+         'header' => "api-key: " . BREVO_API_KEY . "\r\n" . "Content-Type: application/json\r\n",
+         'content' => json_encode($payload),
+         'timeout' => max(5, BREVO_TIMEOUT),
+      ],
+   ]);
+
+   $response = @file_get_contents($endpoint, false, $context);
+   if ($response === false) {
+      error_log('Brevo stream error: request failed');
+      return false;
+   }
+
+   return true;
+}
  
 
  
@@ -93,10 +163,17 @@ function sendMailWithResend($email, $subject, $message)
  * @return [string]          [Error message, or success]
  */
 function sendMail($email, $subject, $message){
+   // Try Brevo first (best for students without domain)
+   if (!empty(BREVO_API_KEY)) {
+      return sendMailWithBrevo($email, $subject, $message);
+   }
+
+   // Fallback to Resend
    if (!empty(RESEND_API_KEY)) {
       return sendMailWithResend($email, $subject, $message);
    }
 
+   // Final fallback to SMTP (traditional method)
    try {
       // Creating a new PHPMailer object.
       $mail = new PHPMailer(true);

@@ -31,7 +31,11 @@ define('MAIL_DEBUG_LEVEL', (int) mailEnv('MAIL_DEBUG_LEVEL', 2));
 // SMTP timeout in seconds to avoid hanging requests
 define('MAIL_TIMEOUT', (int) mailEnv('MAIL_TIMEOUT', 20));
 
-// Optional Resend API config (preferred in cloud environments)
+// Optional Brevo API config (preferred - works without domain ownership)
+define('BREVO_API_KEY', mailEnv('BREVO_API_KEY'));
+define('BREVO_TIMEOUT', (int) mailEnv('BREVO_TIMEOUT', 20));
+
+// Optional Resend API config (fallback to Resend if Brevo not configured)
 define('RESEND_API_KEY', mailEnv('RESEND_API_KEY'));
 define('RESEND_FROM', mailEnv('RESEND_FROM', ''));
 define('RESEND_REPLY_TO', mailEnv('RESEND_REPLY_TO', ''));
@@ -55,12 +59,13 @@ define('REPLY_TO', mailEnv('MAIL_REPLY_TO'));
 // Define the reply-to name.
 define('REPLY_TO_NAME', mailEnv('MAIL_REPLY_TO_NAME'));
 
-// Validar configuración: se necesita Resend o SMTP
+// Validar configuración: se necesita Brevo, Resend o SMTP
 $smtpConfigured = MAILHOST && MAILPORT && USERNAME && PASSWORD && SEND_FROM && SEND_FROM_NAME && REPLY_TO && REPLY_TO_NAME;
+$brevoConfigured = !empty(BREVO_API_KEY);
 $resendConfigured = !empty(RESEND_API_KEY);
 
-if (!$smtpConfigured && !$resendConfigured) {
-    trigger_error('Error: Configuración de email incompleta. Definí RESEND_API_KEY o las variables SMTP.', E_USER_ERROR);
+if (!$smtpConfigured && !$brevoConfigured && !$resendConfigured) {
+    trigger_error('Error: Configuración de email incompleta. Definí BREVO_API_KEY, RESEND_API_KEY o las variables SMTP.', E_USER_ERROR);
 }
 
 ?>
