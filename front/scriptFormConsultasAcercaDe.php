@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/../configPHPmailer.php';
 require_once __DIR__ . '/../scriptPHPmailer.php';
 
 function sendContactMail($email, $name, $message)

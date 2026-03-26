@@ -2,9 +2,9 @@
 /**
    We have to require the path to the PHPMailer classes.
 */
-require 'PHPmailer/Exception.php';
-require 'PHPmailer/PHPMailer.php';
-require 'PHPmailer/SMTP.php';
+require_once __DIR__ . '/PHPmailer/Exception.php';
+require_once __DIR__ . '/PHPmailer/PHPMailer.php';
+require_once __DIR__ . '/PHPmailer/SMTP.php';
 /**
  * We have to put the PHPMailer namespaces at the top of the page.
 */
@@ -17,7 +17,7 @@ use PHPMailer\PHPMailer\SMTP;
    We have to require the config.php file to use our 
    Gmail account login details.
 */
-require 'configPHPmailer.php';
+require_once __DIR__ . '/configPHPmailer.php';
 
 function sendMailWithResend($email, $subject, $message)
 {
