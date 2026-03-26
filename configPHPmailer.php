@@ -14,6 +14,9 @@ define('MAIL_ENCRYPTION', strtolower((string) env('MAIL_ENCRYPTION', 'starttls')
 // SMTP debug flags (for Railway logs)
 define('MAIL_DEBUG', filter_var(env('MAIL_DEBUG', 'false'), FILTER_VALIDATE_BOOLEAN));
 define('MAIL_DEBUG_LEVEL', (int) env('MAIL_DEBUG_LEVEL', 2));
+
+// SMTP timeout in seconds to avoid hanging requests
+define('MAIL_TIMEOUT', (int) env('MAIL_TIMEOUT', 20));
  
 // Define as a username the email that you use in your Gmail account.
 define('USERNAME', env('MAIL_USER'));

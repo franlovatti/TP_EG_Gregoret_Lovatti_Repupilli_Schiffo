@@ -30,13 +30,14 @@ require 'configPHPmailer.php';
  * @return [string]          [Error message, or success]
  */
 function sendMail($email, $subject, $message){
-   // Creating a new PHPMailer object.
-   $mail = new PHPMailer(true);
+   try {
+      // Creating a new PHPMailer object.
+      $mail = new PHPMailer(true);
 
-   if (MAIL_DEBUG) {
-      $mail->SMTPDebug = max(0, min(4, MAIL_DEBUG_LEVEL));
-      $mail->Debugoutput = 'error_log';
-   }
+      if (MAIL_DEBUG) {
+         $mail->SMTPDebug = max(0, min(4, MAIL_DEBUG_LEVEL));
+         $mail->Debugoutput = 'error_log';
+      }
  
    // If you want to see the email process uncomment the 
    // SMTPDebug property.  
@@ -49,24 +50,28 @@ function sendMail($email, $subject, $message){
       Setting the SMTPAuth property to true, so we can use 
       our Gmail login	details to send the mail.
    */	
-   $mail->SMTPAuth = true;
+      $mail->SMTPAuth = true;
  
    /*  
       Setting the Host property to the MAILHOST value 
       that we define in the config file.
    */	
-   $mail->Host = MAILHOST;
+      $mail->Host = MAILHOST;
  
    /*  Setting the Username property to the USERNAME value 
       that we define in the config file.
    */	
-   $mail->Username = USERNAME;
+      $mail->Username = USERNAME;
  
    /*
       Setting the Password property to the PASSWORD value 
       that we define in the config file.
    */	
-   $mail->Password = PASSWORD;
+      $mail->Password = PASSWORD;
+
+      // Prevent long hangs on network/auth issues
+      $mail->Timeout = max(5, MAIL_TIMEOUT);
+      $mail->SMTPKeepAlive = false;
     
    /*
       By setting SMTPSecure to PHPMailer::ENCRYPTION_STARTTLS, 
@@ -76,37 +81,37 @@ function sendMail($email, $subject, $message){
       PHP application and the SMTP server is encrypted, adding a 
       layer of security to your	email sending process.
    */
-   if (MAIL_ENCRYPTION === 'smtps' || MAIL_ENCRYPTION === 'ssl') {
-      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-   } elseif (MAIL_ENCRYPTION === 'none' || MAIL_ENCRYPTION === '') {
-      $mail->SMTPSecure = false;
-      $mail->SMTPAutoTLS = false;
-   } else {
-      $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-   }
+      if (MAIL_ENCRYPTION === 'smtps' || MAIL_ENCRYPTION === 'ssl') {
+         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+      } elseif (MAIL_ENCRYPTION === 'none' || MAIL_ENCRYPTION === '') {
+         $mail->SMTPSecure = false;
+         $mail->SMTPAutoTLS = false;
+      } else {
+         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+      }
  
    // TCP port to connect with the SMTP server.
-   $mail->Port = MAILPORT;
+      $mail->Port = MAILPORT;
  
    /*
       Who is sending the email. Again we use the constants 
       that we define in	the config file.
     */
-   $mail->setFrom(SEND_FROM, SEND_FROM_NAME);
+      $mail->setFrom(SEND_FROM, SEND_FROM_NAME);
  
    /*
       Where the mail goes. We use the $email function's 
       parameter that holds the email address that we type 
       in the email input field. 
     */
-   $mail->addAddress($email);
+      $mail->addAddress($email);
  
    /*
       The 'addReplyTo' property specifies where the 
       recipient can reply to.
       Again we use the constants from the config file.
     */
-   $mail->addReplyTo(REPLY_TO, REPLY_TO_NAME);
+      $mail->addReplyTo(REPLY_TO, REPLY_TO_NAME);
  
    /*
       By setting $mail->IsHTML(true), we inform PHPMailer that 
@@ -117,18 +122,18 @@ function sendMail($email, $subject, $message){
       hyperlinks, images, formatting, 
       and other HTML elements in our email content.
     */
-   $mail->IsHTML(true);
+      $mail->IsHTML(true);
  
    /*
       Assigning the incoming subject to the 
       $mail->subject property. 	
     */
-   $mail->Subject = $subject;
+      $mail->Subject = $subject;
  
    /*
       Assigning the incoming message to the $mail->body property.
     */
-   $mail->Body = $message;
+      $mail->Body = $message;
  
    /*
       When we set $mail->AltBody, we are providing 
@@ -138,7 +143,7 @@ function sendMail($email, $subject, $message){
       In such cases, the email client will display 
       the plain text content instead of the HTML content.
     */
-   $mail->AltBody = $message;
+      $mail->AltBody = $message;
    
    /*
       And last we send the email.
@@ -147,9 +152,17 @@ function sendMail($email, $subject, $message){
       We are going to catch the returned value in the index file,
       and display it in the HTML form.
     */
-   if(!$mail->send()){
-      return "Email not send. Please try again";
-   }else{
-      return "success";
+      if (!$mail->send()) {
+         error_log('SMTP send error: ' . $mail->ErrorInfo);
+         return false;
+      }
+
+      return true;
+   } catch (Exception $e) {
+      error_log('SMTP exception: ' . $e->getMessage());
+      return false;
+   } catch (\Throwable $e) {
+      error_log('SMTP throwable: ' . $e->getMessage());
+      return false;
    }
 }
