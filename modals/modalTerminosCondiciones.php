@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p><b>1. ACEPTACIÓN DE LOS TÉRMINOS</b></h4>
+        <p><b>1. ACEPTACIÓN DE LOS TÉRMINOS</b></p>
         <p>El acceso y uso del sitio web del Shopping [Nombre del Shopping] (en adelante, "el Shopping") 
           implica la aceptación plena y sin reservas de todos y cada uno de los presentes Términos y Condiciones por parte del usuario. 
           Si no está de acuerdo con alguno de estos términos, le recomendamos no utilizar este sitio.

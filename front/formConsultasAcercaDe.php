@@ -10,7 +10,7 @@ require __DIR__ . '/scriptFormConsultasAcercaDe.php';
     }
   }
 ?>
-<form action="" method="post">
+<form  method="post">
   <div class="mb-3">
     <label for="nombre" class="form-label">Nombre</label>
     <input type="text" class="form-control" id="nombre" name="nombre" required />

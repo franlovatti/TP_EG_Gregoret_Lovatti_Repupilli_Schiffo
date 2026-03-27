@@ -1,6 +1,6 @@
 <?php include '../sesion.php'; ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,7 +21,7 @@
       <div class="container w-75">
         <div class="row align-items-center gy-1">
           <div class=" col-12 ">
-            <form class="d-flex" method="post" action="">
+            <form class="d-flex" method="post" >
               <div class="input-group">
                 <input
                   name="Buscar"
@@ -76,25 +76,15 @@
         if(isset($_POST["Buscar"])){
           while($fila=mysqli_fetch_assoc($vResult)){
             if(stripos($fila["nombre_local"], $_POST["Buscar"]) !== false){
-              $imagenSrc = 'imagenes/placeholder.jpg';
-              if (!empty($fila['imagen_local'])) {
-                $mime = 'image/jpeg';
-                if (class_exists('finfo')) {
-                  $finfo = new finfo(FILEINFO_MIME_TYPE);
-                  $mimeDetectado = $finfo->buffer($fila['imagen_local']);
-                  if (!empty($mimeDetectado)) {
-                    $mime = $mimeDetectado;
-                  }
-                }
-                $imagenSrc = "data:" . $mime . ";base64," . base64_encode($fila['imagen_local']);
-              }
+              $finfo=new finfo(FILEINFO_MIME_TYPE);
+              $mime=$finfo->buffer($fila['imagen_local']);
               $bandera=1; ?>
               <div class="container my-3">
                 <div class="card shadow-sm border-0">
                   <div class="row g-0">
                     <!-- Imagen -->
                     <div class="col-12 col-md-3 d-flex justify-content-center align-items-center p-3">
-                      <img src="<?php echo $imagenSrc; ?>" class="img-fluid rounded" style="max-height:100px;" alt="Logo del local">
+                      <img src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($fila['imagen_local']); ?>" class="img-fluid rounded" style="max-height:100px;" alt="Logo del local">
                     </div>
                     <!-- Datos -->
                     <div class="col-12 col-md-9">
@@ -145,24 +135,14 @@
             $fila=mysqli_fetch_array($vResult);
             
           }}
-          $imagenSrc = 'imagenes/placeholder.jpg';
-          if (!empty($fila['imagen_local'])) {
-            $mime = 'image/jpeg';
-            if (class_exists('finfo')) {
-              $finfo = new finfo(FILEINFO_MIME_TYPE);
-              $mimeDetectado = $finfo->buffer($fila['imagen_local']);
-              if (!empty($mimeDetectado)) {
-                $mime = $mimeDetectado;
-              }
-            }
-            $imagenSrc = "data:" . $mime . ";base64," . base64_encode($fila['imagen_local']);
-          }
+          $finfo=new finfo(FILEINFO_MIME_TYPE);
+              $mime=$finfo->buffer($fila['imagen_local']);
           ?>
             <div class="card h-100">
               <div class="row h-100">
                 <div class="col-12 col-sm-4 d-flex flex-column flex-sm-row ">
                   <img
-                    src="<?php echo $imagenSrc; ?>"
+                    src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($fila['imagen_local']); ?>"
                     class="img-fluid h-100 w-100 object-fit-cover rounded-start"
                     alt="Imagen"
                   />
@@ -191,23 +171,13 @@
           else{
             $fila=mysqli_fetch_array($vResult);
           }}
-          $imagenSrc = 'imagenes/placeholder.jpg';
-          if (!empty($fila['imagen_local'])) {
-            $mime = 'image/jpeg';
-            if (class_exists('finfo')) {
-              $finfo = new finfo(FILEINFO_MIME_TYPE);
-              $mimeDetectado = $finfo->buffer($fila['imagen_local']);
-              if (!empty($mimeDetectado)) {
-                $mime = $mimeDetectado;
-              }
-            }
-            $imagenSrc = "data:" . $mime . ";base64," . base64_encode($fila['imagen_local']);
-          }?>
+          $finfo=new finfo(FILEINFO_MIME_TYPE);
+              $mime=$finfo->buffer($fila['imagen_local']);?>
             <div class="card h-100">
               <div class="row h-100">
                 <div class="col-12 col-sm-4 d-flex flex-column flex-sm-row ">
                   <img
-                    src="<?php echo $imagenSrc; ?>"
+                    src="data:<?php echo $mime; ?>;base64,<?php echo base64_encode($fila['imagen_local']); ?>"
                     class="img-fluid h-100 w-100 object-fit-cover rounded-start"
                     alt="Imagen"
                   />

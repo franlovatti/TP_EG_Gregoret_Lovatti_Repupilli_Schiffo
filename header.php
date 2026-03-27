@@ -140,7 +140,7 @@ if ($login) {
         <button class="btn p-0 border-0 bg-transparent focus-ring" type="button" id="perfilDropdown" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="bi bi-person-circle text-light fs-2"></i>
         </button>
-        <ul class="dropdown-menu dropdown-menu-end shadow dropdown-perfil" aria-labelledby="perfilDropdown">
+        <ul class="dropdown-menu dropdown-menu-end shadow dropdown-perfil" role="menu" aria-labelledby="perfilDropdown">
           <li class="px-3 py-2">
             <div class="fw-semibold"><?php echo $_SESSION['usuario'] ?></div>
             <?php if ($tipoUsuario == 'cliente') :?>
