@@ -26,21 +26,21 @@ if (
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<!-- CORRECCIÓN 1: lang="en" → lang="es" -->
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CORRECCIÓN 2: <title> movido antes de los <link> de CSS -->
   <title>Promociones</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-    rel="stylesheet"
-  />
+    rel="stylesheet">
   <link rel="stylesheet" href="estilos/promocion/promociones.css">
   <link rel="stylesheet" href="estilos/global.css">
 
-  <title>Document</title>
 </head>
 <body class="d-flex flex-column min-vh-100">
   <header class="p-3 text-bg-dark">
@@ -53,7 +53,8 @@ if (
     <div class="row align-items-center gy-1">
       <!-- Barra de busqueda -->
       <div class="col-lg-9 col-12 ">
-        <form class="d-flex" method="get" action="">
+        <!-- CORRECCIÓN 3: action="" eliminado de los 3 formularios -->
+        <form class="d-flex" method="get">
           <div class="input-group">
             <input
               name="Buscar"
@@ -61,7 +62,7 @@ if (
               class="form-control"
               placeholder="Buscar"
               value="<?php echo isset($_GET['Buscar']) ? htmlspecialchars($_GET['Buscar']) : ''; ?>"
-            />
+            >
             <button class="btn btn-primary" type="submit">
               <i class="bi bi-search"></i>
             </button>
@@ -70,7 +71,7 @@ if (
       </div>
       <!-- Desplegable de categorias -->
       <div class="col-12 col-lg-3">
-        <form method="get" action="">
+        <form method="get">
           <?php if (isset($_GET['Buscar']) && trim($_GET['Buscar']) !== '') { ?>
             <input type="hidden" name="Buscar" value="<?php echo htmlspecialchars(trim($_GET['Buscar'])); ?>">
           <?php } ?>
@@ -300,13 +301,13 @@ if (
   <?php include '../modals/modalLogin.php'; ?>
   <!-- Modal de Registro -->
   <?php include '../modals/modalSignUp.php'; ?>
-  <!-- Modal de Registro -->
+  <!-- Modal de Registro Dueño -->
   <?php include '../modals/modalSignUpD.php'; ?>
   <!-- Modal de Recuperar Contraseña -->
   <?php include '../modals/modalRecuperar.php'; ?>
   <!--Modal de promociones-->
   <?php include '../modals/modalPromocion.php'; ?>
-  <!-- sript login -->
+  <!-- script login -->
   <?php if (!empty($login_error)){?>
   <script>
       document.addEventListener('DOMContentLoaded', function () {
@@ -339,7 +340,7 @@ if (
     var promoModal = document.getElementById('promoModal');
     promoModal.addEventListener('show.bs.modal', function (event) {
       var card = event.relatedTarget;
-       if (!card) return; // Evita errores si es null
+       if (!card) return;
       document.getElementById('promoModalLabel').textContent = card.getAttribute('data-nombre');
       document.getElementById('promoModalImg').src = card.getAttribute('data-imagen');
       document.getElementById('promoModalIdPromo').value = card.getAttribute('data-id-promocion');
@@ -347,20 +348,17 @@ if (
       document.getElementById('promoModalDesde').textContent = card.getAttribute('data-fecha-desde');
       document.getElementById('promoModalHasta').textContent = card.getAttribute('data-fecha-hasta');
       const dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
-      .map(dia => card.getAttribute('data-' + dia)) // obtenés el texto de cada día desde el atributo data
-      .filter(Boolean)                             // eliminás los que son null, undefined o string vacío
-      .join(', ');                                  // los unís con coma y espacio
+      .map(dia => card.getAttribute('data-' + dia))
+      .filter(Boolean)
+      .join(', ');
       document.getElementById('promoModalDias').textContent = dias;
     });
   });
   </script>
-  <!-- // Script para aprovechar promoción, muestra la confirmacion de que se ha enviado la solicitud de aprovechamiento de promoción -->
   <?php
-  // Verifica si se ha enviado el parámetro 'promo' con el valor 'ok' en la URL
   if(isset($_GET['promo']) && $_GET['promo'] == 'ok'){
     include "../modals/modalAprovecharPromo.php";
   }
-  // Verifica si se ha enviado el parámetro 'promo' con el valor 'ya_solicitada' en la URL
   if(isset($_GET['promo']) && $_GET['promo'] == 'solicitada'){
     include "../modals/modalYaSolicitada.php";
   }
@@ -373,8 +371,7 @@ if (
   }
     ?>
  <script>
-  // Muestra automaticamente la modal correspondiente al resultado de la solicitud.
-document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function () {
     var modalId = <?php echo json_encode($modalPromoId); ?>;
     if (!modalId) {
       return;
