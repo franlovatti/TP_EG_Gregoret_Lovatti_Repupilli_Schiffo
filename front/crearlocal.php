@@ -64,6 +64,7 @@
       <div class="row">
         <div class="col-lg-6 col-12 mb-4">
           <form class="d-flex" method="post" action="">
+            <label for="buscar" class="visually-hidden">Buscar local</label>
             <div class="input-group">
               <input name="Buscar" type="text" class="form-control" placeholder="Buscar por nombre..." />
               <button class="btn btn-primary" type="submit">

@@ -56,6 +56,7 @@
                     
                     <label class="form-label">&nbsp;</label>
                     <form class="d-flex" method="post" action="">
+                        <label for="buscarPor" class="visually-hidden">Buscar reportes</label>
                         <div class="input-group">
                             
                             <input type="hidden" name="buscarPor" value="<?= $buscarPor ?>" />

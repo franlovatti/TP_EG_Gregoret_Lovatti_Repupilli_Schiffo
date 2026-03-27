@@ -22,15 +22,14 @@
         <div class="row align-items-center gy-1">
           <div class=" col-12 ">
             <form class="d-flex" method="post" >
+              <label for="buscar" class="visually-hidden">Buscar locales</label>
               <div class="input-group">
-              <label for="Buscar">  
                 <input
                   name="Buscar"
                   type="text"
                   class="form-control"
                   placeholder="Buscar"
                 />
-              </label>
                 <button class="btn btn-primary" type="submit">
                   <i class="bi bi-search"></i>
                 </button>

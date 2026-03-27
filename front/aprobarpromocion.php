@@ -44,6 +44,7 @@
       
       <div class="col-lg-9 col-12 mb-4">
         <form class="d-flex" method="post" action="">
+          <label for="buscar" class="visually-hidden">Buscar promos pendientes</label>
           <div class="input-group">
             <input name="Buscar" type="text" class="form-control" placeholder="Buscar por local" />
             <button class="btn btn-primary" type="submit">
