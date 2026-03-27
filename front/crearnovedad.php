@@ -51,7 +51,6 @@
       <div class="row">
         <div class="col-lg-6 mb-4">
           <form method="post">
-            <label for="buscar" class="visually-hidden">Buscar novedad</label>
             <div class="input-group">
               <input name="Buscar" class="form-control" placeholder="Buscar por descripción...">
               <button class="btn btn-primary">

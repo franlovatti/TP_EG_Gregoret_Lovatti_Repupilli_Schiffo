@@ -22,7 +22,6 @@
         <div class="row align-items-center gy-1">
           <div class=" col-12 ">
             <form class="d-flex" method="post" >
-              <label for="buscar" class="visually-hidden">Buscar locales</label>
               <div class="input-group">
                 <input
                   name="Buscar"

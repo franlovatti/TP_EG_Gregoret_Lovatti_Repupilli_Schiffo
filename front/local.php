@@ -90,7 +90,6 @@ if (!empty($locales)) {
 <div class="row mb-3">
   <div class="col-md-4">
     <form method="get">
-      <label for="local" class="visually-hidden">Seleccionar local:</label>
       <select name="local" class="form-select" onchange="this.form.submit()">
         <?php foreach ($locales as $id => $l): ?>
           <option value="<?=$id?>" <?=($id == $selected_local_id)?'selected':''?>>

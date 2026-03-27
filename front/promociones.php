@@ -73,7 +73,6 @@ if (
       <!-- Desplegable de categorias -->
       <div class="col-12 col-lg-3">
         <form method="get">
-          <label for="categoria" class="visually-hidden">Buscar por categoria</label>
           <?php if (isset($_GET['Buscar']) && trim($_GET['Buscar']) !== '') { ?>
             <input type="hidden" name="Buscar" value="<?php echo htmlspecialchars(trim($_GET['Buscar'])); ?>">
           <?php } ?>
