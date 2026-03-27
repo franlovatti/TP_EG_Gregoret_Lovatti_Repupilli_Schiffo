@@ -1,4 +1,4 @@
-<div class="modal fade" id="registroDueñoModal" tabindex="-1" aria-labelledby="registrDoueñoModalLabel" aria-hidden="true">
+<div class="modal fade" id="registroDueñoModal" tabindex="-1" aria-labelledby="registrDueñoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -24,7 +24,7 @@
             <div class="alert alert-danger"><?= $signUp_error ?></div>
             <?php }; ?>
             <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-success">Registrarse</button>
+              <button type="submit" class="btn btn-success" aria-label="Registrarse">Registrarse</button>
             </div>
           <input type="hidden" name="esDueno" value="si">
           </form>

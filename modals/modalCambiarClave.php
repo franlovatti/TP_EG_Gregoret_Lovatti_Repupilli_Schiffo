@@ -8,11 +8,11 @@
       <div class="modal-body">
         <form method="post" action="home.php?cambiar=1"> 
           <div class="mb-3">
-            <label for="clave" class="form-label">Contraseña</label>
+            <label for="claveNueva" class="form-label">Contraseña</label>
             <input type="password" class="form-control" id="claveNueva" name="claveNueva" required />
           </div>
           <div class="mb-3">
-            <label for="clave2" class="form-label">Confirmar contraseña</label>
+            <label for="claveNueva2" class="form-label">Confirmar contraseña</label>
             <input type="password" class="form-control" id="claveNueva2" name="claveNueva2" required />
           </div>
           <?php if (!empty($cambiar_error)) { ?>

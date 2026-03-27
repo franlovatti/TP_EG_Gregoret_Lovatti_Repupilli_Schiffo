@@ -18,7 +18,9 @@
           <div class="form-group form-check mb-3">
             <label class="form-check-label" for="mantenerSesionIniciada">Mantener sesión iniciada</label>
             <input type="hidden" name="mantenerSesionIniciada" value="no">
+            <label for="mantenerSesionIniciada">
             <input type="checkbox" class="form-check-input" id="mantenerSesionIniciada" name="mantenerSesionIniciada" value="si">
+            </label>
           </div>
           <?php if (!empty($login_error)){ ?>
             <div class="alert alert-danger"><?= $login_error ?></div>
@@ -27,7 +29,7 @@
             <small><a href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#recuperarModal">¿Olvidaste tu contraseña?</a></small>
           </div>
           <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-primary">Ingresar</button>
+            <button type="submit" class="btn btn-primary" aria-label="Ingresar">Ingresar</button>
           </div>
         </form>
         <div class="text-center mt-3">
