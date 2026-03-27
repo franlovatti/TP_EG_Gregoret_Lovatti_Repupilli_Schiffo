@@ -55,14 +55,16 @@ if (
       <div class="col-lg-9 col-12 ">
         <!-- CORRECCIÓN 3: action="" eliminado de los 3 formularios -->
         <form class="d-flex" method="get">
+          <label for="Buscar">
           <div class="input-group">
             <input
-              name="Buscar"
-              type="text"
+            name="Buscar"
+            type="text"
               class="form-control"
               placeholder="Buscar"
               value="<?php echo isset($_GET['Buscar']) ? htmlspecialchars($_GET['Buscar']) : ''; ?>"
             >
+            </label>
             <button class="btn btn-primary" type="submit">
               <i class="bi bi-search"></i>
             </button>
@@ -75,6 +77,7 @@ if (
           <?php if (isset($_GET['Buscar']) && trim($_GET['Buscar']) !== '') { ?>
             <input type="hidden" name="Buscar" value="<?php echo htmlspecialchars(trim($_GET['Buscar'])); ?>">
           <?php } ?>
+          <label for="categoria">
           <select
             name="categoria"
             class="form-select"
@@ -88,6 +91,7 @@ if (
             <?php } ?>
             
           </select>
+          </label>
         </form>
       </div> <!--cierra desplegable de categorias-->
     </div> <!--Cierra fila de busqueda y desplegable-->

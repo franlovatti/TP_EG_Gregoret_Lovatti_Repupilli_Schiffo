@@ -23,12 +23,14 @@
           <div class=" col-12 ">
             <form class="d-flex" method="post" >
               <div class="input-group">
+              <label for="Buscar">  
                 <input
                   name="Buscar"
                   type="text"
                   class="form-control"
                   placeholder="Buscar"
                 />
+              </label>
                 <button class="btn btn-primary" type="submit">
                   <i class="bi bi-search"></i>
                 </button>
