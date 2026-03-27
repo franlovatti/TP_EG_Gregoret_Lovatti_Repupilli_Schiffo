@@ -32,7 +32,7 @@ if(isset($_GET['id_local'])){
   $id_local = $_GET['id_local'];
 }
 $query = "SELECT loc.id_local, loc.nombre_local, loc.ubicacion, loc.rubro, loc.imagen_local,
-		    p.descripcion, p.fecha_desde, p.fecha_hasta, p.categoria, 
+		    p.id_promocion, p.descripcion, p.fecha_desde, p.fecha_hasta, p.categoria, 
         p.lunes, p.martes, p.miercoles, p.jueves, p.viernes, p.sabado, p.domingo,
         p.imagen_prom
         from local loc 
@@ -117,7 +117,7 @@ if($localExiste && $fila['descripcion'] == null){
   <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 align-items-stretch">
   <?php
   $query = "SELECT loc.id_local, loc.nombre_local, loc.ubicacion, loc.rubro, loc.imagen_local,
-		    p.descripcion, p.fecha_desde, p.fecha_hasta, p.categoria, 
+		    p.id_promocion, p.descripcion, p.fecha_desde, p.fecha_hasta, p.categoria, 
         p.lunes, p.martes, p.miercoles, p.jueves, p.viernes, p.sabado, p.domingo,
         p.imagen_prom
         from local loc 
@@ -147,6 +147,7 @@ if($localExiste && $fila['descripcion'] == null){
             data-bs-toggle="modal"
             data-bs-target="#promoModal"
             data-nombre="<?php echo htmlspecialchars($fila['nombre_local']); ?>"
+            data-id-promocion="<?php echo $fila['id_promocion']; ?>"
             data-descripcion="<?php echo htmlspecialchars($fila['descripcion']); ?>"
             data-fecha-desde="<?php echo htmlspecialchars($fila['fecha_desde']); ?>"
             data-fecha-hasta="<?php echo htmlspecialchars($fila['fecha_hasta']); ?>"
@@ -258,21 +259,23 @@ if($localExiste && $fila['descripcion'] == null){
       });
   </script>
   <?php }; ?>
-  <!-- script Modal promociones -->
+   <!-- script Modal promociones -->
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     var promoModal = document.getElementById('promoModal');
     promoModal.addEventListener('show.bs.modal', function (event) {
       var card = event.relatedTarget;
+       if (!card) return;
       document.getElementById('promoModalLabel').textContent = card.getAttribute('data-nombre');
       document.getElementById('promoModalImg').src = card.getAttribute('data-imagen');
+      document.getElementById('promoModalIdPromo').value = card.getAttribute('data-id-promocion');
       document.getElementById('promoModalDesc').textContent = card.getAttribute('data-descripcion');
       document.getElementById('promoModalDesde').textContent = card.getAttribute('data-fecha-desde');
       document.getElementById('promoModalHasta').textContent = card.getAttribute('data-fecha-hasta');
       const dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
-      .map(dia => card.getAttribute('data-' + dia)) // obtenés el texto de cada día desde el atributo data
-      .filter(Boolean)                             // eliminás los que son null, undefined o string vacío
-      .join(', ');                                  // los unís con coma y espacio
+      .map(dia => card.getAttribute('data-' + dia))
+      .filter(Boolean)
+      .join(', ');
       document.getElementById('promoModalDias').textContent = dias;
     });
   });

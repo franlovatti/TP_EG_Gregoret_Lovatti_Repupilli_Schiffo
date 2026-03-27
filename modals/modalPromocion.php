@@ -97,6 +97,10 @@ $tipoUsuario = $_SESSION['tipoUsuario'] ?? null;
           if(estaLogueado){
             //logica para mandar los datos a gestionarPromoUsuario.php
             const idPromoModal = document.getElementById('promoModalIdPromo').value;
+            if (!idPromoModal) {
+              alert("Error: promoción inválida");
+              return;
+            }
             const inputForm = document.getElementById('idPromo');
             inputForm.value = idPromoModal;
             form.submit();

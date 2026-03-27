@@ -10,6 +10,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
     <link rel="stylesheet" href="estilos/global.css" />
+
+    <style>
+    /* badge categoria */
+    .badge-categoria {
+    background: #e7f1ff;
+    color: #0d6efd;
+    font-weight: 500;
+    }
+    </style>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -149,7 +158,7 @@
 
                             <div class="row local-header mb-3">
 
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <strong>LOCAL:</strong> <?= $local['nombre_local'] ?>
                                 </div>
 
@@ -167,28 +176,32 @@
 
                                 <?php foreach ($local['promociones'] as $promo) { ?>
 
-                                    <div class="row promo-row">
+                                    <div class="row promo-row mb-4">
 
                                         <div class="col-md-4">
                                             <strong>Promo:</strong> <?= $promo['descripcion'] ?>
                                         </div>
 
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
                                             <strong>usos totales:</strong> <?= $promo['cant_usos'] ?>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
                                             <strong>Última fecha vigente:</strong>
-                                            Desde: <?= $promo['fecha_desde'] ?>
-                                            Hasta: <?= $promo['fecha_hasta'] ?>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <span class="badge badge-categoria">
-                                                <?= $promo['categoria'] ?>
+                                            <span>
+                                                Desde: <?= $promo['fecha_desde'] ?>
+                                            </span><br>
+                                            <span>
+                                                Hasta: <?= $promo['fecha_hasta'] ?>
                                             </span>
                                         </div>
 
+                                        <!-- Categoría -->
+                                        <div class="col-md-3  text-md-center mt-2 mt-md-0">
+                                            <span class="badge badge-categoria">
+                                                <?= ucfirst($promo['categoria']) ?>
+                                            </span>
+                                        </div>
                                     </div>
 
                                 <?php } ?>

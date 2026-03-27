@@ -1,8 +1,9 @@
 <?php
 require_once '../conexion.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $idCliente = $_POST['idCliente'];
-  $idPromo = $_POST['idPromo'];
+
+    $idCliente = $_POST['idCliente'];
+    $idPromo = $_POST['idPromo'];
 
   // Validar que no se haya utilzado ya la promoción por parte del cliente
   $queryValidacion = "SELECT COUNT(*) FROM uso_promocion WHERE id_cliente = ? AND id_promocion = ? AND estado IN ('pendiente', 'aceptada')";
@@ -29,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } 
   // Enlazás los parámetros a la consulta preparada
   mysqli_stmt_bind_param($stmt, "ii", $idCliente, $idPromo);
-
   // Ejecutás la consulta
   if (mysqli_stmt_execute($stmt)) {
     // Redirigir a una página de éxito o mostrar un mensaje de confirmación

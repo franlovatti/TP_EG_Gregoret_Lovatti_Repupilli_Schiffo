@@ -98,8 +98,9 @@ if(isset($_POST['buscar'])) {
 
     $fechaDesde = $_POST['fechaDesde'];
     $fechaHasta = $_POST['fechaHasta'];
-
-    if(empty($fechaDesde)){
+    if(empty($fechaDesde) && empty($fechaHasta)){
+        $plazo = "";
+    } elseif(empty($fechaDesde)){
         $plazo = " AND up.fecha_uso <= '$fechaHasta'";
     } elseif(empty($fechaHasta)){
         $plazo = " AND up.fecha_uso >= '$fechaDesde'";

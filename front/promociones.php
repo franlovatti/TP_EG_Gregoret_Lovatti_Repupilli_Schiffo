@@ -80,13 +80,13 @@ if (
             class="form-select"
             onchange="this.form.submit()"
           >
-            <option <?php echo $categoriaSeleccionada === null ? 'selected' : ''; ?>>Categoria</option>
+            <option value="todas" <?php echo $categoriaSeleccionada === null ? 'selected' : ''; ?>>Todas</option>
             <?php foreach ($categoriasFiltroPermitidas as $claveCategoria) { ?>
               <option value="<?php echo htmlspecialchars($claveCategoria); ?>" <?php echo $categoriaSeleccionada === $claveCategoria ? 'selected' : ''; ?>>
                 <?php echo htmlspecialchars($catalogoCategorias[$claveCategoria]); ?>
               </option>
             <?php } ?>
-            <option value="todas" <?php echo $categoriaSeleccionada === 'todas' ? 'selected' : ''; ?>>Todas</option>
+            
           </select>
         </form>
       </div> <!--cierra desplegable de categorias-->

@@ -121,15 +121,17 @@ if (isset($_GET['ok']) && $_GET['ok'] == 'eliminada') {
                 </label>
 
                 <form class="d-flex" method="post" action="">
-
+                    <?php
+                    $estadoSeleccionado = $_POST['estado'] ?? 'todas';
+                    ?>
                     <div class="input-group">
 
-                        <select class="form-select" name="estado" id="estado" required>
-                            <option value="pendiente">Pendientes</option>
-                            <option value="activa">Activas</option>
-                            <option value="rechazada">Rechazadas</option>
-                            <option value="vencida">Vencidas</option>
-                            <option value="todas">Todas</option>
+                       <select class="form-select" name="estado" id="estado" required>
+                            <option value="todas" <?php if($estadoSeleccionado == 'todas') echo 'selected'; ?>>Todas</option>
+                            <option value="pendiente" <?php if($estadoSeleccionado == 'pendiente') echo 'selected'; ?>>Pendientes</option>
+                            <option value="activa" <?php if($estadoSeleccionado == 'activa') echo 'selected'; ?>>Activas</option>
+                            <option value="rechazada" <?php if($estadoSeleccionado == 'rechazada') echo 'selected'; ?>>Rechazadas</option>
+                            <option value="vencida" <?php if($estadoSeleccionado == 'vencida') echo 'selected'; ?>>Vencidas</option>
                         </select>
 
                         <button class="btn btn-primary" type="submit">
