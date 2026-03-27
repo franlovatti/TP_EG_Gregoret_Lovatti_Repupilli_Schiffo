@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
             Error al eliminar la novedad
           </div>
           <div class='text-center mt-3'>
-            <a href='../admin/novedades.php' class='btn btn-secondary'>Volver</a>
+            <a href='../front/novedades.php' class='btn btn-secondary'>Volver</a>
           </div>";
   }
 } else {
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
           id no válido
         </div>
         <div class='text-center mt-3'>
-          <a href='../admin/novedades.php' class='btn btn-secondary'>Volver</a>
+          <a href='../front/novedades.php' class='btn btn-secondary'>Volver</a>
         </div>";
 }
 mysqli_close($conexion);

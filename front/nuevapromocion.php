@@ -8,7 +8,15 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
   <link rel="stylesheet" href="estilos/global.css" />
- 
+  <style>
+    .form-check-input {
+      transform: scale(1.5);
+      margin-right: 10px;
+    }
+    .form-check-label {
+      font-size: 1.1em;
+    }
+  </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -68,53 +76,35 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
             </select>
         </div>
         <div class="mb-3">
-            <label for="lunes" class="form-label">Disponible día lunes:</label>
-            <select class="form-select" name="lunes" id="lunes" required>
-                <option value="0" selected>No</option>
-                <option value="1">Sí</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="martes" class="form-label">Disponible día martes:</label>
-            <select class="form-select" name="martes" id="martes" required>
-                <option value="0" selected>No</option>
-                <option value="1">Sí</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="miercoles" class="form-label">Disponible día miercoles:</label>
-            <select class="form-select" name="miercoles" id="miercoles" required>
-                <option value="0" selected>No</option>
-                <option value="1">Sí</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="jueves" class="form-label">Disponible día jueves:</label>
-            <select class="form-select" name="jueves" id="jueves" required>
-                <option value="0" selected>No</option>
-                <option value="1">Sí</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="viernes" class="form-label">Disponible día viernes:</label>
-            <select class="form-select" name="viernes" id="viernes" required>
-                <option value="0" selected>No</option>
-                <option value="1">Sí</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="sabado" class="form-label">Disponible día sabado:</label>
-            <select class="form-select" name="sabado" id="sabado" required>
-                <option value="0" selected>No</option>
-                <option value="1">Sí</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="domingo" class="form-label">Disponible día domingo:</label>
-            <select class="form-select" name="domingo" id="domingo" required>
-                <option value="0" selected>No</option>
-                <option value="1">Sí</option>
-            </select>
+             <label for="dias_disponibles" class="form-label">Días disponibles:</label><br>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="lunes" name="lunes" value="1">
+                <label class="form-check-label" for="lunes">Lunes</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="martes" name="martes" value="1">
+                <label class="form-check-label" for="martes">Martes</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="miercoles" name="miercoles" value="1">
+                <label class="form-check-label" for="miercoles">Miércoles</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="jueves" name="jueves" value="1">
+                <label class="form-check-label" for="jueves">Jueves</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="viernes" name="viernes" value="1">
+                <label class="form-check-label" for="viernes">Viernes</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="sabado" name="sabado" value="1">
+                <label class="form-check-label" for="sabado">Sábado</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="domingo" name="domingo" value="1">
+                <label class="form-check-label" for="domingo">Domingo</label>
+            </div>
         </div>
         <div class="mb-3">
             <label for="imagen" class="form-label">Imagen de la promoción:</label>

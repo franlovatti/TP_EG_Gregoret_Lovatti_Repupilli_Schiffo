@@ -158,7 +158,7 @@ document.getElementById('confirmDeleteModal')
   const id = button.getAttribute('data-id');
 
   document.getElementById('confirmDeleteBtn').href =
-    '../consultas/eliminarnovedad.php?id=' + id;
+    '../consultas/eliminarNovedad.php?id=' + id;
 });
 
 

@@ -18,9 +18,7 @@
           <div class="form-group form-check mb-3">
             <label class="form-check-label" for="mantenerSesionIniciada">Mantener sesión iniciada</label>
             <input type="hidden" name="mantenerSesionIniciada" value="no">
-            <label for="mantenerSesionIniciada">
             <input type="checkbox" class="form-check-input" id="mantenerSesionIniciada" name="mantenerSesionIniciada" value="si">
-            </label>
           </div>
           <?php if (!empty($login_error)){ ?>
             <div class="alert alert-danger"><?= $login_error ?></div>
