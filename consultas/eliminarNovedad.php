@@ -1,7 +1,6 @@
 <?php
 require_once '../conexion.php';
 
-echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
   $id_novedad = intval($_GET['id']);
@@ -9,10 +8,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
             SET estado = 'inactivo' 
             WHERE id_novedad = $id_novedad";
 
-  $resultado = mysqli_query($conexion, $query);
-  if ($resultado) {
-    header("Location: ../front/crearnovedad.php");
+$resultado = mysqli_query($conexion, $query);
+if ($resultado) {
+  header("Location: ../front/crearnovedad.php");
   } else {
+    echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">';
     echo "<div class='alert alert-danger text-center'>
             Error al eliminar la novedad
           </div>
@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
           </div>";
   }
 } else {
+  echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">';
   echo "<div class='alert alert-warning text-center'>
           id no válido
         </div>
