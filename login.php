@@ -18,6 +18,7 @@ function login(){
         }
         $_SESSION['categoria'] = $fila['categoria'];
         $_SESSION['usuario'] = $fila['mail_usuario'];
+        $_SESSION['nombre'] = $fila['nombre_usuario'];
         $_SESSION['tipoUsuario'] = $fila['tipo_usuario'];
         $_SESSION['idUsuario'] = $fila['id_usuario'];
         if ($fila['tipo_usuario'] === 'dueño') {
@@ -26,6 +27,7 @@ function login(){
         if($mantenerSesionIniciada=='si'){
           setcookie('mantenerSesionIniciada','si',time()+(60*60*24*365));
           setcookie('usuario',$fila['mail_usuario'],time()+(60*60*24*365));
+          setcookie('nombre',$fila['nombre_usuario'],time()+(60*60*24*365));
           setcookie('tipoUsuario',$fila['tipo_usuario'],time()+(60*60*24*365));
           setcookie('categoriaCliente',$fila['categoriaCliente'],time()+(60*60*24*365));
           setcookie('idUsuario',$fila['id_usuario'],time()+(60*60*24*365));

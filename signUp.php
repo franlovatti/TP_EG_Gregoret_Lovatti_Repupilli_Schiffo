@@ -5,8 +5,9 @@ function signUp() {
   include __DIR__ . '/scriptPHPmailer.php';
   error_reporting(E_ERROR | E_PARSE); // Muestra solo errores fatales y errores de análisis
   ini_set('display_errors', 0);       // No mostrar errores al usuario
-  global $signUp_error;
+  global $signUp_error, $signUp_modal;
   $email = trim($_POST['correo']);
+  $nombre = trim($_POST['nombre']);
   $clave = $_POST['clave'];
   $clave2 = $_POST['clave2'];
   $estado = 'activo';
@@ -15,6 +16,7 @@ function signUp() {
     $estado = 'pendiente';
     $tipo = 'dueño';
   }
+  $signUp_modal = ($tipo === 'dueño') ? 'registroDueñoModal' : 'registroModal';
   if ($clave !== $clave2) {
     $signUp_error = "Las contraseñas no coinciden.";
   }else {
@@ -27,7 +29,7 @@ function signUp() {
       $selector = bin2hex(random_bytes(8));
       $token = bin2hex(random_bytes(32));
       $token_hash = password_hash($token, PASSWORD_DEFAULT);
-      $query = "INSERT INTO usuario (mail_usuario, clave_usuario, tipo_usuario, estado, categoria, selector_verificado, token_verificado, verificado) VALUES ('$email', '$clave', '$tipo', '$estado', 'inicial', '$selector', '$token_hash', '0')";
+      $query = "INSERT INTO usuario (mail_usuario, nombre_usuario, clave_usuario, tipo_usuario, estado, categoria, selector_verificado, token_verificado, verificado) VALUES ('$email', '$nombre', '$clave', '$tipo', '$estado', 'inicial', '$selector', '$token_hash', '0')";
       $resultados = mysqli_query($conexion, $query) or die("Hubo un error con la transacción:".mysqli_error($conexion));
       if ($resultados) {
         $appUrl = rtrim((string) env('APP_URL', ''), '/');
@@ -38,7 +40,7 @@ function signUp() {
         }
         $linkVerificacion = $appUrl . "/front/home.php?selector_verificado=" . $selector . "&token_verificado=" . $token;
         $asunto = "Verificacion de cuenta";
-        $mensaje = "<p>Hola, te enviamos este correo para verificar tu cuenta. Por favor, haz clic en el siguiente enlace para verificarla:</p>
+        $mensaje = "<p>Hola " . $nombre . ", te enviamos este correo para verificar tu cuenta. Por favor, haz clic en el siguiente enlace para verificarla:</p>
         <p><a href='".$linkVerificacion."'>Verificar cuenta</a></p>
         <p>Si no solicitaste esta verificación, puedes ignorar este mensaje.</p>";
         $respuesta = sendMail($email, $asunto, $mensaje);
@@ -81,6 +83,7 @@ function verificarRegistro(){
           $_SESSION['idUsuario'] = $fila['id_usuario'];
           $_SESSION['categoria'] = $fila['categoria'];
           $_SESSION['estado'] = $fila['estado'];
+          $_SESSION['nombre'] = $fila['nombre_usuario'];
         } else {
           $signUp_error = "Error al recuperar los datos del usuario después de la verificación.";
         }

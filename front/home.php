@@ -114,6 +114,11 @@ $imagenSrc = "data:" . $mime . ";base64," . base64_encode($imagenPromocion);
 data-bs-toggle="modal"
 data-bs-target="#promoModal"
 data-id="<?php echo $row['id_promocion']; ?>"
+role="button"
+tabindex="0"
+aria-haspopup="dialog"
+aria-controls="promoModal"
+aria-label="Abrir detalle de promoción de <?php echo htmlspecialchars($row['nombre_local']); ?>"
 
 data-nombre="<?php echo htmlspecialchars($row['nombre_local']); ?>"
 data-descripcion="<?php echo htmlspecialchars($row['descripcion']); ?>"
@@ -217,7 +222,7 @@ $modalAutoAbrir = '';
 if (!empty($login_error)) {
 	$modalAutoAbrir = 'loginModal';
 } elseif (!empty($signUp_error)) {
-	$modalAutoAbrir = 'registroModal';
+  $modalAutoAbrir = $signUp_modal ?? 'registroModal';
 } elseif (isset($_GET['recuperar']) || !empty($recuperar)) {
 	$modalAutoAbrir = 'recuperarModal';
 } elseif (!empty($cambiar_error) || $token_resultado === '1') {
@@ -285,6 +290,15 @@ const dias=['lunes','martes','miercoles','jueves','viernes','sabado','domingo']
 
 document.getElementById('promoModalDias').textContent=dias;
 
+});
+
+document.querySelectorAll('.promo-card[data-bs-target="#promoModal"]').forEach(function(card){
+card.addEventListener('keydown',function(event){
+if(event.key==='Enter' || event.key===' '){
+event.preventDefault();
+card.click();
+}
+});
 });
 
 });

@@ -36,7 +36,10 @@ require __DIR__ . '/scriptFormConsultasAcercaDe.php';
 ?>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var modal = new bootstrap.Modal(document.getElementById('modalRecibimosMailConsulta'));
-        modal.show();
+        var modalElement = document.getElementById('modalRecibimosMailConsulta');
+        if (modalElement) {
+          var modal = new bootstrap.Modal(modalElement);
+          modal.show();
+        }
     });
 </script>

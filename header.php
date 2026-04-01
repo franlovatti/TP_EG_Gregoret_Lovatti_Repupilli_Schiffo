@@ -2,6 +2,7 @@
 if (isset($_SESSION['usuario'])) {
     $usuario = $_SESSION['usuario'];
     $tipoUsuario = $_SESSION['tipoUsuario'];
+    $nombrePerfil = trim((string) ($_SESSION['nombre'] ?? ''));
     $login = True;
   if ($tipoUsuario == 'cliente') {
     if ($tipoUsuario == 'cliente') {
@@ -137,23 +138,26 @@ if ($tipoUsuario == 'cliente') {
 if ($login) {
 ?>
       <div class="navbar-nav ms-auto dropdown">
-        <button class="btn p-0 border-0 bg-transparent focus-ring" type="button" id="perfilDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="bi bi-person-circle text-light fs-2"></i>
+        <button class="btn d-flex align-items-center gap-2 p-0 border-0 bg-transparent focus-ring text-light" type="button" id="perfilDropdown" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+          <i class="bi bi-person-circle fs-3" aria-hidden="true"></i>
+          <span class="small d-none d-lg-inline"><?php echo $nombrePerfil; ?></span>
+          <i class="bi bi-chevron-down small" aria-hidden="true"></i>
         </button>
         <ul class="dropdown-menu dropdown-menu-end shadow dropdown-perfil" role="menu" aria-labelledby="perfilDropdown">
           <li class="px-3 py-2">
-            <div class="fw-semibold"><?php echo $_SESSION['usuario'] ?></div>
+            <div class="fw-semibold">Hola <?php echo $nombrePerfil; ?>!</div>
+            <div class="text-muted small"><?php echo $usuario; ?></div>
             <?php if ($tipoUsuario == 'cliente') :?>
-            <small>Nivel: <?php echo $categoria?></small>
+            <small class="badge text-bg-warning text-dark mt-1">Nivel: <?php echo htmlspecialchars((string) $categoria)?></small>
             <?php elseif ($tipoUsuario == 'dueño') :?>
-            <small>Nivel: dueño</small>
+            <small class="badge text-bg-info mt-1">Nivel: dueño</small>
             <?php elseif ($tipoUsuario == 'administrador') :?>
-            <small>Nivel: administrador</small>
+            <small class="badge text-bg-danger mt-1">Nivel: administrador</small>
             <?php endif; ?>
           </li>
           <li><hr class="dropdown-divider" /></li>
-          <li><a class="dropdown-item" href="#">Cambiar contraseña</a></li>
-          <li><a class="dropdown-item" href="../cerrarSesion.php">Cerrar sesión</a></li>
+          <li><a class="dropdown-item d-flex align-items-center gap-2" href="#" data-bs-toggle="modal" data-bs-target="#editarPerfilModal"><i class="bi bi-pencil"></i>Editar perfil</a></li>
+          <li><a class="dropdown-item text-danger d-flex align-items-center gap-2" href="../cerrarSesion.php"><i class="bi bi-box-arrow-right"></i>Cerrar sesión</a></li>
         </ul>
       </div>
 <?php
@@ -175,3 +179,5 @@ if ($login) {
     </div>
   </div>
 </nav>
+
+<?php include_once __DIR__ . '/modals/modalEditarPerfil.php'; ?>

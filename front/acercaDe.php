@@ -169,7 +169,12 @@ modal.show();
 <?php if (!empty($signUp_error)){?>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
-var modal=new bootstrap.Modal(document.getElementById('registroModal'));
+var modalId = <?php echo json_encode($signUp_modal ?? 'registroModal'); ?>;
+var modalElement = document.getElementById(modalId);
+if (!modalElement) {
+	modalElement = document.getElementById('registroModal');
+}
+var modal=new bootstrap.Modal(modalElement);
 modal.show();
 });
 </script>

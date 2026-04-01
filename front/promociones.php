@@ -201,6 +201,11 @@ if (
         <div class="card promo-card mb-3"
           data-bs-toggle="modal"
           data-bs-target="#promoModal"
+          role="button"
+          tabindex="0"
+          aria-haspopup="dialog"
+          aria-controls="promoModal"
+          aria-label="Abrir detalle de promoción de <?php echo htmlspecialchars($row['nombre_local']); ?>"
           data-nombre="<?php echo htmlspecialchars($row['nombre_local']); ?>"
           data-id-promocion="<?php echo $row['id_promocion']; ?>"
           data-categoria="<?php echo htmlspecialchars($row['categoria']); ?>"
@@ -321,7 +326,12 @@ if (
   <?php if (!empty($signUp_error)){?>
   <script>
       document.addEventListener('DOMContentLoaded', function () {
-          var modal = new bootstrap.Modal(document.getElementById('registroModal'));
+          var modalId = <?php echo json_encode($signUp_modal ?? 'registroModal'); ?>;
+          var modalElement = document.getElementById(modalId);
+          if (!modalElement) {
+            modalElement = document.getElementById('registroModal');
+          }
+          var modal = new bootstrap.Modal(modalElement);
           modal.show();
       });
   </script>
@@ -353,6 +363,15 @@ if (
       .filter(Boolean)
       .join(', ');
       document.getElementById('promoModalDias').textContent = dias;
+    });
+
+    document.querySelectorAll('.promo-card[data-bs-target="#promoModal"]').forEach(function(card){
+      card.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          card.click();
+        }
+      });
     });
   });
   </script>
