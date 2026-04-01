@@ -3,7 +3,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="registroModalLabel">Recuperar contraseña</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar">
+          <span class="visually-hidden">Cerrar</span>
+        </button>
       </div>
       <div class="modal-body">
         <form method="post" action="">

@@ -138,6 +138,8 @@ data-domingo="<?php echo $row['domingo'] ? 'Domingo' : ''; ?>"
 style="cursor:pointer;">
 
 <img src="<?php echo htmlspecialchars($imagenSrc); ?>" class="card-img-top card-img-custom" alt="Promoción">
+  <span class="visually-hidden">Imagen de la promoción</span>
+</img>
 
 <div class="card-body">
 

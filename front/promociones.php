@@ -222,6 +222,8 @@ if (
           data-domingo="<?php echo $row['domingo'] ? 'Domingo' : ''; ?>"
          >
           <img src="<?php echo htmlspecialchars($imagenSrc); ?>" class="card-img-top card-img-custom" alt="Promoción">
+            <span class="visually-hidden">Imagen de la promoción</span>
+          </img>
           <div class="card-body">
             <div class="d-flex align-items-start justify-content-between mb-2">
               <h4 class="mb-0"><?php echo htmlspecialchars($row['nombre_local']); ?></h4>
@@ -263,10 +265,10 @@ if (
   $paramsNext = array_merge($queryParams, ['pagina' => $paginaSiguiente]);
   ?>
   <!--Paginacion-->
-  <nav aria-label="Page navigation example">
+  <nav aria-label="Navegación de páginas">
     <ul class="pagination justify-content-center">
       <li class="page-item <?php echo $pagina == 1 ? 'disabled' : ''; ?>">
-        <a class="page-link" href="promociones.php?<?php echo http_build_query($paramsPrev); ?>" aria-label="Previous">
+        <a class="page-link" href="promociones.php?<?php echo http_build_query($paramsPrev); ?>" aria-label="Página anterior">
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
@@ -274,11 +276,11 @@ if (
         $paramsPagina = array_merge($queryParams, ['pagina' => $j]);
       ?>
             <li class="page-item <?php echo $j == $pagina ? 'active' : ''; ?>">
-              <a class="page-link" href="promociones.php?<?php echo http_build_query($paramsPagina); ?>"><?php echo $j; ?></a>
+              <a class="page-link" href="promociones.php?<?php echo http_build_query($paramsPagina); ?>" aria-label="Ir a página <?php echo $j; ?>" <?php echo $j == $pagina ? 'aria-current="page"' : ''; ?>><?php echo $j; ?></a>
             </li>
         <?php } ?>
       <li class="page-item <?php echo $pagina == $totalPaginas ? 'disabled' : ''; ?>">
-        <a class="page-link" href="promociones.php?<?php echo http_build_query($paramsNext); ?>" aria-label="Next">
+        <a class="page-link" href="promociones.php?<?php echo http_build_query($paramsNext); ?>" aria-label="Página siguiente">
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>

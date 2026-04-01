@@ -3,7 +3,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Términos y condiciones</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span class="visually-hidden">Cerrar</span>
+        </button>
       </div>
       <div class="modal-body">
         <p><strong>1. ACEPTACIÓN DE LOS TÉRMINOS</strong></p>
@@ -49,7 +51,7 @@
         </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cerrar">Cerrar</button>
       </div>
     </div>
   </div>

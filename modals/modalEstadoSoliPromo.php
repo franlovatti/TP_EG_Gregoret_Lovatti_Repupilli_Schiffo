@@ -7,7 +7,9 @@ $estado = htmlspecialchars($estado);
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="confirmarModalLabel">Estado promocion</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span class="visually-hidden">Cerrar</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>La solicitud ha sido <strong><?php 

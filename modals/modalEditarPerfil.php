@@ -12,7 +12,9 @@ $redirectTo = $_SERVER['REQUEST_URI'] ?? '/front/home.php';
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editarPerfilModalLabel">Editar perfil</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar">
+          <span class="visually-hidden">Cerrar</span>
+        </button>
       </div>
       <div class="modal-body">
         <form method="post" action="../consultas/gestionarCuenta.php">
@@ -27,6 +29,7 @@ $redirectTo = $_SERVER['REQUEST_URI'] ?? '/front/home.php';
             <div class="input-group">
               <input type="password" class="form-control" id="claveNueva" name="claveNueva" />
               <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
+                <span class="visually-hidden">Mostrar contraseña</span>
                 <i class="bi bi-eye"></i>
               </button>
             </div>
@@ -37,6 +40,7 @@ $redirectTo = $_SERVER['REQUEST_URI'] ?? '/front/home.php';
             <div class="input-group">
               <input type="password" class="form-control" id="claveNueva2" name="claveNueva2" />
               <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
+                <span class="visually-hidden">Mostrar contraseña</span>
                 <i class="bi bi-eye"></i>
               </button>
             </div>

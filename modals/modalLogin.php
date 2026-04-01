@@ -13,7 +13,9 @@ if (!empty($login_error) && isset($_POST['email']) && isset($_POST['password']))
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="loginModalLabel">Iniciar sesión</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar">
+          <span class="visually-hidden">Cerrar</span>
+        </button>
       </div>
       <div class="modal-body">
         <form method="post" action="">
@@ -26,6 +28,7 @@ if (!empty($login_error) && isset($_POST['email']) && isset($_POST['password']))
             <div class="input-group">
               <input type="password" class="form-control" id="password" name="password" value="<?php echo $loginPasswordValue; ?>" required />
               <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
+                <span class="visually-hidden">Mostrar contraseña</span>
                 <i class="bi bi-eye"></i>
               </button>
             </div>

@@ -11,7 +11,9 @@ $mostrarErrorSignUpDueno = !empty($signUp_error) && (($signUp_modal ?? 'registro
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="registroDueñoModalLabel">Crear una cuenta</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar">
+            <span class="visually-hidden">Cerrar</span>
+          </button>
         </div>
         <div class="modal-body">
           <form method="post" action=""> 
@@ -28,6 +30,7 @@ $mostrarErrorSignUpDueno = !empty($signUp_error) && (($signUp_modal ?? 'registro
               <div class="input-group">
                 <input type="password" class="form-control" id="clave" name="clave" value="<?php echo $signUpDClaveValue; ?>" required />
                 <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
+                  <span class="visually-hidden">Mostrar contraseña</span>
                   <i class="bi bi-eye"></i>
                 </button>
               </div>
@@ -37,6 +40,7 @@ $mostrarErrorSignUpDueno = !empty($signUp_error) && (($signUp_modal ?? 'registro
               <div class="input-group">
                 <input type="password" class="form-control" id="clave2" name="clave2" value="<?php echo $signUpDClave2Value; ?>" required />
                 <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
+                  <span class="visually-hidden">Mostrar contraseña</span>
                   <i class="bi bi-eye"></i>
                 </button>
               </div>
