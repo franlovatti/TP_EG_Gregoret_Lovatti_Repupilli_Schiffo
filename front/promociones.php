@@ -228,16 +228,16 @@ if (
             <div class="d-flex align-items-start justify-content-between mb-2">
               <h4 class="mb-0"><?php echo htmlspecialchars($row['nombre_local']); ?></h4>
               <?php
-              $estrellas = '';
-              if ($row['categoria'] == 'inicial') {
-                  $estrellas = '★';
-              } elseif ($row['categoria'] == 'medium') {
-                  $estrellas = '★★';
-              } elseif ($row['categoria'] == 'premium') {
-                  $estrellas = '★★★';
-              }
-              ?>
-              <span class="badge bg-warning text-dark ms-2"><?php echo $estrellas; ?></span>
+            $colorCategoria = match($row['categoria']) {
+               'premium' => 'danger',
+                'medium'  => 'warning',
+                'inicial' => 'primary',
+               default   => 'secondary'
+                };
+                ?>
+<span class="badge bg-<?php echo $colorCategoria; ?> ms-2">
+    <?php echo ucfirst($row['categoria']); ?>
+</span>
             </div>
             <h5><?php echo htmlspecialchars($row['descripcion']); ?></h5>
             <p>Fecha desde: <?php echo htmlspecialchars($row['fecha_desde']); ?></p>

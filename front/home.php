@@ -146,16 +146,16 @@ style="cursor:pointer;">
 <div class="d-flex align-items-start justify-content-between mb-2">
 <h3 class="mb-0"><?php echo htmlspecialchars($row['nombre_local']); ?></h3>
 <?php
-$estrellas = '';
-if ($row['categoria'] == 'inicial') {
-    $estrellas = '★';
-} elseif ($row['categoria'] == 'medium') {
-    $estrellas = '★★';
-} elseif ($row['categoria'] == 'premium') {
-    $estrellas = '★★★';
-}
+$colorCategoria = match($row['categoria']) {
+    'premium' => 'danger',
+    'medium'  => 'warning',
+    'inicial' => 'primary',
+    default   => 'secondary'
+};
 ?>
-<span class="badge bg-warning text-dark ms-2"><?php echo $estrellas; ?></span>
+<span class="badge bg-<?php echo $colorCategoria; ?> ms-2">
+    <?php echo ucfirst($row['categoria']); ?>
+</span>
 </div>
 <h4><?php echo htmlspecialchars($row['descripcion']); ?></h4>
 <p class="card-text">
