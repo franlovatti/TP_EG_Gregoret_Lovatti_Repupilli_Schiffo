@@ -57,13 +57,15 @@ $resultado = mysqli_query($conexion, $query);
       <div class="row g-2 mb-4">
 
         <div class="col-md-6">
-          <form class="d-flex" method="post" action="">
+          <form class="d-flex" method="post" action="" role="search" aria-labelledby="searchMisPromocionesLabel">
             <div class="input-group">
-              <input name="Buscar" type="text" class="form-control" placeholder="Buscar por promoción..." value="<?php echo isset($_POST['Buscar']) ? htmlspecialchars($_POST['Buscar']) : ''; ?>" />
-              <button class="btn btn-primary">
-                <i class="bi bi-search"></i>
+              <label id="searchMisPromocionesLabel" for="buscarPromocion" class="visually-hidden">Buscar promociones</label>
+              <input id="buscarPromocion" name="Buscar" type="text" class="form-control" placeholder="Buscar por promoción..." value="<?php echo isset($_POST['Buscar']) ? htmlspecialchars($_POST['Buscar']) : ''; ?>" aria-describedby="searchMisPromocionesHelp" />
+              <button class="btn btn-primary" aria-label="Buscar promociones">
+                <i class="bi bi-search" aria-hidden="true"></i>
               </button>
             </div>
+            <div id="searchMisPromocionesHelp" class="visually-hidden">Ingrese el nombre de la promoción y presione buscar.</div>
           </form>
 
           <?php if (isset($_POST["Buscar"]) && !empty(trim($_POST["Buscar"]))) { ?>

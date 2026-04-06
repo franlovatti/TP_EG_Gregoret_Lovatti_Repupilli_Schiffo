@@ -3,7 +3,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Recibimos su consulta</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span class="visually-hidden">Cerrar</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>Gracias por contactarse con nosotros, pronto una persona del staff le enviará una respuesta.</p>

@@ -9,34 +9,38 @@ $redirectTo = $_SERVER['REQUEST_URI'] ?? '/front/home.php';
 
 <div class="modal fade" id="editarPerfilModal" tabindex="-1" aria-labelledby="editarPerfilModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editarPerfilModalLabel">Editar perfil</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+    <div class="modal-content bg-white text-dark">
+      <div class="modal-header bg-light text-dark">
+        <h5 class="modal-title text-dark" id="editarPerfilModalLabel">Editar perfil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar">
+          <span class="visually-hidden">Cerrar</span>
+        </button>
       </div>
       <div class="modal-body">
         <form method="post" action="../consultas/gestionarCuenta.php">
           <input type="hidden" name="accion" value="editar_perfil" />
           <input type="hidden" name="redirect_to" value="<?php echo htmlspecialchars((string) $redirectTo); ?>" />
           <div class="mb-3">
-            <label for="nombrePerfil" class="form-label">Nombre y apellido</label>
+            <label for="nombrePerfil" class="form-label text-dark">Nombre y apellido</label>
             <input type="text" class="form-control" id="nombrePerfil" name="nombrePerfil" value="<?php echo htmlspecialchars((string) $perfilNombreForm); ?>" required />
           </div>
           <div class="mb-3">
-            <label for="claveNueva" class="form-label">Contraseña</label>
+            <label for="claveNueva" class="form-label text-dark">Contraseña</label>
             <div class="input-group">
               <input type="password" class="form-control" id="claveNueva" name="claveNueva" />
               <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
+                <span class="visually-hidden">Mostrar contraseña</span>
                 <i class="bi bi-eye"></i>
               </button>
             </div>
             <small class="text-muted">Dejá este campo vacío si no querés cambiar la contraseña.</small>
           </div>
           <div class="mb-3">
-            <label for="claveNueva2" class="form-label">Confirmar contraseña</label>
+            <label for="claveNueva2" class="form-label text-dark">Confirmar contraseña</label>
             <div class="input-group">
               <input type="password" class="form-control" id="claveNueva2" name="claveNueva2" />
               <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
+                <span class="visually-hidden">Mostrar contraseña</span>
                 <i class="bi bi-eye"></i>
               </button>
             </div>

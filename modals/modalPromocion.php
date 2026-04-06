@@ -6,10 +6,14 @@ $tipoUsuario = $_SESSION['tipoUsuario'] ?? null;
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="promoModalLabel">Detalles de la Promoción</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span class="visually-hidden">Cerrar</span>
+          </button>
         </div>
         <div class="modal-body">
           <img id=promoModalImg src="" class="img-fluid mb-3" alt="Promoción">
+            <span class="visually-hidden">Imagen de la promocion del local</span>
+          </img>
           <h5><span id=promoModalNombreLoc></span></h5>
           <input type="hidden" id="promoModalIdPromo" value="">
           <p><strong>Promo: </strong><span id="promoModalDesc"></span></p>
@@ -20,9 +24,9 @@ $tipoUsuario = $_SESSION['tipoUsuario'] ?? null;
         <div class="modal-footer">
           <span class="text-muted">Si aprovechas la promocion te va a llegar a tu mail un codigo para usarla 
             cuando el dueño del local apruebe tu solicitud.</span>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cerrar">Cerrar</button>
           <?php if($tipoUsuario != 'dueño' && $tipoUsuario != 'administrador'){ ?>
-          <button type="button" class="btn btn-primary" id="btnAprovecharPromo">Aprovechar Promoción</button>
+          <button type="button" class="btn btn-primary" id="btnAprovecharPromo" aria-label="Aprovechar promocion">Aprovechar Promoción</button>
           <?php } ?>
         </div>
       </div>

@@ -43,13 +43,15 @@
       <h3 class="mb-4">Promociones pendientes</h3>
       
       <div class="col-lg-9 col-12 mb-4">
-        <form class="d-flex" method="post" action="">
+        <form class="d-flex" method="post" action="" role="search" aria-labelledby="searchFormLabel">
           <div class="input-group">
-            <input name="Buscar" type="text" class="form-control" placeholder="Buscar por local" />
-            <button class="btn btn-primary" type="submit">
-              <i class="bi bi-search"></i>
+            <label id="searchFormLabel" for="buscarLocal" class="visually-hidden">Buscador de promociones por local</label>
+            <input id="buscarLocal" name="Buscar" type="text" class="form-control" placeholder="Buscar por local" aria-describedby="searchHelp" />
+            <button class="btn btn-primary" type="submit" aria-label="Buscar promociones">
+              <i class="bi bi-search" aria-hidden="true"></i>
             </button>
           </div>
+          <div id="searchHelp" class="visually-hidden">Ingrese el nombre del local y presione buscar.</div>
         </form>
         <?php if (isset($_POST["Buscar"]) && !empty(trim($_POST["Buscar"]))) { ?>
           <div class="mt-2">

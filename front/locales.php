@@ -16,23 +16,30 @@
     </header>
     <!-- Contenido principal -->
     <div class="container-fluid my-4">
+      <div class="container w-75">
+        <h1 class="mb-4">Locales</h1>
+      </div>
       
       <!--BUSCADOR-->
       <div class="container w-75">
         <div class="row align-items-center gy-1">
           <div class=" col-12 ">
-            <form class="d-flex" method="post" >
+            <form class="d-flex" method="post" action="" role="search" aria-labelledby="searchLocalesLabel">
               <div class="input-group">
+                <label id="searchLocalesLabel" for="buscarLocales" class="visually-hidden">Buscar locales</label>
                 <input
+                  id="buscarLocales"
                   name="Buscar"
                   type="text"
                   class="form-control"
-                  placeholder="Buscar"
+                  placeholder="Buscar por el nombre del local..."
+                  aria-describedby="searchLocalesHelp"
                 />
-                <button class="btn btn-primary" type="submit">
-                  <i class="bi bi-search"></i>
+                <button class="btn btn-primary" type="submit" aria-label="Buscar locales">
+                  <i class="bi bi-search" aria-hidden="true"></i>
                 </button>
               </div>
+              <div id="searchLocalesHelp" class="visually-hidden">Ingrese el nombre del local y presione buscar.</div>
             </form>
           </div>
           

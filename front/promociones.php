@@ -48,6 +48,10 @@ if (
   </header>
   <!--Contenido principal-->
   <div class="container seccion-promos">
+    <!--Titulo-->
+    <div class="container">
+      <h1 class="mb-4">Promociones</h1>
+    </div>
     <!-- Contenedor para barra busqueda y desplegable -->
     <div class="buscador-box mb-4">
     <div class="row align-items-center gy-1">
@@ -61,11 +65,11 @@ if (
             name="Buscar"
             type="text"
               class="form-control"
-              placeholder="Buscar"
+              placeholder="Buscar por descripción de la promoción..."
               value="<?php echo isset($_GET['Buscar']) ? htmlspecialchars($_GET['Buscar']) : ''; ?>"
             >
-            <button class="btn btn-primary" type="submit">
-              <i class="bi bi-search"></i>
+            <button class="btn btn-primary" type="submit" aria-label="Buscar promociones">
+              <i class="bi bi-search" aria-hidden="true"></i>
             </button>
           </div>
         </form>
@@ -222,20 +226,22 @@ if (
           data-domingo="<?php echo $row['domingo'] ? 'Domingo' : ''; ?>"
          >
           <img src="<?php echo htmlspecialchars($imagenSrc); ?>" class="card-img-top card-img-custom" alt="Promoción">
+            <span class="visually-hidden">Imagen de la promoción</span>
+          </img>
           <div class="card-body">
             <div class="d-flex align-items-start justify-content-between mb-2">
               <h4 class="mb-0"><?php echo htmlspecialchars($row['nombre_local']); ?></h4>
               <?php
-              $estrellas = '';
-              if ($row['categoria'] == 'inicial') {
-                  $estrellas = '★';
-              } elseif ($row['categoria'] == 'medium') {
-                  $estrellas = '★★';
-              } elseif ($row['categoria'] == 'premium') {
-                  $estrellas = '★★★';
-              }
-              ?>
-              <span class="badge bg-warning text-dark ms-2"><?php echo $estrellas; ?></span>
+            $colorCategoria = match($row['categoria']) {
+               'premium' => 'danger',
+                'medium'  => 'warning',
+                'inicial' => 'primary',
+               default   => 'secondary'
+                };
+                ?>
+<span class="badge bg-<?php echo $colorCategoria; ?> ms-2">
+    <?php echo ucfirst($row['categoria']); ?>
+</span>
             </div>
             <h5><?php echo htmlspecialchars($row['descripcion']); ?></h5>
             <p>Fecha desde: <?php echo htmlspecialchars($row['fecha_desde']); ?></p>
@@ -263,10 +269,10 @@ if (
   $paramsNext = array_merge($queryParams, ['pagina' => $paginaSiguiente]);
   ?>
   <!--Paginacion-->
-  <nav aria-label="Page navigation example">
+  <nav aria-label="Navegación de páginas">
     <ul class="pagination justify-content-center">
       <li class="page-item <?php echo $pagina == 1 ? 'disabled' : ''; ?>">
-        <a class="page-link" href="promociones.php?<?php echo http_build_query($paramsPrev); ?>" aria-label="Previous">
+        <a class="page-link" href="promociones.php?<?php echo http_build_query($paramsPrev); ?>" aria-label="Página anterior">
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
@@ -274,11 +280,11 @@ if (
         $paramsPagina = array_merge($queryParams, ['pagina' => $j]);
       ?>
             <li class="page-item <?php echo $j == $pagina ? 'active' : ''; ?>">
-              <a class="page-link" href="promociones.php?<?php echo http_build_query($paramsPagina); ?>"><?php echo $j; ?></a>
+              <a class="page-link" href="promociones.php?<?php echo http_build_query($paramsPagina); ?>" aria-label="Ir a página <?php echo $j; ?>" <?php echo $j == $pagina ? 'aria-current="page"' : ''; ?>><?php echo $j; ?></a>
             </li>
         <?php } ?>
       <li class="page-item <?php echo $pagina == $totalPaginas ? 'disabled' : ''; ?>">
-        <a class="page-link" href="promociones.php?<?php echo http_build_query($paramsNext); ?>" aria-label="Next">
+        <a class="page-link" href="promociones.php?<?php echo http_build_query($paramsNext); ?>" aria-label="Página siguiente">
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>

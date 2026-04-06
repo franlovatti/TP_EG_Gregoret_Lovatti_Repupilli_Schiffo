@@ -3,7 +3,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="cambiarClaveModalLabel">Cambiar contraseña</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar">
+          <span class="visually-hidden">Cerrar</span>
+        </button>
       </div>
       <div class="modal-body">
         <form method="post" action="home.php?cambiar=1"> 
@@ -12,6 +14,7 @@
             <div class="input-group">
               <input type="password" class="form-control" id="claveNueva" name="claveNueva" required />
               <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
+                <span class="visually-hidden">Mostrar contraseña</span>
                 <i class="bi bi-eye"></i>
               </button>
             </div>
@@ -21,6 +24,7 @@
             <div class="input-group">
               <input type="password" class="form-control" id="claveNueva2" name="claveNueva2" required />
               <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
+                <span class="visually-hidden">Mostrar contraseña</span>
                 <i class="bi bi-eye"></i>
               </button>
             </div>
