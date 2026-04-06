@@ -116,6 +116,11 @@ if ($tipoUsuario == 'cliente') {
       data-bs-target="#modalTerminosCondiciones"
       >Terminos y Condiciones</a
     >
+    <a href="#" class="nav-link px-2 text-body-secondary align-items-center"
+       data-bs-toggle="modal"
+       data-bs-target="#modalPreguntasFrecuentes">
+        Preguntas Frecuentes
+    </a>
   </div>
   <ul class="nav col-sm-3 justify-content-end list-unstyled d-flex">
     <li class="ms-3">
@@ -141,3 +146,4 @@ if ($tipoUsuario == 'cliente') {
   </ul>
 </div>
 <?php include 'modals/modalTerminosCondiciones.php'; ?>
+<?php include  'modals/modalPreguntasFrecuentes.php';?>
