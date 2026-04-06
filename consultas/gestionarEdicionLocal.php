@@ -44,19 +44,26 @@ if (isset($_FILES['imagen_local']) && $_FILES['imagen_local']['error'] === UPLOA
         redirigirConMensajeLocal('local_error', 'El archivo no es una imagen valida.');
     }}
 
-$vSQL = "UPDATE local 
+if ($imagen_binaria === null) {
+    $vSQL = "UPDATE local 
+              SET nombre_local = ?, ubicacion = ?, rubro = ?, descripcion = ?, estado = ?, id_usuario = ?
+              WHERE id_local = ?";
+    $stmt = $conexion->prepare($vSQL);
+    if (!$stmt) {
+        redirigirConMensajeLocal('local_error', 'Error al preparar la actualizacion del local: ' . $conexion->error);
+    }
+    $stmt->bind_param("sssssii", $nombre_local, $ubicacion, $rubro, $descripcion, $estado, $id_usuario, $id_local);
+} else {
+    $vSQL = "UPDATE local 
               SET nombre_local = ?, ubicacion = ?, rubro = ?, descripcion = ?, estado = ?, imagen_local = ?, id_usuario = ?
               WHERE id_local = ?";
-
-$stmt=$conexion->prepare($vSQL);
-if ($imagen_binaria === null) {
-        $null = NULL;
-        $stmt->bind_param("sssssbii", $nombre_local, $ubicacion, $rubro, $descripcion, $estado, $null,$id_usuario ,$id_local);
-        $stmt->send_long_data(5,$imagen_binaria);
-    } else {
-        $stmt->bind_param("sssssbii", $nombre_local, $ubicacion, $rubro, $descripcion, $estado, $imagen_binaria,$id_usuario, $id_local);
-        $stmt->send_long_data(5,$imagen_binaria);
+    $stmt = $conexion->prepare($vSQL);
+    if (!$stmt) {
+        redirigirConMensajeLocal('local_error', 'Error al preparar la actualizacion del local: ' . $conexion->error);
     }
+    $stmt->bind_param("sssssbii", $nombre_local, $ubicacion, $rubro, $descripcion, $estado, $imagen_binaria, $id_usuario, $id_local);
+    $stmt->send_long_data(5, $imagen_binaria);
+}
 try {
     if ($stmt->execute()) {
         redirigirConMensajeLocal('local_ok', 'Registro actualizado exitosamente.');

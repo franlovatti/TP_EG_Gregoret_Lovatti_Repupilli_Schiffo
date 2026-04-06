@@ -141,3 +141,17 @@ if ($tipoUsuario == 'cliente') {
   </ul>
 </div>
 <?php include 'modals/modalTerminosCondiciones.php'; ?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.alert').forEach(function (alerta) {
+    setTimeout(function () {
+      alerta.style.transition = 'opacity 0.6s ease';
+      alerta.style.opacity = '0';
+      setTimeout(function () {
+        alerta.remove();
+      }, 600);
+    }, 10000);
+  });
+});
+</script>

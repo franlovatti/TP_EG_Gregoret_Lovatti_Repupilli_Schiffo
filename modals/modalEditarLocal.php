@@ -46,6 +46,11 @@ $vResult=mysqli_query($conexion,$vSQL);
   <div class="mb-3">
             <label for="imagen" class="form-label">Imagen del local:</label>
             <input type="file" name="imagen_local" id="imagen_local" accept="image/*" class="form-control" >
+            <small class="text-muted d-block mt-1">Si no seleccionas una nueva imagen, se conserva la actual.</small>
+            <div class="mt-2">
+              <img id="preview-imagen-local" src="" alt="Imagen actual del local" class="img-fluid rounded border d-none" style="max-height: 180px; object-fit: cover;" />
+              <small id="preview-imagen-local-vacio" class="text-muted d-none">Este local no tiene imagen cargada actualmente.</small>
+            </div>
   </div>
    <input type="hidden" name="estado" value="activo">
   

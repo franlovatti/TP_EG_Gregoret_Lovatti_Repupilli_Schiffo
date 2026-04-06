@@ -125,6 +125,10 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
     }
 
     $hayResultados = true;
+    $imagenBase64 = '';
+    if (!empty($fila['imagen_local'])) {
+      $imagenBase64 = base64_encode($fila['imagen_local']);
+    }
 
     echo "<tr>";
     echo "<td>" . $fila['nombre_local'] . "</td>";
@@ -149,6 +153,7 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
         data-rubro="' . $fila['rubro'] . '"
         data-usuario="' . $fila['id_usuario'] . '"
         data-desc="' . $fila['descripcion'] . '"
+      data-imagen="' . htmlspecialchars($imagenBase64, ENT_QUOTES, 'UTF-8') . '"
         data-bs-toggle="modal"
         data-bs-target="#modalEditarLocal">
         <i class="bi bi-pencil"></i>
@@ -203,6 +208,7 @@ mysqli_close($conexion);
     const rubro = button.getAttribute('data-rubro');
     const idUsuario = button.getAttribute('data-usuario');
     const descripcion = button.getAttribute('data-desc');
+    const imagenActual = button.getAttribute('data-imagen');
 
     document.getElementById("modal-id").value = idLocal;
     document.getElementById("modal-nombre").value = nombre;
@@ -210,7 +216,39 @@ mysqli_close($conexion);
     document.getElementById("modal-rubro").value = rubro;
     document.getElementById("modal-usuario").value = idUsuario;
     document.getElementById("modal-desc").value = descripcion;
+    document.getElementById("imagen_local").value = "";
 
+    const preview = document.getElementById("preview-imagen-local");
+    const previewVacio = document.getElementById("preview-imagen-local-vacio");
+    if (imagenActual) {
+      preview.src = 'data:image/*;base64,' + imagenActual;
+      preview.classList.remove('d-none');
+      previewVacio.classList.add('d-none');
+    } else {
+      preview.src = '';
+      preview.classList.add('d-none');
+      previewVacio.classList.remove('d-none');
+    }
+
+  });
+
+  const inputImagenLocal = document.getElementById("imagen_local");
+  inputImagenLocal.addEventListener('change', function () {
+    const preview = document.getElementById("preview-imagen-local");
+    const previewVacio = document.getElementById("preview-imagen-local-vacio");
+    const archivo = this.files && this.files[0] ? this.files[0] : null;
+
+    if (!archivo) {
+      return;
+    }
+
+    const lector = new FileReader();
+    lector.onload = function (e) {
+      preview.src = e.target.result;
+      preview.classList.remove('d-none');
+      previewVacio.classList.add('d-none');
+    };
+    lector.readAsDataURL(archivo);
   });
 </script>
 

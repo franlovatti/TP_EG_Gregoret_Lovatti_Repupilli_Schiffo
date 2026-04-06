@@ -22,18 +22,18 @@
 
 <!--errores--> 
 
-<?php if (isset($_GET['error']) && $_GET['error'] == 'campos') { ?>
+<?php
+$descripcionAnterior = $_GET['form_descripcion'] ?? '';
+$fechaDesdeAnterior = $_GET['form_fecha_desde'] ?? '';
+$fechaHastaAnterior = $_GET['form_fecha_hasta'] ?? '';
+$tipoUsuarioAnterior = $_GET['form_tipo_usuario'] ?? '';
+?>
+
+<?php if (isset($_GET['novedad_error'])) { ?>
     <div class="alert alert-danger text-center">
-      Todos los campos son obligatorios.
+      <?php echo htmlspecialchars($_GET['novedad_error']); ?>
     </div>
   <?php } ?>
-
-
-<?php if (isset($_GET['error']) && $_GET['error'] == 'fechas') { ?>
-  <div class="alert alert-danger text-center">
-    La fecha <strong>hasta</strong> no puede ser menor que la fecha <strong>desde</strong>.
-  </div>
-<?php } ?>
 
 
   <form method="post" action="crearnovedad.php">
@@ -52,8 +52,7 @@
         name="descripcion_novedad" 
         class="form-control" 
         rows="3" 
-        required>
-      </textarea>
+        required><?php echo htmlspecialchars($descripcionAnterior); ?></textarea>
     </div>
 
     
@@ -63,6 +62,7 @@
         type="date" 
         name="fecha_desde" 
         class="form-control" 
+        value="<?php echo htmlspecialchars($fechaDesdeAnterior); ?>"
         required>
     </div>
 
@@ -73,6 +73,7 @@
         type="date" 
         name="fecha_hasta" 
         class="form-control" 
+        value="<?php echo htmlspecialchars($fechaHastaAnterior); ?>"
         required>
     </div>
 
@@ -81,9 +82,9 @@
       <label class="form-label">Tipo de usuario</label>
       <select name="tipo_usuario" class="form-select" required>
         <option value="">Seleccionar...</option>
-        <option value="Inicial">Inicial</option>
-        <option value="Medium">Medium</option>
-        <option value="Premium">Premium</option>
+        <option value="Inicial" <?php echo $tipoUsuarioAnterior === 'Inicial' ? 'selected' : ''; ?>>Inicial</option>
+        <option value="Medium" <?php echo $tipoUsuarioAnterior === 'Medium' ? 'selected' : ''; ?>>Medium</option>
+        <option value="Premium" <?php echo $tipoUsuarioAnterior === 'Premium' ? 'selected' : ''; ?>>Premium</option>
       </select>
     </div>
 

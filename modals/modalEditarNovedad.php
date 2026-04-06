@@ -9,6 +9,12 @@
 
       <div class="modal-body">
 
+        <?php if (isset($_GET['edit_error'])) { ?>
+          <div class="alert alert-danger" role="alert">
+            <?php echo htmlspecialchars($_GET['edit_error']); ?>
+          </div>
+        <?php } ?>
+
         <form action="../consultas/gestionarEdicionNovedad.php" method="post">
 
        

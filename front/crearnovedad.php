@@ -18,6 +18,18 @@
   <?php include '../header.php'; ?>
 </header>
 
+<?php if (isset($_GET['novedad_error']) && !isset($_GET['edit_open'])) { ?>
+  <div class="container mt-3">
+    <div class="alert alert-danger mb-0"><?php echo htmlspecialchars($_GET['novedad_error']); ?></div>
+  </div>
+<?php } ?>
+
+<?php if (isset($_GET['novedad_ok'])) { ?>
+  <div class="container mt-3">
+    <div class="alert alert-success mb-0"><?php echo htmlspecialchars($_GET['novedad_ok']); ?></div>
+  </div>
+<?php } ?>
+
 <?php include '../modals/modalEditarNovedad.php'; ?>
 
 
@@ -116,11 +128,11 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
 
   
   echo '<button class="btn btn-primary btn-sm"
-        data-id="'.$fila['id_novedad'].'"
-        data-desc="'.$fila['descripcion_novedad'].'"
-        data-desde="'.$fila['fecha_desde'].'"
-        data-hasta="'.$fila['fecha_hasta'].'"
-        data-tipo="'.$fila['tipo_usuario'].'"
+        data-id="'.(int)$fila['id_novedad'].'"
+        data-desc="'.htmlspecialchars($fila['descripcion_novedad'], ENT_QUOTES, 'UTF-8').'"
+        data-desde="'.htmlspecialchars($fila['fecha_desde'], ENT_QUOTES, 'UTF-8').'"
+        data-hasta="'.htmlspecialchars($fila['fecha_hasta'], ENT_QUOTES, 'UTF-8').'"
+        data-tipo="'.htmlspecialchars(trim((string)$fila['tipo_usuario']), ENT_QUOTES, 'UTF-8').'"
         data-bs-toggle="modal"
         data-bs-target="#modalEditarNovedad">
         <i class="bi bi-pencil"></i>
@@ -162,6 +174,42 @@ document.getElementById('confirmDeleteModal')
 });
 
 
+function normalizarTipoUsuario(valor) {
+  const tipo = (valor || '').toString().trim().toLowerCase();
+  if (tipo === 'inicial') {
+    return 'Inicial';
+  }
+  if (tipo === 'medium' || tipo === 'medio') {
+    return 'Medium';
+  }
+  if (tipo === 'premium') {
+    return 'Premium';
+  }
+  return '';
+}
+
+function setTipoUsuarioEnSelect(valor) {
+  const selectTipo = document.getElementById("modal-tipo");
+  const tipoNormalizado = normalizarTipoUsuario(valor);
+
+  if (tipoNormalizado) {
+    selectTipo.value = tipoNormalizado;
+    return;
+  }
+
+  const valorOriginal = (valor || '').toString().trim().toLowerCase();
+  const opcionCoincidente = Array.from(selectTipo.options).find(function (opt) {
+    return opt.value.toLowerCase() === valorOriginal || opt.text.toLowerCase() === valorOriginal;
+  });
+
+  if (opcionCoincidente) {
+    selectTipo.value = opcionCoincidente.value;
+    return;
+  }
+
+  selectTipo.selectedIndex = 0;
+}
+
 document.getElementById('modalEditarNovedad')
 .addEventListener('show.bs.modal', function (event) {
   const button = event.relatedTarget;
@@ -178,9 +226,30 @@ document.getElementById('modalEditarNovedad')
   document.getElementById("modal-hasta").value =
     button.getAttribute('data-hasta');
 
-  document.getElementById("modal-tipo").value =
-    button.getAttribute('data-tipo');
+  setTipoUsuarioEnSelect(button.getAttribute('data-tipo'));
 });
+
+<?php
+$editOpen = isset($_GET['edit_open']) ? (int)$_GET['edit_open'] : 0;
+$editId = $_GET['edit_id'] ?? '';
+$editDesc = $_GET['edit_desc'] ?? '';
+$editDesde = $_GET['edit_desde'] ?? '';
+$editHasta = $_GET['edit_hasta'] ?? '';
+$editTipo = $_GET['edit_tipo'] ?? '';
+?>
+
+if (<?php echo json_encode($editOpen === 1); ?>) {
+  const modalElement = document.getElementById('modalEditarNovedad');
+  const modal = new bootstrap.Modal(modalElement);
+
+  document.getElementById("modal-id").value = <?php echo json_encode($editId); ?>;
+  document.getElementById("modal-desc").value = <?php echo json_encode($editDesc); ?>;
+  document.getElementById("modal-desde").value = <?php echo json_encode($editDesde); ?>;
+  document.getElementById("modal-hasta").value = <?php echo json_encode($editHasta); ?>;
+  setTipoUsuarioEnSelect(<?php echo json_encode($editTipo); ?>);
+
+  modal.show();
+}
 </script>
 
 </body>

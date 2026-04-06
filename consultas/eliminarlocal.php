@@ -1,36 +1,52 @@
 <?php
 require_once '../conexion.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-  $id_local = intval($_GET['id']);
+function redirigirConMensajeLocal($tipo, $mensaje) {
+  $mensajeCodificado = urlencode($mensaje);
+  header("Location: ../front/crearlocal.php?$tipo=$mensajeCodificado");
+  exit;
 }
 
-$result = mysqli_query($conexion, "SELECT COUNT(*) as total FROM promocion WHERE id_local = $id_local");
-$row = mysqli_fetch_assoc($result);
+if ($_SERVER['REQUEST_METHOD'] !== 'GET' || !isset($_GET['id'])) {
+  redirigirConMensajeLocal('local_error', 'Solicitud invalida para eliminar el local.');
+}
+
+$id_local = intval($_GET['id']);
+if ($id_local <= 0) {
+  redirigirConMensajeLocal('local_error', 'ID de local invalido.');
+}
+
+$stmtCheck = $conexion->prepare("SELECT COUNT(*) as total FROM promocion WHERE id_local = ?");
+if (!$stmtCheck) {
+  redirigirConMensajeLocal('local_error', 'Error al verificar promociones asociadas: ' . $conexion->error);
+}
+$stmtCheck->bind_param("i", $id_local);
+$stmtCheck->execute();
+$result = $stmtCheck->get_result();
+$row = $result->fetch_assoc();
+$stmtCheck->close();
 
 if ($row['total'] > 0) {
-
-    // recién acá podés mostrar HTML
-    echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">';
-    
-    echo "<div class='alert alert-warning text-center'>
-            No se puede eliminar local porque tiene promociones asociadas.<br>
-            Debe eliminarlas primero antes de eliminar el local.
-          </div>
-          <div class='text-center mt-3'>
-            <a href='../front/crearlocal.php' class='btn btn-secondary'>Volver</a>
-          </div>";
-
+  redirigirConMensajeLocal('local_error', 'No se puede eliminar el local porque tiene promociones asociadas. Debes eliminarlas primero.');
 } else {
-  $query="UPDATE local SET estado = 'eliminado' WHERE id_local = $id_local";
-  $resultado = mysqli_query($conexion, $query);
+  $stmtDelete = $conexion->prepare("UPDATE local SET estado = 'eliminado' WHERE id_local = ?");
+  if (!$stmtDelete) {
+    redirigirConMensajeLocal('local_error', 'Error al preparar la eliminacion: ' . $conexion->error);
+  }
+  $stmtDelete->bind_param("i", $id_local);
+  $resultado = $stmtDelete->execute();
 
   if ($resultado) {
-      header("Location: ../front/crearlocal.php");
-      exit;
+    $filasAfectadas = $stmtDelete->affected_rows;
+    $stmtDelete->close();
+    if ($filasAfectadas > 0) {
+      redirigirConMensajeLocal('local_ok', 'Local eliminado exitosamente.');
+    }
+    redirigirConMensajeLocal('local_error', 'No se pudo eliminar el local o ya estaba eliminado.');
   } else {
-      echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">';
-      echo "<div class='alert alert-danger text-center'>Error al eliminar el local </div>";
+    $errorEjecucion = $stmtDelete->error;
+    $stmtDelete->close();
+    redirigirConMensajeLocal('local_error', 'Error al eliminar el local: ' . $errorEjecucion);
   }
 }
 
