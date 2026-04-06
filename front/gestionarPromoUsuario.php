@@ -92,13 +92,17 @@ echo "<td>
 echo "<td>
 
 <a href='../consultas/gestionarSolicitudPromoUsu.php?id_uso=".$fila['id_uso']."&accion=aceptar'
-class='btn btn-success btn-sm'>
-<i class='bi bi-check-lg'></i>
+class='btn btn-success btn-sm'
+aria-label='Aceptar solicitud de promoci&oacute;n'>
+<i class='bi bi-check-lg' aria-hidden='true'></i>
+<span class='visually-hidden'>Aceptar solicitud</span>
 </a>
 
 <a href='../consultas/gestionarSolicitudPromoUsu.php?id_uso=".$fila['id_uso']."&accion=rechazar'
-class='btn btn-danger btn-sm'>
-<i class='bi bi-x-lg'></i>
+class='btn btn-danger btn-sm'
+aria-label='Rechazar solicitud de promoci&oacute;n'>
+<i class='bi bi-x-lg' aria-hidden='true'></i>
+<span class='visually-hidden'>Rechazar solicitud</span>
 </a>
 
 </td>";

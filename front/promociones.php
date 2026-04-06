@@ -48,6 +48,10 @@ if (
   </header>
   <!--Contenido principal-->
   <div class="container seccion-promos">
+    <!--Titulo-->
+    <div class="container">
+      <h1 class="mb-4">Promociones</h1>
+    </div>
     <!-- Contenedor para barra busqueda y desplegable -->
     <div class="buscador-box mb-4">
     <div class="row align-items-center gy-1">
@@ -61,11 +65,11 @@ if (
             name="Buscar"
             type="text"
               class="form-control"
-              placeholder="Buscar"
+              placeholder="Buscar por descripción de la promoción..."
               value="<?php echo isset($_GET['Buscar']) ? htmlspecialchars($_GET['Buscar']) : ''; ?>"
             >
-            <button class="btn btn-primary" type="submit">
-              <i class="bi bi-search"></i>
+            <button class="btn btn-primary" type="submit" aria-label="Buscar promociones">
+              <i class="bi bi-search" aria-hidden="true"></i>
             </button>
           </div>
         </form>

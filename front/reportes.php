@@ -53,21 +53,21 @@
 
                 <!-- Busqueda por local o promocion -->
                 <div class="col-lg-4 col-12">
-                    
                     <label class="form-label">&nbsp;</label>
-                    <form class="d-flex" method="post" action="">
+                    <form class="d-flex" method="post" action="" role="search" aria-labelledby="searchReportesLabel">
                         <div class="input-group">
-                            
+                            <label id="searchReportesLabel" class="visually-hidden" for="buscarReportes">Buscar reportes por local o promoción</label>
                             <input type="hidden" name="buscarPor" value="<?= $buscarPor ?>" />
                             
                             <input
+                            id="buscarReportes"
                             type="text"
                             placeholder="<?= $placeholder ?>"
                             class="form-control"
                             name="<?= $buscarPor ?>" />
                             
-                            <button class="btn btn-primary" type="submit" name="buscar">
-                                <i class="bi bi-search"></i>
+                            <button class="btn btn-primary" type="submit" name="buscar" aria-label="Buscar reportes">
+                                <i class="bi bi-search" aria-hidden="true"></i>
                             </button>
 
                         </div>

@@ -63,13 +63,15 @@
       <!-- Barra de busqueda -->
       <div class="row">
         <div class="col-lg-6 col-12 mb-4">
-          <form class="d-flex" method="post" action="">
+          <form class="d-flex" method="post" action="" role="search" aria-labelledby="searchFormLabel">
             <div class="input-group">
-              <input name="Buscar" type="text" class="form-control" placeholder="Buscar por nombre..." />
-              <button class="btn btn-primary" type="submit">
-                <i class="bi bi-search"></i>
+              <label id="searchFormLabel" for="buscarLocal" class="visually-hidden">Buscador de locales</label>
+              <input id="buscarLocal" name="Buscar" type="text" class="form-control" placeholder="Buscar por nombre de local" aria-describedby="searchHelp" />
+              <button class="btn btn-primary" type="submit" aria-label="Buscar locales">
+                <i class="bi bi-search" aria-hidden="true"></i>
               </button>
             </div>
+            <div id="searchHelp" class="visually-hidden">Ingrese el nombre del local y presione buscar.</div>
           </form>
           <?php if (isset($_POST["Buscar"]) && !empty(trim($_POST["Buscar"]))) { ?>
             <div class="mt-2">
@@ -138,20 +140,24 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
     echo '<a href="#" class="btn btn-danger btn-sm me-2"
         data-bs-toggle="modal"
         data-bs-target="#confirmDeleteModal"
-        data-id="' . $fila['id_local'] . '">
-        <i class="bi bi-trash"></i>
+        data-id="' . $fila['id_local'] . '"
+        aria-label="Eliminar local ' . htmlspecialchars($fila['nombre_local'], ENT_QUOTES) . '">
+        <i class="bi bi-trash" aria-hidden="true"></i>
+        <span class="visually-hidden">Eliminar local</span>
     </a>';
 
     echo '<button type="button" class="btn btn-primary btn-sm"
         data-id="' .$fila['id_local'].'"
-        data-nombre="' . $fila['nombre_local'] . '"
-        data-ubicacion="' . $fila['ubicacion'] . '"
-        data-rubro="' . $fila['rubro'] . '"
-        data-usuario="' . $fila['id_usuario'] . '"
-        data-desc="' . $fila['descripcion'] . '"
+        data-nombre="' . htmlspecialchars($fila['nombre_local'], ENT_QUOTES) . '"
+        data-ubicacion="' . htmlspecialchars($fila['ubicacion'], ENT_QUOTES) . '"
+        data-rubro="' . htmlspecialchars($fila['rubro'], ENT_QUOTES) . '"
+        data-usuario="' . htmlspecialchars($fila['id_usuario'], ENT_QUOTES) . '"
+        data-desc="' . htmlspecialchars($fila['descripcion'], ENT_QUOTES) . '"
         data-bs-toggle="modal"
-        data-bs-target="#modalEditarLocal">
-        <i class="bi bi-pencil"></i>
+        data-bs-target="#modalEditarLocal"
+        aria-label="Editar local ' . htmlspecialchars($fila['nombre_local'], ENT_QUOTES) . '">
+        <i class="bi bi-pencil" aria-hidden="true"></i>
+        <span class="visually-hidden">Editar local</span>
     </button>';
 
     echo "</td>";

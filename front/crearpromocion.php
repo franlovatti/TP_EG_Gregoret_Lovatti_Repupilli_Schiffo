@@ -77,7 +77,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-warning" id="btnConfirmarReactivar">
-                    <i class="bi bi-arrow-clockwise"></i> Reactivar
+                    <i class="bi bi-arrow-clockwise" aria-hidden="true"></i> Reactivar
                 </button>
             </div>
 
@@ -134,8 +134,8 @@ if (isset($_GET['ok']) && $_GET['ok'] == 'eliminada') {
                             <option value="vencida" <?php if($estadoSeleccionado == 'vencida') echo 'selected'; ?>>Vencidas</option>
                         </select>
 
-                        <button class="btn btn-primary" type="submit">
-                            <i class="bi bi-search"></i>
+                        <button class="btn btn-primary" type="submit" aria-label="Filtrar promociones">
+                            <i class="bi bi-search" aria-hidden="true"></i>
                         </button>
 
                     </div>
@@ -238,16 +238,20 @@ if ($fila['estado'] == 'vencida') {
          data-bs-toggle="modal"
          data-bs-target="#reactivarModal"
          data-id="' . $fila['id_promocion'] . '"
-         title="Activar nuevamente">
-         <i class="bi bi-arrow-clockwise"></i>
+         title="Activar nuevamente"
+         aria-label="Activar nuevamente promoción '.$fila['id_promocion'].'">
+         <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+         <span class="visually-hidden">Activar nuevamente</span>
       </button>';
 }
 
 echo '<a href="#" class="btn btn-danger btn-sm"
     data-bs-toggle="modal"
     data-bs-target="#confirmDeleteModal"
-    data-id="'.$fila['id_promocion'].'">
-    <i class="bi bi-trash"></i>
+    data-id="'.$fila['id_promocion'].'"
+    aria-label="Eliminar promoción '.$fila['id_promocion'].'">
+    <i class="bi bi-trash" aria-hidden="true"></i>
+    <span class="visually-hidden">Eliminar promoción</span>
 </a>';
 
 echo '</td>';
@@ -317,16 +321,20 @@ if ($fila['estado'] == 'vencida') {
          data-bs-toggle="modal"
          data-bs-target="#reactivarModal"
          data-id="' . $fila['id_promocion'] . '"
-         title="Activar nuevamente">
-         <i class="bi bi-arrow-clockwise"></i>
+         title="Activar nuevamente"
+         aria-label="Activar nuevamente promoción '.$fila['id_promocion'].'">
+         <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+         <span class="visually-hidden">Activar nuevamente</span>
       </button>';
 }
 
 echo '<a href="#" class="btn btn-danger btn-sm"
     data-bs-toggle="modal"
     data-bs-target="#confirmDeleteModal"
-    data-id="'.$fila['id_promocion'].'">
-    <i class="bi bi-trash"></i>
+    data-id="'.$fila['id_promocion'].'"
+    aria-label="Eliminar promoción '.$fila['id_promocion'].'">
+    <i class="bi bi-trash" aria-hidden="true"></i>
+    <span class="visually-hidden">Eliminar promoción</span>
 </a>';
 
 echo '</td>';

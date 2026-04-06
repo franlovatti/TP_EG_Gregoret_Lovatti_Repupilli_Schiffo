@@ -50,13 +50,15 @@
 
       <div class="row">
         <div class="col-lg-6 mb-4">
-          <form method="post">
+          <form method="post" role="search" aria-labelledby="searchNovedadLabel">
             <div class="input-group">
-              <input name="Buscar" class="form-control" placeholder="Buscar por descripción...">
-              <button class="btn btn-primary">
-                <i class="bi bi-search"></i>
+              <label id="searchNovedadLabel" for="buscarNovedad" class="visually-hidden">Buscar novedades por descripción</label>
+              <input id="buscarNovedad" name="Buscar" class="form-control" placeholder="Buscar por descripción..." aria-describedby="searchNovedadHelp">
+              <button class="btn btn-primary" aria-label="Buscar novedades">
+                <i class="bi bi-search" aria-hidden="true"></i>
               </button>
             </div>
+            <div id="searchNovedadHelp" class="visually-hidden">Ingrese un texto para buscar novedades.</div>
           </form>
         </div>
 
@@ -110,20 +112,25 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
   echo '<a href="#" class="btn btn-danger btn-sm me-2"
         data-bs-toggle="modal"
         data-bs-target="#confirmDeleteModal"
-        data-id="'.$fila['id_novedad'].'">
-        <i class="bi bi-trash"></i>
+        data-id="'.$fila['id_novedad'].'"
+        aria-label="Eliminar novedad '.$fila['id_novedad'].'">
+        <i class="bi bi-trash" aria-hidden="true"></i>
+        <span class="visually-hidden">Eliminar novedad</span>
       </a>';
 
   
   echo '<button class="btn btn-primary btn-sm"
+        type="button"
         data-id="'.$fila['id_novedad'].'"
         data-desc="'.$fila['descripcion_novedad'].'"
         data-desde="'.$fila['fecha_desde'].'"
         data-hasta="'.$fila['fecha_hasta'].'"
         data-tipo="'.$fila['tipo_usuario'].'"
         data-bs-toggle="modal"
-        data-bs-target="#modalEditarNovedad">
-        <i class="bi bi-pencil"></i>
+        data-bs-target="#modalEditarNovedad"
+        aria-label="Editar novedad '.$fila['id_novedad'].'">
+        <i class="bi bi-pencil" aria-hidden="true"></i>
+        <span class="visually-hidden">Editar novedad</span>
       </button>';
 
   echo "</td>";

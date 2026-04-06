@@ -110,6 +110,7 @@ mysqli_close($conexion);
       <div class="modal-header">
         <h5 class="modal-title">Confirmar acción</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <span class="visually-hidden">Cerrar</span>
       </div>
 
       <div class="modal-body">
