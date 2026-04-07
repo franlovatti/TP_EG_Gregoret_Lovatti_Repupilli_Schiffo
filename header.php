@@ -22,7 +22,6 @@ if (isset($_SESSION['usuario'])) {
     <a
       href="home.php"
       class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
-      title="Inicio"
       aria-label="Inicio"
     >
       <img
@@ -31,7 +30,6 @@ if (isset($_SESSION['usuario'])) {
         width="30"
         height="24"
         class="me-2" />
-      <span class="visually-hidden">Inicio</span>
     </a>
     <ul
       class="text-white ms-3 me-3 navbar-horarios"

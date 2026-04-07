@@ -81,7 +81,9 @@ if (
           <?php if (isset($_GET['Buscar']) && trim($_GET['Buscar']) !== '') { ?>
             <input type="hidden" name="Buscar" value="<?php echo htmlspecialchars(trim($_GET['Buscar'])); ?>">
           <?php } ?>
+          <label for="categoriaFiltro" class="visually-hidden">Filtrar promociones por categoría</label>
           <select
+            id="categoriaFiltro"
             name="categoria"
             class="form-select"
             onchange="this.form.submit()"
@@ -94,6 +96,7 @@ if (
             <?php } ?>
             
           </select>
+          <button type="submit" class="visually-hidden" aria-label="Aplicar filtro de categoría">Aplicar filtro</button>
         </form>
       </div> <!--cierra desplegable de categorias-->
     </div> <!--Cierra fila de busqueda y desplegable-->

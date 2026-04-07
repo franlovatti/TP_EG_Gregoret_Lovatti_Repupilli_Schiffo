@@ -20,6 +20,10 @@
 <?php include '../header.php'; ?>
 </header>
 
+<main class="d-none">
+<h1>Acerca del shopping</h1>
+</main>
+
 
 <!-- CAROUSEL -->
 <div class="section section-light">
