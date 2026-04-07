@@ -44,7 +44,7 @@ $tipoUsuarioAnterior = $_GET['form_tipo_usuario'] ?? '';
 
   <h4>Crear nueva novedad:</h4>
 
-  <form method="post" action="../consultas/gestionarNuevaNovedad.php" class="p-3 border rounded shadow-sm">
+  <form id="formNuevaNovedad" method="post" action="../consultas/gestionarNuevaNovedad.php" class="p-3 border rounded shadow-sm">
 
     <div class="mb-3">
       <label class="form-label">Descripción</label>
@@ -60,6 +60,7 @@ $tipoUsuarioAnterior = $_GET['form_tipo_usuario'] ?? '';
       <label class="form-label">Fecha desde</label>
       <input 
         type="date" 
+        id="novedad-fecha-desde"
         name="fecha_desde" 
         class="form-control" 
         value="<?php echo htmlspecialchars($fechaDesdeAnterior); ?>"
@@ -71,6 +72,7 @@ $tipoUsuarioAnterior = $_GET['form_tipo_usuario'] ?? '';
       <label class="form-label">Fecha hasta</label>
       <input 
         type="date" 
+        id="novedad-fecha-hasta"
         name="fecha_hasta" 
         class="form-control" 
         value="<?php echo htmlspecialchars($fechaHastaAnterior); ?>"
@@ -103,6 +105,68 @@ $tipoUsuarioAnterior = $_GET['form_tipo_usuario'] ?? '';
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function obtenerFechaLocalISO() {
+  const ahora = new Date();
+  const anio = ahora.getFullYear();
+  const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+  const dia = String(ahora.getDate()).padStart(2, '0');
+  return anio + '-' + mes + '-' + dia;
+}
+
+const hoyNovedad = obtenerFechaLocalISO();
+
+const formNuevaNovedad = document.getElementById('formNuevaNovedad');
+const fechaDesdeNovedad = document.getElementById('novedad-fecha-desde');
+const fechaHastaNovedad = document.getElementById('novedad-fecha-hasta');
+
+function limpiarErroresFecha(contenedor) {
+  contenedor.querySelectorAll('.error-fecha').forEach(function (el) {
+    el.remove();
+  });
+}
+
+function mostrarErrorFecha(campo, mensaje) {
+  const error = document.createElement('div');
+  error.className = 'text-danger small mt-1 error-fecha';
+  error.textContent = mensaje;
+  campo.parentNode.appendChild(error);
+}
+
+fechaDesdeNovedad.min = hoyNovedad;
+fechaHastaNovedad.min = hoyNovedad;
+
+if (fechaDesdeNovedad.value) {
+  fechaHastaNovedad.min = fechaDesdeNovedad.value;
+}
+
+fechaDesdeNovedad.addEventListener('change', function () {
+  fechaHastaNovedad.min = this.value || hoyNovedad;
+  if (fechaHastaNovedad.value && fechaHastaNovedad.value < this.value) {
+    fechaHastaNovedad.value = '';
+  }
+});
+
+formNuevaNovedad.addEventListener('submit', function (e) {
+  let valido = true;
+
+  limpiarErroresFecha(formNuevaNovedad);
+
+  if (fechaDesdeNovedad.value < hoyNovedad) {
+    mostrarErrorFecha(fechaDesdeNovedad, 'La fecha desde no puede ser anterior a hoy.');
+    valido = false;
+  }
+
+  if (fechaHastaNovedad.value < fechaDesdeNovedad.value) {
+    mostrarErrorFecha(fechaHastaNovedad, 'La fecha hasta debe ser mayor o igual a la fecha desde.');
+    valido = false;
+  }
+
+  if (!valido) {
+    e.preventDefault();
+  }
+});
+</script>
 
 </body>
 </html>

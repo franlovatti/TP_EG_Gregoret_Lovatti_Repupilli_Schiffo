@@ -15,7 +15,7 @@
           </div>
         <?php } ?>
 
-        <form action="../consultas/gestionarEdicionNovedad.php" method="post">
+        <form id="formEditarNovedad" action="../consultas/gestionarEdicionNovedad.php" method="post">
 
        
           <input type="hidden" name="id_novedad" id="modal-id">

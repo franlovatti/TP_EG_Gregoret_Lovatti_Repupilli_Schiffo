@@ -22,6 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['crear_promocion'])) {
   $fecha_hasta = $_POST['fecha_hasta'];
   $estado= 'pendiente';
 
+    if (($lunes + $martes + $miercoles + $jueves + $viernes + $sabado + $domingo) === 0) {
+            redirigirConMensaje('promo_error', 'Debes seleccionar al menos un dia disponible.');
+    }
+
   $maxBytesImagen = 65535;
   $queryMaxLen = "SELECT CHARACTER_MAXIMUM_LENGTH AS max_len
                   FROM information_schema.COLUMNS

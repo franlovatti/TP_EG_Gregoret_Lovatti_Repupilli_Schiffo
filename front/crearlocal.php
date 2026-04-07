@@ -157,6 +157,7 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
         data-rubro="' . htmlspecialchars($fila['rubro'], ENT_QUOTES) . '"
         data-usuario="' . htmlspecialchars($fila['id_usuario'], ENT_QUOTES) . '"
         data-desc="' . htmlspecialchars($fila['descripcion'], ENT_QUOTES) . '"
+        data-imagen="' . htmlspecialchars($imagenBase64, ENT_QUOTES, 'UTF-8') . '"
         data-bs-toggle="modal"
         data-bs-target="#modalEditarLocal"
         aria-label="Editar local ' . htmlspecialchars($fila['nombre_local'], ENT_QUOTES) . '">

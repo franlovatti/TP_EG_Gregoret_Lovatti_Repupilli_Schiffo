@@ -257,6 +257,62 @@ if (<?php echo json_encode($editOpen === 1); ?>) {
 
   modal.show();
 }
+
+function obtenerFechaLocalISO() {
+  const ahora = new Date();
+  const anio = ahora.getFullYear();
+  const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+  const dia = String(ahora.getDate()).padStart(2, '0');
+  return anio + '-' + mes + '-' + dia;
+}
+
+const hoyEdicionNovedad = obtenerFechaLocalISO();
+const formEditarNovedad = document.getElementById('formEditarNovedad');
+const fechaDesdeEditarNovedad = document.getElementById('modal-desde');
+const fechaHastaEditarNovedad = document.getElementById('modal-hasta');
+
+function limpiarErroresFechaEdicion() {
+  formEditarNovedad.querySelectorAll('.error-fecha').forEach(function (el) {
+    el.remove();
+  });
+}
+
+function mostrarErrorFechaEdicion(campo, mensaje) {
+  const error = document.createElement('div');
+  error.className = 'text-danger small mt-1 error-fecha';
+  error.textContent = mensaje;
+  campo.parentNode.appendChild(error);
+}
+
+fechaDesdeEditarNovedad.min = hoyEdicionNovedad;
+fechaHastaEditarNovedad.min = hoyEdicionNovedad;
+
+fechaDesdeEditarNovedad.addEventListener('change', function () {
+  fechaHastaEditarNovedad.min = this.value || hoyEdicionNovedad;
+  if (fechaHastaEditarNovedad.value && fechaHastaEditarNovedad.value < this.value) {
+    fechaHastaEditarNovedad.value = '';
+  }
+});
+
+formEditarNovedad.addEventListener('submit', function (e) {
+  let valido = true;
+
+  limpiarErroresFechaEdicion();
+
+  if (fechaDesdeEditarNovedad.value < hoyEdicionNovedad) {
+    mostrarErrorFechaEdicion(fechaDesdeEditarNovedad, 'La fecha desde no puede ser anterior a hoy.');
+    valido = false;
+  }
+
+  if (fechaHastaEditarNovedad.value < fechaDesdeEditarNovedad.value) {
+    mostrarErrorFechaEdicion(fechaHastaEditarNovedad, 'La fecha hasta debe ser mayor o igual a la fecha desde.');
+    valido = false;
+  }
+
+  if (!valido) {
+    e.preventDefault();
+  }
+});
 </script>
 
 </body>

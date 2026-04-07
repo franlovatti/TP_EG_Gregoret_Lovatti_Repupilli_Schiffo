@@ -400,6 +400,14 @@ confirmBtn.href = 'eliminarpromocion.php?id=' + id_promocion;
 const reactivarModal = document.getElementById('reactivarModal');
 let idPromoReactivar = null;
 
+function obtenerFechaLocalISO() {
+    const ahora = new Date();
+    const anio = ahora.getFullYear();
+    const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+    const dia = String(ahora.getDate()).padStart(2, '0');
+    return anio + '-' + mes + '-' + dia;
+}
+
 reactivarModal.addEventListener('show.bs.modal', function(event) {
     const button = event.relatedTarget;
     idPromoReactivar = button.getAttribute('data-id');
@@ -411,7 +419,7 @@ reactivarModal.addEventListener('show.bs.modal', function(event) {
     document.getElementById('errorFechaHasta').style.display = 'none';
 
     // Fecha mínima = hoy
-    const hoy = new Date().toISOString().split('T')[0];
+    const hoy = obtenerFechaLocalISO();
     document.getElementById('nuevaFechaDesde').min = hoy;
     document.getElementById('nuevaFechaHasta').min = hoy;
 });
@@ -419,7 +427,7 @@ reactivarModal.addEventListener('show.bs.modal', function(event) {
 document.getElementById('btnConfirmarReactivar').addEventListener('click', function() {
     const fechaDesde = document.getElementById('nuevaFechaDesde').value;
     const fechaHasta = document.getElementById('nuevaFechaHasta').value;
-    const hoy = new Date().toISOString().split('T')[0];
+    const hoy = obtenerFechaLocalISO();
 
     let valido = true;
 

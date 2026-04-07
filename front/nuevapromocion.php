@@ -44,7 +44,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
     <div class="container my-5">
     <H4>Crear un nueva promoción:</H4>
 
-        <form method="post" action="../consultas/gestionarnuevapromocion.php" class="p-3 border rounded shadow-sm" enctype="multipart/form-data">
+        <form id="formNuevaPromocion" method="post" action="../consultas/gestionarnuevapromocion.php" class="p-3 border rounded shadow-sm" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="id_local" class="form-label">Local</label>
             <select class="form-select" name="id_local" id="id_local" required>
@@ -75,7 +75,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                 <option value="premium" >premium</option>
             </select>
         </div>
-        <div class="mb-3">
+        <div class="mb-3" id="grupo-dias-promocion">
              <label for="dias_disponibles" class="form-label">Días disponibles:</label><br>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="lunes" name="lunes" value="1">
@@ -128,10 +128,27 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-const hoy = new Date().toISOString().split('T')[0];
+function obtenerFechaLocalISO() {
+    const ahora = new Date();
+    const anio = ahora.getFullYear();
+    const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+    const dia = String(ahora.getDate()).padStart(2, '0');
+    return anio + '-' + mes + '-' + dia;
+}
 
+const hoy = obtenerFechaLocalISO();
+
+const formNuevaPromocion = document.getElementById('formNuevaPromocion');
 const fechaDesde = document.getElementById('fecha_desde');
 const fechaHasta = document.getElementById('fecha_hasta');
+const grupoDiasPromocion = document.getElementById('grupo-dias-promocion');
+const checksDiasPromocion = grupoDiasPromocion.querySelectorAll('input[type="checkbox"]');
+
+function hayAlMenosUnDiaSeleccionado() {
+    return Array.from(checksDiasPromocion).some(function (checkbox) {
+        return checkbox.checked;
+    });
+}
 
 // Fecha mínima = hoy para ambos campos
 fechaDesde.min = hoy;
@@ -146,11 +163,12 @@ fechaDesde.addEventListener('change', function() {
 });
 
 // Validar al enviar el formulario
-document.querySelector('form').addEventListener('submit', function(e) {
+formNuevaPromocion.addEventListener('submit', function(e) {
     let valido = true;
 
     // Limpiar errores previos
     document.querySelectorAll('.error-fecha').forEach(el => el.remove());
+    document.querySelectorAll('.error-dia').forEach(el => el.remove());
 
     if (fechaDesde.value < hoy) {
         const error = document.createElement('div');
@@ -165,6 +183,14 @@ document.querySelector('form').addEventListener('submit', function(e) {
         error.className = 'text-danger small mt-1 error-fecha';
         error.textContent = 'La fecha hasta debe ser mayor a la fecha desde.';
         fechaHasta.parentNode.appendChild(error);
+        valido = false;
+    }
+
+    if (!hayAlMenosUnDiaSeleccionado()) {
+        const error = document.createElement('div');
+        error.className = 'text-danger small mt-1 error-dia';
+        error.textContent = 'Debes seleccionar al menos un dia disponible.';
+        grupoDiasPromocion.appendChild(error);
         valido = false;
     }
 
