@@ -13,7 +13,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'] ?? null;
         <div class="modal-body">
           <img id=promoModalImg src="imagenes/placeholder.jpg" class="img-fluid mb-3" alt="Promoción">
             <span class="visually-hidden">Imagen de la promocion del local</span>
-          <h5><span id=promoModalNombreLoc></span></h5>
+          <p class="h5 mb-2"><span id=promoModalNombreLoc></span></p>
           <input type="hidden" id="promoModalIdPromo" value="">
           <p><strong>Promo: </strong><span id="promoModalDesc"></span></p>
           <p><strong>Fecha de inicio: </strong><span id="promoModalDesde"></span></p>

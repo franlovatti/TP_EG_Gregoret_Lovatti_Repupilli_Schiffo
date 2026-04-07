@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Preguntas Frecuentes</h5>
+        <h4 class="modal-title fs-5">Preguntas Frecuentes</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
           <span class="visually-hidden">Cerrar</span>
         </button>
