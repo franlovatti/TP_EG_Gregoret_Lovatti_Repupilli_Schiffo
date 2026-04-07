@@ -24,7 +24,7 @@
       <div class="container w-75">
         <div class="row align-items-center gy-1">
           <div class=" col-12 ">
-            <form class="d-flex" method="post" action="" role="search" aria-labelledby="searchLocalesLabel">
+            <form class="d-flex" method="post" role="search" aria-labelledby="searchLocalesLabel">
               <div class="input-group">
                 <label id="searchLocalesLabel" for="buscarLocales" class="visually-hidden">Buscar locales</label>
                 <input
@@ -96,7 +96,7 @@
                     <!-- Datos -->
                     <div class="col-12 col-md-9">
                       <div class="card-body">
-                        <h5 class="card-title"><?= htmlspecialchars($fila['nombre_local']) ?></h5>
+                        <h2 class="card-title h5"><?= htmlspecialchars($fila['nombre_local']) ?></h2>
                         <p class="mb-1"><strong>Nro Local:</strong> <?= htmlspecialchars($fila['id_local']) ?></p>
                         <p class="mb-1"><strong>Ubicación:</strong> <?= htmlspecialchars($fila['ubicacion']) ?></p>
                         <p class="mb-2"><strong>Rubro:</strong> <?= htmlspecialchars($fila['rubro']) ?></p>
@@ -156,7 +156,7 @@
                 </div>
                 <div class="col-12 col-sm-8 d-flex flex-column flex-sm-row">
                   <div class="card-body d-flex flex-column">
-                    <h5 class="card-title"><?= htmlspecialchars($fila['nombre_local']) ?></h5>
+                    <h2 class="card-title h5"><?= htmlspecialchars($fila['nombre_local']) ?></h2>
                     <p class="card-text">Numero local: <?= htmlspecialchars($fila['id_local']) ?> </p>
                     <p class="card-text">Ubicacion: <?= htmlspecialchars($fila['ubicacion']) ?></p>
                     <p class="card-text">Rubro: <?=htmlspecialchars($fila['rubro'])?></p>
@@ -191,7 +191,7 @@
                 </div>
                 <div class="col-12 col-sm-8 d-flex flex-column flex-sm-row">
                   <div class="card-body d-flex flex-column">
-                    <h5 class="card-title"><?= htmlspecialchars($fila['nombre_local']) ?></h5>
+                    <h2 class="card-title h5"><?= htmlspecialchars($fila['nombre_local']) ?></h2>
                     <p class="card-text">Numero local: <?= htmlspecialchars($fila['id_local']) ?> </p>
                     <p class="card-text">Ubicacion: <?= htmlspecialchars($fila['ubicacion']) ?></p>
                     <p class="card-text">Rubro: <?=htmlspecialchars($fila['rubro'])?></p>

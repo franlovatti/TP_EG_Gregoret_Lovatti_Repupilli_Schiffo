@@ -139,7 +139,6 @@ style="cursor:pointer;">
 
 <img src="<?php echo htmlspecialchars($imagenSrc); ?>" class="card-img-top card-img-custom" alt="Promoción">
   <span class="visually-hidden">Imagen de la promoción</span>
-</img>
 
 <div class="card-body">
 
@@ -186,7 +185,6 @@ mysqli_close($conexion);
 <?php if( $tipoUsuario != 'dueño' && $tipoUsuario != 'administrador'){ ?>
 <a href="promociones.php" class="btn btn-primary">Ver todas las promociones</a>
 <?php } ?>
-</div>
 </div>
 </div>
 

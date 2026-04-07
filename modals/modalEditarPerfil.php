@@ -7,7 +7,7 @@ unset($_SESSION['perfil_form_nombre']);
 $redirectTo = $_SERVER['REQUEST_URI'] ?? '/front/home.php';
 ?>
 
-<div class="modal fade" id="editarPerfilModal" tabindex="-1" aria-labelledby="editarPerfilModalLabel" aria-hidden="true">
+<div class="modal fade" id="editarPerfilModal" tabindex="-1" role="dialog" aria-labelledby="editarPerfilModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-white text-dark">
       <div class="modal-header bg-light text-dark">
@@ -25,9 +25,9 @@ $redirectTo = $_SERVER['REQUEST_URI'] ?? '/front/home.php';
             <input type="text" class="form-control" id="nombrePerfil" name="nombrePerfil" value="<?php echo htmlspecialchars((string) $perfilNombreForm); ?>" required />
           </div>
           <div class="mb-3">
-            <label for="claveNueva" class="form-label text-dark">Contraseña</label>
+            <label for="claveNuevaPerfil" class="form-label text-dark">Contraseña</label>
             <div class="input-group">
-              <input type="password" class="form-control" id="claveNueva" name="claveNueva" />
+              <input type="password" class="form-control" id="claveNuevaPerfil" name="claveNueva" />
               <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
                 <span class="visually-hidden">Mostrar contraseña</span>
                 <i class="bi bi-eye"></i>
@@ -36,9 +36,9 @@ $redirectTo = $_SERVER['REQUEST_URI'] ?? '/front/home.php';
             <small class="text-muted">Dejá este campo vacío si no querés cambiar la contraseña.</small>
           </div>
           <div class="mb-3">
-            <label for="claveNueva2" class="form-label text-dark">Confirmar contraseña</label>
+            <label for="claveNueva2Perfil" class="form-label text-dark">Confirmar contraseña</label>
             <div class="input-group">
-              <input type="password" class="form-control" id="claveNueva2" name="claveNueva2" />
+              <input type="password" class="form-control" id="claveNueva2Perfil" name="claveNueva2" />
               <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
                 <span class="visually-hidden">Mostrar contraseña</span>
                 <i class="bi bi-eye"></i>

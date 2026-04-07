@@ -6,7 +6,7 @@ $signUpDClaveValue = $isSignUpDuenoPost ? htmlspecialchars((string) $_POST['clav
 $signUpDClave2Value = $isSignUpDuenoPost ? htmlspecialchars((string) $_POST['clave2']) : '';
 $mostrarErrorSignUpDueno = !empty($signUp_error) && (($signUp_modal ?? 'registroModal') === 'registroDueñoModal');
 ?>
-<div class="modal fade" id="registroDueñoModal" tabindex="-1" aria-labelledby="registrDueñoModalLabel" aria-hidden="true">
+<div class="modal fade" id="registroDueñoModal" tabindex="-1" role="dialog" aria-labelledby="registroDueñoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -16,19 +16,19 @@ $mostrarErrorSignUpDueno = !empty($signUp_error) && (($signUp_modal ?? 'registro
           </button>
         </div>
         <div class="modal-body">
-          <form method="post" action=""> 
+          <form method="post"> 
             <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre y apellido</label>
-              <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $signUpNombreValue; ?>" required />
+              <label for="nombreDueno" class="form-label">Nombre y apellido</label>
+              <input type="text" class="form-control" id="nombreDueno" name="nombre" value="<?php echo $signUpNombreValue; ?>" required />
             </div>
             <div class="mb-3">
-              <label for="correo" class="form-label">Correo electrónico</label>
-              <input type="email" class="form-control" id="correo" name="correo" value="<?php echo $signUpDCorreoValue; ?>" required />
+              <label for="correoDueno" class="form-label">Correo electrónico</label>
+              <input type="email" class="form-control" id="correoDueno" name="correo" value="<?php echo $signUpDCorreoValue; ?>" required />
             </div>
             <div class="mb-3">
-              <label for="clave" class="form-label">Contraseña</label>
+              <label for="claveDueno" class="form-label">Contraseña</label>
               <div class="input-group">
-                <input type="password" class="form-control" id="clave" name="clave" value="<?php echo $signUpDClaveValue; ?>" required />
+                <input type="password" class="form-control" id="claveDueno" name="clave" value="<?php echo $signUpDClaveValue; ?>" required />
                 <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
                   <span class="visually-hidden">Mostrar contraseña</span>
                   <i class="bi bi-eye"></i>
@@ -36,16 +36,16 @@ $mostrarErrorSignUpDueno = !empty($signUp_error) && (($signUp_modal ?? 'registro
               </div>
             </div>
             <div class="mb-3">
-              <label for="clave2" class="form-label">Confirmar contraseña</label>
+              <label for="clave2Dueno" class="form-label">Confirmar contraseña</label>
               <div class="input-group">
-                <input type="password" class="form-control" id="clave2" name="clave2" value="<?php echo $signUpDClave2Value; ?>" required />
+                <input type="password" class="form-control" id="clave2Dueno" name="clave2" value="<?php echo $signUpDClave2Value; ?>" required />
                 <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
                   <span class="visually-hidden">Mostrar contraseña</span>
                   <i class="bi bi-eye"></i>
                 </button>
               </div>
             </div>
-            <div id="error-pass" class="text-danger mt-1" style="display: none;"></div>
+            <div id="error-pass-dueno" class="text-danger mt-1" style="display: none;"></div>
             <?php if ($mostrarErrorSignUpDueno){ ?>
             <div class="alert alert-danger signup-error-alert"><?= $signUp_error ?></div>
             <?php }; ?>

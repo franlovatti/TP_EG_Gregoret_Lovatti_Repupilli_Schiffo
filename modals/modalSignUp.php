@@ -7,7 +7,7 @@ $signUpClaveValue = $isSignUpClientePost ? htmlspecialchars((string) $_POST['cla
 $signUpClave2Value = $isSignUpClientePost ? htmlspecialchars((string) $_POST['clave2']) : '';
 $mostrarErrorSignUpCliente = !empty($signUp_error) && (($signUp_modal ?? 'registroModal') === 'registroModal');
 ?>
-  <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
+  <div class="modal fade" id="registroModal" tabindex="-1" role="dialog" aria-labelledby="registroModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -17,19 +17,19 @@ $mostrarErrorSignUpCliente = !empty($signUp_error) && (($signUp_modal ?? 'regist
           </button>
         </div>
         <div class="modal-body">
-          <form method="post" action="">
+          <form method="post">
             <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre y apellido</label>
-              <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $signUpNombreValue; ?>" required />
+              <label for="nombreCliente" class="form-label">Nombre y apellido</label>
+              <input type="text" class="form-control" id="nombreCliente" name="nombre" value="<?php echo $signUpNombreValue; ?>" required />
             </div>
             <div class="mb-3">
-              <label for="correo" class="form-label">Correo electrónico</label>
-              <input type="email" class="form-control" id="correo" name="correo" value="<?php echo $signUpCorreoValue; ?>" required />
+              <label for="correoCliente" class="form-label">Correo electrónico</label>
+              <input type="email" class="form-control" id="correoCliente" name="correo" value="<?php echo $signUpCorreoValue; ?>" required />
             </div>
             <div class="mb-3">
-              <label for="clave" class="form-label">Contraseña</label>
+              <label for="claveCliente" class="form-label">Contraseña</label>
               <div class="input-group">
-                <input type="password" class="form-control" id="clave" name="clave" value="<?php echo $signUpClaveValue; ?>" required />
+                <input type="password" class="form-control" id="claveCliente" name="clave" value="<?php echo $signUpClaveValue; ?>" required />
                 <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
                   <span class="visually-hidden">Mostrar contraseña</span>
                   <i class="bi bi-eye"></i>
@@ -37,16 +37,16 @@ $mostrarErrorSignUpCliente = !empty($signUp_error) && (($signUp_modal ?? 'regist
               </div>
             </div>
             <div class="mb-3">
-              <label for="clave2" class="form-label">Confirmar contraseña</label>
+              <label for="clave2Cliente" class="form-label">Confirmar contraseña</label>
               <div class="input-group">
-                <input type="password" class="form-control" id="clave2" name="clave2" value="<?php echo $signUpClave2Value; ?>" required />
+                <input type="password" class="form-control" id="clave2Cliente" name="clave2" value="<?php echo $signUpClave2Value; ?>" required />
                 <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
                   <span class="visually-hidden">Mostrar contraseña</span>
                   <i class="bi bi-eye"></i>
                 </button>
               </div>
             </div>
-            <div id="error-pass" class="text-danger mt-1" style="display: none;"></div>
+            <div id="error-pass-cliente" class="text-danger mt-1" style="display: none;"></div>
             <?php if ($mostrarErrorSignUpCliente){ ?>
             <div class="alert alert-danger signup-error-alert"><?= $signUp_error ?></div>
             <?php }; ?>

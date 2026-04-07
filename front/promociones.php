@@ -62,6 +62,7 @@ if (
           <label for="buscar" class="visually-hidden">Buscar promociones</label>
           <div class="input-group">
             <input
+            id="buscar"
             name="Buscar"
             type="text"
               class="form-control"
@@ -227,10 +228,9 @@ if (
          >
           <img src="<?php echo htmlspecialchars($imagenSrc); ?>" class="card-img-top card-img-custom" alt="Promoción">
             <span class="visually-hidden">Imagen de la promoción</span>
-          </img>
           <div class="card-body">
             <div class="d-flex align-items-start justify-content-between mb-2">
-              <h4 class="mb-0"><?php echo htmlspecialchars($row['nombre_local']); ?></h4>
+              <h2 class="mb-0 h4"><?php echo htmlspecialchars($row['nombre_local']); ?></h2>
               <?php
             $colorCategoria = match($row['categoria']) {
                'premium' => 'danger',
@@ -243,7 +243,7 @@ if (
     <?php echo ucfirst($row['categoria']); ?>
 </span>
             </div>
-            <h5><?php echo htmlspecialchars($row['descripcion']); ?></h5>
+            <h3 class="h5"><?php echo htmlspecialchars($row['descripcion']); ?></h3>
             <p>Fecha desde: <?php echo htmlspecialchars($row['fecha_desde']); ?></p>
             <p>Fecha hasta: <?php echo htmlspecialchars($row['fecha_hasta']); ?></p>
           </div>

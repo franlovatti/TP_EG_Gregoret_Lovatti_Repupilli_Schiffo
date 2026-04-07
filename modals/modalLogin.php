@@ -8,7 +8,7 @@ if (!empty($login_error) && isset($_POST['email']) && isset($_POST['password']))
   $mantenerSesionChecked = isset($_POST['mantenerSesionIniciada']) && $_POST['mantenerSesionIniciada'] === 'si';
 }
 ?>
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -18,7 +18,7 @@ if (!empty($login_error) && isset($_POST['email']) && isset($_POST['password']))
         </button>
       </div>
       <div class="modal-body">
-        <form method="post" action="">
+        <form method="post">
           <div class="mb-3">
             <label for="email" class="form-label">Correo electrónico</label>
             <input type="email" class="form-control" id="email" name="email" value="<?php echo $loginEmailValue; ?>" required />

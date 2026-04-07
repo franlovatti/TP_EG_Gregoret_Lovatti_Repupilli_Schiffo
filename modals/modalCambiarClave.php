@@ -1,4 +1,4 @@
-<div class="modal fade" id="cambiarClaveModal" tabindex="-1" aria-labelledby="cambiarClaveModalLabel" aria-hidden="true">
+<div class="modal fade" id="cambiarClaveModal" tabindex="-1" role="dialog" aria-labelledby="cambiarClaveModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -10,9 +10,9 @@
       <div class="modal-body">
         <form method="post" action="home.php?cambiar=1"> 
           <div class="mb-3">
-            <label for="claveNueva" class="form-label">Contraseña</label>
+            <label for="claveNuevaCambio" class="form-label">Contraseña</label>
             <div class="input-group">
-              <input type="password" class="form-control" id="claveNueva" name="claveNueva" required />
+              <input type="password" class="form-control" id="claveNuevaCambio" name="claveNueva" required />
               <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
                 <span class="visually-hidden">Mostrar contraseña</span>
                 <i class="bi bi-eye"></i>
@@ -20,9 +20,9 @@
             </div>
           </div>
           <div class="mb-3">
-            <label for="claveNueva2" class="form-label">Confirmar contraseña</label>
+            <label for="claveNueva2Cambio" class="form-label">Confirmar contraseña</label>
             <div class="input-group">
-              <input type="password" class="form-control" id="claveNueva2" name="claveNueva2" required />
+              <input type="password" class="form-control" id="claveNueva2Cambio" name="claveNueva2" required />
               <button type="button" class="btn btn-outline-secondary toggle-password-btn" aria-label="Mostrar contraseña">
                 <span class="visually-hidden">Mostrar contraseña</span>
                 <i class="bi bi-eye"></i>

@@ -12,12 +12,12 @@ require __DIR__ . '/scriptFormConsultasAcercaDe.php';
 ?>
 <form  method="post">
   <div class="mb-3">
-    <label for="nombre" class="form-label">Nombre</label>
-    <input type="text" class="form-control" id="nombre" name="nombre" required />
+    <label for="nombreConsulta" class="form-label">Nombre</label>
+    <input type="text" class="form-control" id="nombreConsulta" name="nombre" required />
   </div>
   <div class="mb-3">
-    <label for="email" class="form-label">Correo electrónico</label>
-    <input type="email" class="form-control" id="email" name="email" required />
+    <label for="emailConsulta" class="form-label">Correo electrónico</label>
+    <input type="email" class="form-control" id="emailConsulta" name="email" required />
   </div>
   <div class="mb-3">
     <label for="mensaje" class="form-label">Mensaje</label>

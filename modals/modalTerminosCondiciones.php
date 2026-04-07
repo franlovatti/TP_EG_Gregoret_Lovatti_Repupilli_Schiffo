@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Términos y condiciones</h5>
+        <h3 class="modal-title fs-5">Términos y condiciones</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
           <span class="visually-hidden">Cerrar</span>
         </button>
